@@ -40,6 +40,9 @@ Route::get('/narudzba/{narudzba}', function () {
 Route::get('/galerija', function () {
     return view('galerija/galerija');
 })->name('galerija');
+Route::get('/aGalerija', function () {
+    return view('galerija/aGalerija');
+})->name('aGalerija');
 
 Route::get('/', function () {
     return view('proizvodi/proizvodi');

@@ -1,5 +1,5 @@
 
-<div id="slider"  class=" z-40 absolute bg-gray-800 w-12 h-screen">
+<div id="slider"  class=" z-40 absolute bg-gray-800 w-12 h-full">
 <div >
      <button id="btn" onClick="sidemenu()" class=" absolute top-1  ml-2 h-8 w-8 rounded-full focus:outline-none focus:bg-gray-600">
          <img id="otvori"  class="h-6 pl-1 " src="{{asset('icona/outline_arrow_forward_ios_white_24dp.png')}}"/>
@@ -21,10 +21,7 @@
          var menu=document.getElementById("menu");
          var slider=document.getElementById("slider");
          var btn=document.getElementById("btn");
-         
-        
-
-
+       
          if (otvori.classList.contains("block"))
           {
     

@@ -7,7 +7,7 @@
 <title>Prva</title>
     </head>
 <body class="relative bg-gray-200">
-<x-navbar></x-navbar>
+
 <x-sidemenu></x-sidemenu>
 
     @yield('content')

@@ -11,14 +11,27 @@
       </div>
     </div>
 
-    <x-input id="naziv" label="Naziv" value="naziv" class="mt-5 mx-7"></x-input>
+    <div class="grid grid-cols-1 mt-5 mx-7">
+      <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Naziv</label>
+      <input list="Proizvodi" onchange="ToggleNarudzba()" id="naziv" name="naziv" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent" 
+      type="text"  value="" placeholder="naziv" />
+      
+      <datalist id="Proizvodi">
+        <option value="Plocica za vrata">
+        <option value="Vjesalica za kljuceve">
+        <option value="Zahvalnica">
+        <option value="Reklama">
+        <option value="Meni">
+      </datalist>
+    </div>
+    
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
         <x-input id="visina" label="Visina" value="15 cm"></x-input>
         <x-input id="sirina" label="Sirina" value="30 cm"></x-input>
     </div>
     
-    <div class="grid grid-cols-2 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+    <div id="divOblik" class="grid grid-cols-2 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div class="grid grid-cols-1">
           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Oblik</label>
           <label class="border-4 border-solid w-full h-28  border-primary-200">
@@ -62,7 +75,8 @@
 
     <div class="grid grid-cols-1 mt-5 mx-7">
       <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Opis</label>
-      <textarea id="opis" class=" rounded-lg p-2 border-2 border-solid border-primary-300" name="opis" rows="4" cols="50">nnn</textarea>
+      <textarea id="opis" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
+       name="opis" rows="4" cols="50" placeholder="Zelim da boja slova bude crna, a pozadina ..."></textarea>
     </div>
 
 
@@ -179,6 +193,23 @@
 </div>
 
 <script>
+  function ToggleNarudzba(){
+
+    var naziv=document.getElementById("naziv");
+    var divOblik=document.getElementById("divOblik");
+   // divOblik.classList.add("hidden");
+
+    if(naziv.value!="Plocica za vrata" ){
+      divOblik.classList.add("hidden");
+      divOblik.classList.remove("block");
+
+    }
+    else{
+      divOblik.classList.remove("hidden");
+      divOblik.classList.add("block");
+
+    }
+  }
  
   function Show(modal){
     var bo=document.getElementById("BackgroundOverlay");
@@ -308,7 +339,7 @@
   }
   Hide('oblik');
   Hide('font');
-
+  ToggleNarudzba()
 </script>
 @endsection
 
