@@ -28,6 +28,14 @@
             <hr class="flex-row border-primary-600 border-2 ">
         
             <ul class="flex-row list-disc text-gray-700 text-md leading-tight xs:leading-snug md:leading-normal lg:text-lg mt-4 pl-8">
+            @if(auth()->user()->hasRole('admin'))
+               <li>admin web stranice.</li>
+
+               @endif
+               @if(auth()->user()->hasRole('kupac'))
+               <li>kupac.</li>
+
+               @endif
                 <li>Kontaktirati nas mozete porukom putem nase web stranice.</li>
                 <li>Javite nam se putem email-a na nasu email adresu edi@nesto.com.</li>
                 <li>Mozete nas potraziti u nasoj poslovnic mikro-graf na lokaciji prikazanoj na mapi.</li>

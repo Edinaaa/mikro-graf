@@ -1,4 +1,9 @@
 <?php
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LogoutController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -12,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/register', function () {
-    return view('auth/register');
-})->name('register');
 
-Route::get('/login', function () {
-    return view('auth/login');
-})->name('login');
+
+Route::get('/login',[LoginController::class, 'index'])->name('login');
+Route::post('/login',[LoginController::class, 'store']);
+
+Route::get('/register',[RegisterController::class, 'index'])->name('register');
+Route::post('/register',[RegisterController::class, 'store']);
+
+
+Route::post('/logout',[LogoutController::class, 'store'])->name('logout');
 
 Route::get('/kontakt', function () {
     return view('kontakt/kontakt');

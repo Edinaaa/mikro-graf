@@ -11,21 +11,23 @@
         <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Registracija</h1>
       </div>
     </div>
+    <form method="POST" action="{{ route('register') }}">
+     @csrf
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-        <x-input id="ime"  label="Ime" value="" ></x-input>
-        <x-input id="prezime"  label="Prezime" value="" ></x-input>
-    </div>
-    
-    <x-input id="email" type="email" label="Email" value="" class="mt-5 mx-7"></x-input>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+          <x-input id="name"  label="Ime" value="{{ old('name')}}" ></x-input>
+          <x-input id="lastname"  label="Prezime" value="{{ old('lastname')}}" ></x-input>
+      </div>
+      
+      <x-input id="email" type="email" label="Email" value="{{ old('email')}}" class="mt-5 mx-7"></x-input>
 
-    <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7"></x-input>
-    <x-input id="passwordConfirmation" type="password" label="Lozinka potvrda" value="" class="mt-5 mx-7"></x-input>
+      <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7"></x-input>
+      <x-input id="password_confirmation" type="password" label="Lozinka potvrda" value="" class="mt-5 mx-7"></x-input>
 
-    <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-      <button class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Registruj se</button>
-    </div>
-
+      <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+        <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Registruj se</button>
+      </div>
+    </form>
   </div>
 </div>
 

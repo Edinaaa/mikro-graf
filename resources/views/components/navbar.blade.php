@@ -31,7 +31,19 @@
             <a href="{{route('onama')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">O nama</a>
             <a href="{{route('kontakt')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">Kontakt</a>
             <a href="{{route('login')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">Login</a>
+            @auth
+          
+          <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0"  >{{ auth()->user()->name}}</a>
+       
+    
+        
+          <form action="{{route('logout')}}" method="post" class="inline">
+          @csrf
+          <button class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0" type="submit" >Logout</button>
 
+          </form>
+        
+      @endauth
         </div>
     </header>
 </div>
