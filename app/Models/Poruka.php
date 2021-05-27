@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Poruka extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'sadrzaj',
+        'naslov',
+        'email',
+      
+    ];
 }

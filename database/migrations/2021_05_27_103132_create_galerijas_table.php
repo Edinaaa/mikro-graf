@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObliksTable extends Migration
+class CreateGalerijasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateObliksTable extends Migration
      */
     public function up()
     {
-        Schema::create('obliks', function (Blueprint $table) {
+        Schema::create('galerijas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('images_id')->constrained();
+
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateObliksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obliks');
+        Schema::dropIfExists('galerijas');
     }
 }

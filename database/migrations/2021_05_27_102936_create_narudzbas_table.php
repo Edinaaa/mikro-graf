@@ -14,14 +14,17 @@ class CreateNarudzbasTable extends Migration
     public function up()
     {
         Schema::create('narudzbas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('naziv');
             $table->string('visina');
             $table->string('sirina');
-            $table->string('font');
-            $table->string('materijal');
             $table->string('opis');
-       
+            $table->foreignId('obliks_id')->nullable()->constrained();
+            $table->foreignId('fonts_id')->constrained();
+            $table->foreignId('materijals_id')->constrained();
+            $table->string('cijena');//cijena narudzbe koja se moze naknadno dodati
+            
+            $table->foreignId('proizvods_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

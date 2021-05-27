@@ -15,6 +15,8 @@ class CreateFontsTable extends Migration
     {
         Schema::create('fonts', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('images_id')->constrained();
             $table->timestamps();
         });
     }
