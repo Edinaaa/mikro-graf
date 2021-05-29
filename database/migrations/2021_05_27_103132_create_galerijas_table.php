@@ -17,6 +17,7 @@ class CreateGalerijasTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('images_id')->constrained();
+            $table->foreignId('kreirao_id')->constrained('users');
 
             $table->timestamps();
         });

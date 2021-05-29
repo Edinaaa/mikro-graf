@@ -14,6 +14,13 @@ class Narudzba extends Model
         "sirina",
         "opis",
         "cijena",
+        "email",
+        "telefon",
+        'proizvods_id',
+        'obliks_id',
+        'fonts_id',
+        'materijals_id',
+        'narucilacs_id',
 
        
     ];

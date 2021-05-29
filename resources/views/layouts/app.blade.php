@@ -6,9 +6,21 @@
         <link rel="stylesheet" href= "{{asset('css/app.css')}}">
 <title>Prva</title>
     </head>
-<body class="relative bg-gray-200">
-<x-navbar></x-navbar>
+<body class="relative bg-gray-200 ">
+@auth
+    @if(auth()->user()->hasRole('admin'))
+    <x-sidemenu></x-sidemenu>
 
+    @endif
+    @if(auth()->user()->hasRole('kupac'))
+        <x-navbar></x-navbar>
+
+    @endif
+@endauth
+@guest
+    <x-navbar></x-navbar>
+    
+@endguest
 
     @yield('content')
 </body>

@@ -9,8 +9,9 @@ class Images extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "file_path",
         "name",
+        "file_path",
+
         
     ];
 }

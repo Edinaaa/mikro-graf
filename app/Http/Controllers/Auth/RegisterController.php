@@ -24,6 +24,7 @@ class RegisterController extends Controller
        $this->validate($request,[
         'name'=> 'required|max:255' ,// ili niz ['reuired', 'max']
         'lastname'=> 'required|max:255' ,
+        'telefon'=> 'required|max:255' ,
         'email'=> 'required|email|max:255' ,
         'password'=> 'required|confirmed' ,///traziti ce  _confirmation, pa je bitno kako se imanuje na formi
        ]);
@@ -31,6 +32,7 @@ class RegisterController extends Controller
        User::create([
         'name'=>$request->name,
         'lastname'=>$request->lastname,
+        'telefon'=>$request->telefon,
         'email'=>$request->email,
         'password'=>Hash::make($request->password),
        ]);

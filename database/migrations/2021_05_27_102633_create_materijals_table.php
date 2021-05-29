@@ -15,7 +15,10 @@ class CreateMaterijalsTable extends Migration
     {
         Schema::create('materijals', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('naziv');
+            $table->foreignId('kreirao_id')->constrained('users');
+            $table->foreignId('images_id')->constrained();
+
             $table->timestamps();
         });
     }

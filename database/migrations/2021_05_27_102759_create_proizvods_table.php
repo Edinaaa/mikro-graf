@@ -25,6 +25,7 @@ class CreateProizvodsTable extends Migration
             $table->string('popust');
             $table->string('novo');
             $table->foreignId('images_id')->constrained();
+            $table->foreignId('kreirao_id')->constrained('users');
 
             $table->timestamps();
         });

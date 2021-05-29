@@ -1,10 +1,10 @@
-@props(['naslov','sadrzaj','popust', 'cijena','slika','novo'])
+@props(['proizvod'=>'$proizvod'])
 <div id="kartica" class="w-5/6 bg-gray-400 relative flex justify-center items-center m-2 rounded-md overflow-hidden">
 
-  <a class="flex flex-col justify-between w-5/6 sm:w-96 h-96 bg-white bg-center 
-      text-gray-800 shadow-md  cursor-pointer"
-      style="background-image:url({{$slika}})"
-      href="{{route('narudzba')}}">
+<img class="flex flex-col  justify-between w-full h-96 
+      shadow-md  object-cover object-center"
+      src="{{asset('images/'.$proizvod->image->name)}}"
+     />
       @isset($popust)
       <div  class="flex justify-between items-center ml-4 pr-8">
         

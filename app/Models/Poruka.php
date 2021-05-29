@@ -12,6 +12,7 @@ class Poruka extends Model
         'sadrzaj',
         'naslov',
         'email',
-      
+        'posiljaoc_id',
+        'primaoc_id',
     ];
 }

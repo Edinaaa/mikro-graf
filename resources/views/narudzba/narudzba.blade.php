@@ -26,7 +26,6 @@
       </datalist>
     </div>
     
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
         <x-input id="visina" label="Visina" value="15 cm"></x-input>
         <x-input id="sirina" label="Sirina" value="30 cm"></x-input>

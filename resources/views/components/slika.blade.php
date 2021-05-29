@@ -1,12 +1,28 @@
-@props(['naslov','slika'])
-<div class="md:w-1/2 p-4 mb-8 md:mb-0 relative  ">
-<img class="rounded shadow-md" src="{{$slika}}" alt="">
-<div class="absolute bottom-0 right-4 left-4 bg-transparent overflow-hidden
- hover:bg-black hover:bg-opacity-70 text-transparent hover:text-gray-300 mb-4  p-4">
-      <h3 class="text-xl font-semibold ">{{$naslov}}</h3>
-   
-  </div>
+@props(['slika'=>$slika])
+<div id="kartica"  class="w-11/12 bg-gray-400 relative flex justify-center items-center m-2 rounded-md overflow-hidden">
+
+  <img class="flex flex-col  justify-between w-full h-96 
+      shadow-md  object-cover object-center"
+      src="{{asset('images/'.$slika->image->name)}}"
+     />
+    
+      <div class="flex flex-col  w-full absolute bottom-0 bg-transparent text-transparent 
+      hover:text-gray-200 hover:bg-black hover:bg-opacity-50 shadow-md   p-4 ">
+      <div class="flex justify-between w-full">
+      <h3 class="text-xl  font-bold pb-2">{{$slika->galerijaName}}</h3>
+
+      @can('delete',$slika)
+        <form action="{{route('galerija.destroy', $slika)}}" method="post" class="mr-1">
+          @csrf                                          
+          @method('DELETE')
+          <button type="submit"  class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Brisi</button>
+        </form>
+     @endcan
+      </div>
+     
+      </div>
+
 
 </div>
 
-
+      

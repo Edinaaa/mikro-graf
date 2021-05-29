@@ -18,7 +18,8 @@
           <x-input id="name"  label="Ime" value="{{ old('name')}}" ></x-input>
           <x-input id="lastname"  label="Prezime" value="{{ old('lastname')}}" ></x-input>
       </div>
-      
+      <x-input id="telefon"  label="Telefon" value="{{ old('telefon')}}" class="mt-5 mx-7"></x-input>
+
       <x-input id="email" type="email" label="Email" value="{{ old('email')}}" class="mt-5 mx-7"></x-input>
 
       <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7"></x-input>

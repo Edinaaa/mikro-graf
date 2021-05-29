@@ -23,6 +23,11 @@ class CreateNarudzbasTable extends Migration
             $table->foreignId('fonts_id')->constrained();
             $table->foreignId('materijals_id')->constrained();
             $table->string('cijena');//cijena narudzbe koja se moze naknadno dodati
+           ///u slucaju da narudzbu kreira ne logirani korisnik
+            $table->string('email',191)->nullable();
+            $table->string('telefon')->nullable();
+
+            $table->foreignId('narucilac_id')->nullable()->constrained('users');
             
             $table->foreignId('proizvods_id')->nullable()->constrained();
             $table->timestamps();
