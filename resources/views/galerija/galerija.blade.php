@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4"> 
-<div class=" flex  w-full  bg-gray-200 items-center justify-center mt-8 ">
+<div class="container mx-auto px-4 "> 
+<div class=" flex  w-full  bg-gray-200 items-center justify-center  ">
       @auth
             @if(auth()->user()->hasRole('admin'))
-                  <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
+                  <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
                   
                         <form action="{{ route('galerija') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->

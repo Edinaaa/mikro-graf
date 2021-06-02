@@ -7,6 +7,7 @@ use App\Http\Controllers\ProizvodController;
 use App\Http\Controllers\OblikController;
 use App\Http\Controllers\FontController;
 use App\Http\Controllers\MaterijalController;
+use App\Http\Controllers\NarudzbaController;
 
 
 
@@ -41,15 +42,21 @@ Route::get('/kontakt', function () {
 Route::get('/onama', function () {
     return view('ONama/onama');
 })->name('onama');
-Route::get('/narudzba', function () {
-    return view('narudzba/narudzba');
-})->name('narudzba');
+
 Route::get('/narudzbe', function () {
     return view('narudzba/narudzbe');
 })->name('narudzbe');
 Route::get('/narudzba/{narudzba}', function () {
     return view('narudzba/narudzba');
 })->name('Onarudzba');
+
+
+Route::get('/narudzba',[NarudzbaController::class, 'create'])->name('narudzba');
+Route::post('/narudzba',[NarudzbaController::class, 'store']);
+Route::post('/narudzba/{proizvod}/narudzba',[NarudzbaController::class, 'proizvod'])->name('narudzba.proizvod');
+Route::get('/narudzbe',[NarudzbaController::class, 'pregled'])->name('narudzba.narudzbe');
+
+
 
 
 Route::get('/galerija',[GalerijaController::class, 'create'])->name('galerija');
@@ -59,7 +66,9 @@ Route::delete('/galerija/{galerija}',[GalerijaController::class, 'destroy'])->na
 
 Route::get('/proizvodi',[ProizvodController::class, 'create'])->name('proizvodi');
 Route::post('/proizvodi',[ProizvodController::class, 'store']);
-Route::delete('/proizvodi/{proizvodi}',[ProizvodController::class, 'destroy'])->name('proizvodi.destroy');
+Route::get('/proizvodi/{proizvod}',[ProizvodController::class, 'show'])->name('proizvodi.show');
+Route::post('/proizvodi/{proizvod}',[ProizvodController::class, 'update'])->name('proizvod.update');
+Route::delete('/proizvodi/{proizvod}',[ProizvodController::class, 'destroy'])->name('proizvodi.destroy');
 
 Route::get('/oblik',[OblikController::class, 'create'])->name('oblik');
 Route::post('/oblik',[OblikController::class, 'store']);

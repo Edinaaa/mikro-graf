@@ -23,7 +23,7 @@
                 <div id="dropdown" class="z-10 relative sm:absolute bg-gray-800 sm:bg-gray-900  w-40 rounded-lg hidden grid-cols-1">
                     <a href="{{route('proizvodi')}}"class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Proizvodi</a>
                     <a href="{{route('galerija')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Galerija</a>
-                    <a href="{{route('narudzbe')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudzbe</a>
+                    <a href="{{route('narudzba.narudzbe')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudzbe</a>
                     <a href="{{route('narudzba')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Nova narudzba</a>
                 </div>
             </div> 

@@ -1,20 +1,43 @@
+@props(['narudzba'=>'$narudzba'])
 
      <!-- Start of component -->
-     <div class="max-w-xl m-2  bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
-      <div id="header" class="flex flex-col xs:flex-row"> 
-         <img alt="mountain" class="w-45 h-1/2 rounded-md border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
-         <div id="body" class="flex justify-between  flex-col ml-5">
+     <div class="max-w-xl  m-2  bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
+      
+         <div  class="flex justify-between  flex-col ml-5">
             <div>
-               <h4 id="naxiv" class="text-xl font-semibold mb-2">Plocica za vrata</h4>
-               <p id="opis" class="text-gray-800 mt-2">Natpis, font, materijal, dimenzije, oblik, sav opis tekstualno.</p>
+               <h4  class=" uppercase text-primary-600 text-xl  mb-2">{{$narudzba->naziv}}</h4>
+               <p  class="text-gray-800 mt-2">Natpis fali, font {{$narudzba->font->naziv}},
+                  dimenzije visina {{$narudzba->visina}} i sirina {{$narudzba->visina}}, 
+                  @isset($narudzba->oblik)
+                  oblik {{$narudzba->oblik->naziv}}, 
+                  @endisset
+                  
+                  materijal {{$narudzba->font->naziv}}.
+               </p>
+
+               @if ($narudzba->opis!="")
+                  <p class="text-gray-800 mt-1"><span class="text-black text-lg">Opis:</span>  {{$narudzba->opis}}
+                     kkkkkkkkkkkk kkkkmaaaaaaaaaa aaaaaaa aaaaaaaaaapo dddddvdd 
+                     dddddddddddddd ddooooooooo  ooooodddd   ddddddd ddddddddd  dddiiiiiii iiiiiiiiiii 
+                     dddddddddd
+                  </p>
+                   
+               @endif
             </div>
             
-            <div class="flex  justify-between flex-row xs:flex-col sm:flex-row lg:flex-col xl:flex-row  mt-5">
-               <p class="">Isporuceno 1.1.2020 g</p>
-               <p class="text-primary-600 font-semibold text-lg">Cijena 20 KM</p>
+            <div class="flex  justify-between flex-col sx:flex-row sm:flex-row  lg:flex-col xl:flex-row  mt-5">
+               <p class="">Naruceno   {{$narudzba->created_at->diffForHumans()}}</p>
+               <p class="text-primary-600 font-semibold text-lg">Cijena 
+               @if ($narudzba->cijena!='0')
+               {{$narudzba->cijena}} KM
+               @else
+               nije odredena.
+               @endif
+            
+              </p>
 
             </div>
          </div>
       </div>
-   </div>
+   
    <!-- End of component -->

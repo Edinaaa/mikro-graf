@@ -8,7 +8,7 @@
 </div>
 <div id="menu" class="pt-8 hidden">
     <a href="#" class="block text-gray-400 px-8 py-4"  >{{ auth()->user()->name}}</a>
-    <a href="{{route('narudzbe')}}" class="block text-gray-400 px-8 py-4">Narudzbe</a>
+    <a href="{{route('narudzba.narudzbe')}}" class="block text-gray-400 px-8 py-4">Narudzbe</a>
     <a href="{{route('galerija')}}" class="block text-gray-400 px-8 py-4">Galerija</a>
     <a href="{{route('proizvodi')}}" class="block text-gray-400 px-8 py-4">Proizvodi</a>
     <a href="{{route('font')}}" class="block text-gray-400 px-8 py-4">Font</a>

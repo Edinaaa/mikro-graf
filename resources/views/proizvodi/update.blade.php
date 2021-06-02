@@ -1,21 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4"> 
 <div class="flex w-full bg-whiteitems-center justify-center ">
 
       @auth
             @if(auth()->user()->hasRole('admin'))
             <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
                   
-                        <form action="{{ route('proizvodi') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('proizvod.update') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
-                              <div class="flex justify-center pt-4">
-                              <div class="flex">
-                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Novi proizvod</h1>
-                              </div>
-                              </div>
+                             
                          
                               <div class="grid grid-cols-1 mt-5 mx-7">
                                     <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Naziv</label>
@@ -98,8 +93,6 @@
                         </div>
             @endif
       @endauth
-      </div>  
-       
       @if ($oblici->count())
       <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
       @endif
@@ -110,28 +103,6 @@
       @if ($materijali->count())
       <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
       @endif
-<div class=" flex  w-full  bg-gray-200 items-center justify-center pt-8 ">
-            
-      @if ($proizvodi->count())
-            <div class="w-full bg-gray-200 pl-14 py-1 rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
-                  @foreach($proizvodi as $proizvod)
-                  <x-kartica :proizvod="$proizvod"/>
-                  @endforeach
-            </div>
-                              
-            {{$proizvodi->links()}}
-      @else
-            <p>Nema proizvoda.</p>
-      @endif
-           
-</div>     
-      
 
-<script>
-  function ToggleNarudzba(){
-
-  
-  }
-  ToggleNarudzba()
-</script>
+    </div>
 @endsection
