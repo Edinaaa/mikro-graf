@@ -8,6 +8,7 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+   
     screens: {
       'xxs': '450px',
       'xs': '560px',
@@ -18,6 +19,7 @@ module.exports = {
       '2xl': '1536px',
     },
     extend: {
+     
 
       colors: {
         // Build your palette here

@@ -10,9 +10,14 @@ class Poruka extends Model
     use HasFactory;
     protected $fillable = [
         'sadrzaj',
-        'naslov',
         'email',
         'posiljaoc_id',
-        'primaoc_id',
+        'razgovor_id',
     ];
+    public function user(){
+        return $this->belongsTo(Uesr::class,'posiljaoc_id','id');
+    }
+    public function razgovor(){
+        return $this->belongsTo(Razgovor::class,'razgovor_id','id');
+    }
 }

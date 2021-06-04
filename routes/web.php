@@ -8,6 +8,8 @@ use App\Http\Controllers\OblikController;
 use App\Http\Controllers\FontController;
 use App\Http\Controllers\MaterijalController;
 use App\Http\Controllers\NarudzbaController;
+use App\Http\Controllers\RazgovorController;
+use App\Http\Controllers\PorukaController;
 
 
 
@@ -50,6 +52,11 @@ Route::get('/narudzba/{narudzba}', function () {
     return view('narudzba/narudzba');
 })->name('Onarudzba');
 
+Route::post('/poruka',[PorukaController::class, 'store'])->name('poruka');
+
+Route::get('/razgovor/{id?}',[RazgovorController::class, 'create'])->name('razgovor');
+Route::post('/razgovor',[RazgovorController::class, 'store']);
+Route::get('/poruke',[RazgovorController::class, 'poruke'])->name('poruke');
 
 Route::get('/narudzba',[NarudzbaController::class, 'create'])->name('narudzba');
 Route::post('/narudzba',[NarudzbaController::class, 'store']);

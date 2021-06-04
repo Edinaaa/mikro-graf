@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePorukasTable extends Migration
+class CreateRazgovorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePorukasTable extends Migration
      */
     public function up()
     {
-        Schema::create('porukas', function (Blueprint $table) {
+        Schema::create('razgovors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('posiljaoc_id')->nullable()->constrained('users');
             $table->foreignId('primaoc_id')->nullable()->constrained('users');
-            $table->string('sadrzaj');
-            $table->string('naslov');
-            $table->string('email',191)->nullable();
+            $table->foreignId('posiljaoc_id')->nullable()->constrained('users');
+            $table->string('tema');
 
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ class CreatePorukasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('porukas');
+        Schema::dropIfExists('razgovors');
     }
 }

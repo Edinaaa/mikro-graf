@@ -1,6 +1,6 @@
 @props(['obj'=>'$oblici','idBO'=>$idBO, 'idMP'=>$idMP, 'idM'=>$idM, 'idinputa'=>$idinputa,'input'=>$input, 'labela'=>$labela])
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
    
  
@@ -11,7 +11,7 @@
 
     
     <div id="{{$idMP}}" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
         <div class="sm:flex sm:items-start">
           
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -19,8 +19,9 @@
              Odaberite {{$labela}}
             </h3>
             <div class="mt-2">
-            
-                <div class="w-full   rounded-lg grid grid-cols-1 sm:grid-cols-2">
+            <div class="flex-grow overflow-y-auto  max-h-96">
+                <div class="w-full   rounded-lg grid grid-cols-1 sm:grid-cols-2 ">
+                
                     @foreach($obj as $objekat)
                       <div class="relative bg-gray-100 m-2 rounded-lg" 
                       onClick="Odabrano('{{$objekat->id}}','{{$objekat->images_id}}','{{$input}}','{{$idinputa}}')">
@@ -31,8 +32,8 @@
                       </div>
                     @endforeach
                 </div>
-      
-       
+                </div>
+               
             </div>
           </div>
         </div>

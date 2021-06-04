@@ -42,6 +42,7 @@
             </iframe>
         </div>
     </div>
+   
     <div class=" flex  w-full  bg-gray-200 items-center justify-center mt-8 ">
         <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
             
@@ -51,25 +52,26 @@
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Posaljite poruku</h1>
                 </div>
             </div>
+            <form action="{{ route('razgovor') }}" method="post" enctype="multipart/form-data">
+                 @csrf
+                <x-input type="email" id="email" name="email" label="Email" value="" class="mt-5 mx-7"></x-input>
 
-            <x-input id="email" label="Email" value="" class="mt-5 mx-7"></x-input>
+                <x-input id="tema" label="Naslov" name="tema" value="" class="mt-5 mx-7"></x-input>
 
-            <x-input id="naslov" label="Naslov" value="" class="mt-5 mx-7"></x-input>
+                <div class="grid grid-cols-1 mt-5 mx-7">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadrzaj</label>
+                    <textarea id="sadrzaj" name="sadrzaj" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
+                    name="sadrzaj" rows="4" cols="50"></textarea>
+                </div>
 
-            <div class="grid grid-cols-1 mt-5 mx-7">
-                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadrzaj</label>
-                <textarea id="sadrzaj" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
-                 name="sadrzaj" rows="4" cols="50"></textarea>
-            </div>
-
-        
-
-            <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                <button class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Posalji</button>
-            </div>
-
+                <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Posalji</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </div>  
+   
+    
 <div>
 
 @endsection

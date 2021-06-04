@@ -9,7 +9,7 @@
       <div class="flex flex-col  w-full absolute bottom-0 bg-transparent text-transparent 
       hover:text-gray-200 hover:bg-black hover:bg-opacity-50 shadow-md   p-4 ">
       <div class="flex justify-between w-full">
-      <h3 class="text-xl  font-bold pb-2">{{$slika->galerijaName}}</h3>
+      <h3 class="text-xl  font-bold pb-2">{{$slika->name}}</h3>
 
       @can('delete',$slika)
         <form action="{{route('galerija.destroy', $slika)}}" method="post" class="mr-1">

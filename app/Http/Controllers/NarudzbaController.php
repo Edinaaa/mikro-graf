@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class NarudzbaController extends Controller
 {
     public function create(){
-       $oblici =Oblik::latest()->with('image')->paginate(6);
-       $fontovi =Font::latest()->with('image')->paginate(6);
-       $materijali =Materijal::latest()->with('image')->paginate(6);
+       $oblici =Oblik::latest()->with('image')->get();
+       $fontovi =Font::latest()->with('image')->get();
+       $materijali =Materijal::latest()->with('image')->get();
 
         //https://laravel.com/docs/8.x/eloquent-relationships#eager-loading
      // $posts= Posts::get()  ;  vraca sve posts iz baze ::where(),Find()
@@ -40,7 +40,8 @@ class NarudzbaController extends Controller
             return view('auth.register');
 
         }
-     }
+    }
+
     public function Proizvod(Proizvod $proizvod,Request $request){
 
             if ($proizvod->naziv=="Plocica za vrata") {

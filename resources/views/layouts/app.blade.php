@@ -6,7 +6,7 @@
         <link rel="stylesheet" href= "{{asset('css/app.css')}}">
 <title>Prva</title>
     </head>
-<body class="relative bg-gray-200 ">
+<body class="relative bg-gray-200 w-screen h-full min-h-screen">
 @auth
     @if(auth()->user()->hasRole('admin'))
     <x-sidemenu></x-sidemenu>

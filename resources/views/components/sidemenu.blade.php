@@ -1,5 +1,5 @@
 
-<div id="slider"  class=" absolute bg-gray-800 w-12 h-full ">
+<div id="slider"  class=" z-10 absolute bg-gray-800 w-14   min-h-screen h-full">
 <div >
      <button id="btn" onClick="sidemenu()" class=" absolute top-1  ml-2 h-8 w-8 rounded-full focus:outline-none hover:bg-gray-600">
          <img id="otvori"  class="h-6 pl-1 " src="{{asset('icona/outline_arrow_forward_ios_white_24dp.png')}}"/>
@@ -8,6 +8,8 @@
 </div>
 <div id="menu" class="pt-8 hidden">
     <a href="#" class="block text-gray-400 px-8 py-4"  >{{ auth()->user()->name}}</a>
+    <a href="{{route('razgovor')}}" class="block text-gray-400 px-8 py-4">Poruke</a>
+
     <a href="{{route('narudzba.narudzbe')}}" class="block text-gray-400 px-8 py-4">Narudzbe</a>
     <a href="{{route('galerija')}}" class="block text-gray-400 px-8 py-4">Galerija</a>
     <a href="{{route('proizvodi')}}" class="block text-gray-400 px-8 py-4">Proizvodi</a>

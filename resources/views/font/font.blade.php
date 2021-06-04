@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4"> 
+<div class="container mx-auto pl-14  px-4"> 
 <div class=" flex  w-full  bg-gray-200 items-center justify-center pt-8 ">
       @auth
             @if(auth()->user()->hasRole('admin'))
