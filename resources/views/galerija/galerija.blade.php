@@ -16,8 +16,8 @@
                               </div>
                               </div>
 
-                              <x-input id="galerijaName" label="Naziv slike" value="" class="mt-5 mx-7"></x-input>
-                              <x-input type="file" id="file" label="slika" value="" class="mt-5 mx-7"></x-input>
+                              <x-input id="galerijaName" label="Naziv slike" value="{{ old('galerijaName')}}" class="mt-5 mx-7"></x-input>
+                              <x-input type="file" id="file"  label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
                               
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>

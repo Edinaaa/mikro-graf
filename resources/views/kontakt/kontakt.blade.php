@@ -26,20 +26,7 @@
         <div class="flex-col w-11/12 md:w-9/12 lg:w-1/2"> 
             <p class="flex-row text-gray-900 font-semibold text-2xl pl-3">Kontaktirajte nas</p>
             <hr class="flex-row border-primary-600 border-2 ">
-        
-            <ul class="flex-row list-disc text-gray-700 text-md leading-tight xs:leading-snug md:leading-normal lg:text-lg mt-4 pl-8">
            
-                <li>Kontaktirati nas mozete porukom putem nase web stranice.</li>
-                <li>Javite nam se putem email-a na nasu email adresu edi@nesto.com.</li>
-                <li>Mozete nas potraziti u nasoj poslovnic mikro-graf na lokaciji prikazanoj na mapi.</li>
-                <li>Mozete nam se javiti na borj telefona 061 240 862 ,te putem drustenih mreza.</li>
-                <li>Posjetite nas na nasoj facebook stranici <a class="text-primary-600 hover:bg-primary-200 p-1 rounded-md " target="_blank" href="https://www.facebook.com/mikrograf1/">mikrograf.</a></li>
-            </ul> 
-        
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1415.1514610675677!2d15.863238571983452!3d44.815393069301884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47614181b439707f%3A0xf23701fe07b59cab!2sMikroGraf!5e0!3m2!1sbs!2sba!4v1620781472858!5m2!1sbs!2sba"
-                class="flex-row rounded-xl lg:rounded-md h-56 w-full mt-4 " allowfullscreen="" loading="lazy">
-            </iframe>
         </div>
     </div>
    
@@ -52,7 +39,7 @@
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Posaljite poruku</h1>
                 </div>
             </div>
-            <form action="{{ route('razgovor') }}" method="post" enctype="multipart/form-data">
+            <form action="{{route('razgovor')}}" method="post">
                  @csrf
                 <x-input type="email" id="email" name="email" label="Email" value="" class="mt-5 mx-7"></x-input>
 
@@ -70,6 +57,32 @@
             </form>
         </div>
     </div>  
+    <div class="flex items-center justify-center w-full mt-4 ">
+        <div class="flex-col w-11/12 md:w-9/12 lg:w-1/2"> 
+           
+
+          
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1415.1514610675677!2d15.863238571983452!3d44.815393069301884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47614181b439707f%3A0xf23701fe07b59cab!2sMikroGraf!5e0!3m2!1sbs!2sba!4v1620781472858!5m2!1sbs!2sba"
+                class="flex-row rounded-xl lg:rounded-md h-56 w-full mt-4 " allowfullscreen="" loading="lazy">
+            </iframe>
+            <div class="flex flex-row items-center justify-center p-10">
+            <a  href="mailto:myemailaddress@gmail.com">
+                 <img class="rounded-lg bg-blue-400 p-2 m-2" src="{{asset('icona/outline_email_white_24dp.png')}}"/> </a>
+               
+                  <a  href="https://www.facebook.com/mikrograf1/">
+                 <img class=" rounded-lg bg-blue-700 p-2 m-2" src="{{asset('icona/outline_facebook_white_24dp.png')}}"/> </a>
+             
+                 
+                    <a  href="https://www.facebook.com/mikrograf1/">
+                 <img class=" rounded-lg bg-green-400 p-2 m-2" src="{{asset('icona/outline_phone_white_24dp.png')}}"/> </a>
+               
+                 <a  href="viber://chat?number=061240862">
+                 <img class=" rounded-lg bg-purple-500 p-2 m-2" src="{{asset('icona/outline_phone_in_talk_white_24dp.png')}}"/> </a>
+              
+            </div>
+        </div>
+    </div>
    
     
 <div>

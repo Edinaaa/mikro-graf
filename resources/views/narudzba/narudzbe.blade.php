@@ -5,9 +5,9 @@
     <div id="div" class="min-h-screen w-full bg-gray-200 flex flex-col justify-center items-center">
             
     @if($narudzbe->count())
-            <div class=" w-full bg-gray-400 pl-14 py-1  grid grid-cols-1 lg:grid-cols-2 ">
+            <div class=" w-full bg-gray-200 pl-14 py-1  grid grid-cols-1 lg:grid-cols-2 ">
                   @foreach($narudzbe as $narudzba)
-        <x-narudzbeKartica :narudzba="$narudzba"></x-narudzbeKartica>
+        <x-narudzbeKartica :narudzba="$narudzba" :korpe="$korpe"></x-narudzbeKartica>
 
                   @endforeach
             </div>

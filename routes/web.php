@@ -10,9 +10,9 @@ use App\Http\Controllers\MaterijalController;
 use App\Http\Controllers\NarudzbaController;
 use App\Http\Controllers\RazgovorController;
 use App\Http\Controllers\PorukaController;
-
-
-
+use App\Http\Controllers\KorpaController;
+use App\Http\Controllers\ArtikalController;
+use App\Http\Controllers\StanjeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,21 +60,27 @@ Route::get('/poruke',[RazgovorController::class, 'poruke'])->name('poruke');
 
 Route::get('/narudzba',[NarudzbaController::class, 'create'])->name('narudzba');
 Route::post('/narudzba',[NarudzbaController::class, 'store']);
-Route::post('/narudzba/{proizvod}/narudzba',[NarudzbaController::class, 'proizvod'])->name('narudzba.proizvod');
+Route::post('/narudzba/{id}',[NarudzbaController::class, 'update'])->name('narudzba.update');
 Route::get('/narudzbe',[NarudzbaController::class, 'pregled'])->name('narudzba.narudzbe');
 
 
-
+Route::get('/stavke/{id}',[KorpaController::class, 'create'])->name('korpa');
+Route::post('/stavke',[KorpaController::class, 'store'])->name('korpa.store');
+Route::get('/cart',[KorpaController::class, 'GetCart'])->name('korpa.cart');
 
 Route::get('/galerija',[GalerijaController::class, 'create'])->name('galerija');
 Route::post('/galerija',[GalerijaController::class, 'store']);
 Route::delete('/galerija/{galerija}',[GalerijaController::class, 'destroy'])->name('galerija.destroy');
+Route::post('/galerija/{id}',[GalerijaController::class, 'update'])->name('galerija.update');
 
 
 Route::get('/proizvodi',[ProizvodController::class, 'create'])->name('proizvodi');
 Route::post('/proizvodi',[ProizvodController::class, 'store']);
 Route::get('/proizvodi/{proizvod}',[ProizvodController::class, 'show'])->name('proizvodi.show');
-Route::post('/proizvodi/{proizvod}',[ProizvodController::class, 'update'])->name('proizvod.update');
+
+Route::get('/proizvodi/{id}',[ProizvodController::class, 'SelektAdd'])->name('proizvodi.SelektAdd');
+
+Route::post('/proizvodi/{id}',[ProizvodController::class, 'update'])->name('proizvod.update');
 Route::delete('/proizvodi/{proizvod}',[ProizvodController::class, 'destroy'])->name('proizvodi.destroy');
 
 Route::get('/oblik',[OblikController::class, 'create'])->name('oblik');
@@ -90,6 +96,14 @@ Route::get('/materijal',[MaterijalController::class, 'create'])->name('materijal
 Route::post('/materijal',[MaterijalController::class, 'store']);
 Route::delete('/materijal/{materijal}',[MaterijalController::class, 'destroy'])->name('materijal.destroy');
 
+Route::get('/artikal',[ArtikalController::class, 'create'])->name('artikal');
+Route::post('/artikal',[ArtikalController::class, 'store']);
+Route::delete('/artikal/{artikal}',[ArtikalController::class, 'destroy'])->name('artikal.destroy');
+
+
+Route::get('/stanje',[StanjeController::class, 'create'])->name('stanje');
+Route::post('/stanje',[StanjeController::class, 'store']);
+Route::delete('/stanje/{stanje}',[StanjeController::class, 'destroy'])->name('stanje.destroy');
 
 Route::get('/aGalerija', function () {
     return view('galerija/aGalerija');

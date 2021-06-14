@@ -16,6 +16,8 @@
     <a href="{{route('font')}}" class="block text-gray-400 px-8 py-4">Font</a>
     <a href="{{route('oblik')}}" class="block text-gray-400 px-8 py-4">Oblik</a>
     <a href="{{route('materijal')}}" class="block text-gray-400 px-8 py-4">Materijal</a>
+    <a href="{{route('artikal')}}" class="block text-gray-400 px-8 py-4">Artikal</a>
+    <a href="{{route('stanje')}}" class="block text-gray-400 px-8 py-4">Stanje</a>
         
     
         

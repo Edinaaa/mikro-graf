@@ -2,96 +2,108 @@
 
 @section('content')
 <div class="w-full h-full flex flex-col justify-items-center items-center py-10">
-    <div class="relative h-1/2 flex w-11/12 sm:w-2/3  flex-col md:w-11/12 md:flex-row bg-white rounded-lg items-center justify-center overflow-hidden ">
-    
-        <div class="flex w-full  md:w-2/3 justify-center items-center ">
-            <img src="{{ asset('images/'.$proizvod->image->name)}}"
-            class="w-full h-96   object-cover object-center "/>  
+<form action="{{ route('proizvod.update',$proizvod->id) }}" method="post" enctype="multipart/form-data">
+                              <!-- Add CSRF Token -->
+                              @csrf
+                              <div class="flex justify-center pt-4">
+                                    <div class="flex">
+                                          <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Proizvod</h1>
+                                    </div>
+                              </div>
+                         
+                              <x-input id="tekst" label="tekst" value="{{$proizvod->tekst}}" class="mt-5 mx-7"></x-input>
 
-        </div>
-        <div class="flex flex-col md:w-1/3 justify-center items-center w-full p-4">
-            <div class="flex md:flex-col-reverse md:items-start md:justify-items-start  w-full justify-between items-center pt-2">
-                
-            <h3 class="text-xl font-bold ">{{$proizvod->naziv}}</h3>
-            @if ($proizvod->novo!='ne')
-                
-                <p class=" text-white text-base  px-2 bg-primary-500 rounded-lg">novo</p>
+                               <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
+                                    <div class=" w-3/5">
+                                          <x-input id="artikal" label="artikal" value="{{$proizvod->artikal->naziv}}"></x-input>
+                                          <x-input class="hidden" id="artikal_id" label="artikal_id" value="{{$proizvod->artikal->id}}"></x-input>
+                                    </div>
 
-            @endif
-            </div>
-            <div class="flex  w-full justify-between items-center pt-2">
+                                    <div class="w-1/4 ml-4">
+                                    <button type="button" onClick="Show('BOartikal','MPartikal','Martikal')" 
+                                    class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
+                                    Artikal</button>
+                                    
+                                    </div>
+                              </div>
+                              
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+                                    <x-input id="visina" label="Visina" value="{{$proizvod->visina}}"></x-input>
+                                    <x-input id="sirina" label="Sirina" value="{{$proizvod->sirina}}"></x-input>
+                              </div>
+                              @isset($proizvod->oblik)
+                              <div  id="divOblik" class="flex flex-row justify-start items-center w-full  mt-5 mx-7">
+                                    <div class=" w-3/5 ">
+                                          <x-input id="oblik" label="Oblik" value="{{$proizvod->oblik->naziv}}"></x-input>
+                                          <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{$proizvod->oblik_id}}"></x-input>
+                                    </div>
 
-                <p class=" text-gray-700 text-lg">Visina {{$proizvod->visina}}, sirina {{$proizvod->sirina}}, font {{$proizvod->font->naziv}},
-                @isset($proizvod->oblik)
-                    oblik {{$proizvod->oblik->naziv}},
-                @endisset
-                materijal {{$proizvod->materijal->naziv}}.</p>
-            </div>
-            <div class="flex flex-row-reverse md:justify-items-start md:items-start  md:flex-col lg:flex-row-reverse  w-full justify-between items-center pt-2">
-                <p class=" text-primary-600 font-semibold text-right  text-lg">Cijena: {{$proizvod->cijena}} KM</p>
-                
-                @if ($proizvod->popust!='0%')
-                
-                    <p class="text-primary-600  font-bold text-lg ">Popust {{$proizvod->popust}}%</p>
+                                    <div class="w-1/4 ml-4 ">
+                                          <button type="button" onClick="Show('BackgroundOverlay','ModalPanel','modal')"
+                                          class='py-2 px-4 mt-5 flex items-center justify-center  bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl
+                                          font-medium text-white '>
+                                          Oblik</button>
+                                    
+                                    </div>
+                              </div>
+                              @endisset 
+                              
+                            
 
-                @endif
-                
+                              <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
+                                    <div class=" w-3/5">
+                                          <x-input id="font" label="Font" value="{{$proizvod->font->naziv}}"></x-input>
+                                          <x-input class="hidden" id="font_id" label="font_id" value="{{$proizvod->font->id}}"></x-input>
+                                    </div>
 
-            </div>
-        </div>
+                                    <div class="w-1/4 ml-4">
+                                    <button type="button" onClick="Show('BOfont','MPfont','Mfont')" 
+                                    class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
+                                    Font</button>
+                                    
+                                    </div>
+                              </div>
 
-    <div class="absolute top-0 right-0 p-4">
-                    @guest
-                    <button onClick="fomraToggle()" class="bg-primary-500 text-white rounded-lg py-1 px-2" >Naruci</button>
+                              <div  class="flex flex-row items-center justify-start w-full pr-4 mt-5 mx-7">
+                                    <div class="w-3/5">
+                                          <x-input id="materijal" label="Materijal" value="{{$proizvod->materijal->naziv}}"></x-input>
+                                          <x-input class="hidden" id="materijal_id" label="materijal_id" value="{{$proizvod->materijal->id}}"></x-input>
+                                    </div>
+
+                                    <div class="w-1/4 ml-4">
+                                    <button type="button" onClick="Show('BOmaterijal','MPmaterijal','Mmaterijal')" 
+                                    class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
+                                    Materijal</button>
+                                    
+                                    </div>
+                              </div>
+
+
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
+                                    <x-input id="popust" label="Popust" value="{{$proizvod->popust}}"></x-input>
+                                     <x-input  id="novo" label="novo" value="{{ old('novo')}}"></x-input>
+                              </div>
                         
-                    @endguest
-                    @auth
-                        <form action="{{route('narudzba.proizvod',$proizvod)}}" method="post" enctype="multipart/form-data">
-                             @csrf
+                              <x-input id="cijena" label="cijena" value="{{$proizvod->cijena}}" class="mt-5 mx-7"></x-input>
+                              <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
-                            <button type="submit" class="bg-primary-500 text-white rounded-lg py-1 px-2" >Naruci</button>
+
+                              <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+                              @can('delete',$proizvod)
+                                    <form action="{{route('proizvodi.destroy', $proizvod)}}" method="post" class="mr-1">
+                                          @csrf                                          
+                                          @method('DELETE')
+                                          <button type="submit" class='w-auto text-primary-600 hover:bg-primary-200 rounded-lg shadow-xl font-medium  px-4 py-2'>Brisi</button>
+
+                                    </form>
+                              @endcan
+                                   
+                                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</button>
+                             
+                              </div>
                         </form>
-                        
-                    @endauth
-    </div>
-
-    </div>  
-
-    <div id="forma" class="hidden mt-10 pt-5  w-11/12 sm:w-2/3   md:w-11/12  bg-white rounded-lg items-center justify-center overflow-hidden ">
-        <form action="{{route('narudzba.proizvod',$proizvod)}}" method="post" enctype="multipart/form-data">
-            @csrf
-            @guest
-                <label class="my-5  uppercase md:text-sm text-lg text-gray-500 text-light font-semibold">Unesite vase kontakt podatke</label>
-
-                <div class="flex  md:flex-row flex-col w-full my-5" >
-                    <x-input id="telefon" label="telefon" value="{{ old('telefon')}}" class="m-2 "></x-input>
-                    <x-input type="email" id="email" label="email" value="{{ old('email')}}" class="m-2"></x-input>
-                </div>
-                <div class='flex items-center justify-center my-5'>
-                <button type="submit" 
-                class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl
-                font-medium text-white px-4 py-2'>Naruci</button>
-            </div>
-            @endguest
-            
-        </form>
-    </div>
 </div>      
 <script>
-    function fomraToggle(){
-
-        var frm=document.getElementById("forma");
-
-        if(frm.classList.contains("flex")){  
-            frm.classList.add("hidden");
-            frm.classList.remove("flex");
-
-        }
-        else{
-            frm.classList.remove("hidden");
-            frm.classList.add("flex");
-
-        }
-    } 
+   
 </script>
 @endsection

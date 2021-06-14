@@ -15,7 +15,63 @@ class GalerijaController extends Controller
         $slike =Galerija::latest()->with('image')->paginate(6);
         return view('galerija.galerija',['slike'=>$slike]);
     }
+    public function update(Request $request, $id)
+    {
+        $galerija=  Galerija::find($id);
 
+        if($galerija==null){
+            return back();
+        }
+        // Validate the inputs
+        $request->validate([
+            "name"=>'required'
+
+        ]);
+
+        $imagedb=null;
+        // ensure the request has a file before we attempt anything else.
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|image|mimes:jpeg,bmp,png' 
+
+    
+            ]);
+            
+            $image = $request->file('file');
+             $input['imagename'] = time().'.'.$image->extension();
+     
+            $filePath = public_path('/images');
+
+
+            $img = Image::make($image->path());
+            $img->resize(430, 720, function ($const) {
+                $const->aspectRatio();
+                $const->upsize();
+            })->save($filePath.'/'.$input['imagename']);
+
+            Images::create([
+                "name" => $input['imagename'],
+                "file_path" =>  $filePath]);
+           
+            $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+        }
+
+         
+          $galerija->name=$request->get('name');
+          if($imagedb!=null){
+
+            $image=Images::get()->find($galerija->images_id);
+            $galerija->images_id=$imagedb->id;
+            $galerija->save();
+            $filename=$image->file_path.'/'.$image->name;
+            File::delete($filename);
+            $image->delete();
+          }
+
+        $galerija->save();
+    
+        return redirect()->route('galerija');
+    }
     public function store(Request $request)
     {
         // Validate the inputs
@@ -30,6 +86,7 @@ class GalerijaController extends Controller
 
             
             $image = $request->file('file');
+           
              $input['imagename'] = time().'.'.$image->extension();
      
             $filePath = public_path('/images');

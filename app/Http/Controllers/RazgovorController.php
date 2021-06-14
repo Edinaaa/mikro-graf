@@ -63,7 +63,7 @@ class RazgovorController extends Controller
    
     public function store(Request $request)
     {
-        
+        dd($request);
 
         // Validate the inputs
         $request->validate([

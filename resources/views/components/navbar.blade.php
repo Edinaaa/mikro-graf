@@ -19,7 +19,7 @@
             <a href="#" class=" block    px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Pocetna</a>
             <div onMouseout="Toggle('dropdown')" onMouseover="Toggle('dropdown')" class="relative  bg-gray-900   hover:bg-gray-800">
                     
-                <button  class=" focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">Proizvodi</button>
+                <button  class=" focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">Katalog</button>
                 <div id="dropdown" class=" z-30 relative sm:absolute bg-gray-800 sm:bg-gray-900  w-40 rounded-lg hidden grid-cols-1">
                     <a href="{{route('proizvodi')}}"class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Proizvodi</a>
                     <a href="{{route('galerija')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Galerija</a>

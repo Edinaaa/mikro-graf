@@ -19,17 +19,30 @@
              Odaberite {{$labela}}
             </h3>
             <div class="mt-2">
-            <div class="flex-grow overflow-y-auto  max-h-96">
-                <div class="w-full   rounded-lg grid grid-cols-1 sm:grid-cols-2 ">
+            <div class="flex-grow overflow-y-auto max-h-96">
+                <div class="w-full   rounded-lg flex flex-col ">
                 
                     @foreach($obj as $objekat)
-                      <div class="relative bg-gray-100 m-2 rounded-lg" 
-                      onClick="Odabrano('{{$objekat->id}}','{{$objekat->images_id}}','{{$input}}','{{$idinputa}}')">
+                      <div
+                      onClick="
+                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}');
+                      Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')"
+                       class=" flex flex-row justify-items-end items-center bg-gray-50 
+                       border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
+                       @if($objekat->image==null)
+                        <p class="w-full text-lg p-2 ">Naziv: {{$objekat->naziv}}</p>
                        
-                          <img  class="p-1 pb-6 w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
-                       <input class="hidden" id="{{$objekat->images_id}}" value="{{$objekat->naziv}}"/>
-                        <p class="absolute bottom-0 text-lg pl-2">Naziv: {{$objekat->naziv}}</p>
+                        @endif
+                       @isset($objekat->image)
+                        <p class="w-2/3 text-lg pl-2 ">Naziv: {{$objekat->naziv}}</p>
+                        <div class="p-1 rounded-xl " >
+                        
+                          <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
+                        </div>
+                          
+                        @endisset
                       </div>
+
                     @endforeach
                 </div>
                 </div>
@@ -112,19 +125,12 @@ function Hide(idBO, idMP, idM){
 
 }
 
-function Odabrano(i,id,input,hiden){
-
-    Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}');
-
-
-
-    var btn=document.getElementById(i);
-    var img_id=document.getElementById(id);
+function Odabrano(id,naziv,input,hiden){
 
   //  var img=document.getElementById(id).src=btn.src;
-  var img=document.getElementById(input).value=img_id.value;//naziv;
+  var img=document.getElementById(input).value=naziv;//naziv;
 
-    var input=document.getElementById(hiden).value=i;
+    var input=document.getElementById(hiden).value=id;
 
 
 

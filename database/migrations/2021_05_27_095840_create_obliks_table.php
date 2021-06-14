@@ -15,7 +15,7 @@ class CreateObliksTable extends Migration
     {
         Schema::create('obliks', function (Blueprint $table) {
             $table->id();
-            $table->string('naziv');
+            $table->string('naziv',30)->charset('utf8mb4');
             $table->foreignId('images_id')->constrained();
             $table->foreignId('kreirao_id')->constrained('users');
 

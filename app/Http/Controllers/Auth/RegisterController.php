@@ -38,7 +38,15 @@ class RegisterController extends Controller
         'email'=>$request->email,
         'password'=>Hash::make($request->password),
        ]);
-       $kupac=Role::where('name','=','kupac')->first();
+       $kupac=Role::where('name','=','Kupac')->first();
+       if($kupac==null)
+       {
+        $kupac=Role::create([
+            'name'=>'Kupac',
+            'slug'=>'kupac',
+
+        ]);
+       }
        $user->roles()->attach($kupac);
 
         auth()->attempt($request->only('email','password'));

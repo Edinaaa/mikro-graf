@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRazgovorsTable extends Migration
+class CreateStanjesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRazgovorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('razgovors', function (Blueprint $table) {
+        Schema::create('stanjes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('primaoc_id')->nullable()->constrained('users');
-            $table->foreignId('posiljaoc_id')->nullable()->constrained('users');
-            $table->string('tema');
+            $table->string('naziv',30)->charset('utf8mb4');
+            $table->foreignId('kreirao_id')->constrained('users');
 
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ class CreateRazgovorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('razgovors');
+        Schema::dropIfExists('stanjes');
     }
 }

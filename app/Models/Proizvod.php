@@ -10,21 +10,25 @@ class Proizvod extends Model
     use HasFactory;
     
     protected $fillable = [
-        'naziv',
+        'tekst',
         'visina',
         'sirina',
         'cijena',
         'popust',
         'novo',
+        'aktivan',
         'obliks_id',
         'fonts_id',
         'materijals_id',
         'images_id',
         'kreirao_id',
-
+        'artikals_id',
 
 
     ];
+    public function artikal(){
+        return $this->belongsTo(Artikal::class,'artikals_id','id');
+    }
     public function image(){
         return $this->belongsTo(Images::class,'images_id','id');
     }

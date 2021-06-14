@@ -16,6 +16,11 @@ use App\Models\Materijal;
 
 use App\Policies\FontPolicy;
 use App\Models\Font;
+use App\Policies\ArtikalPolicy;
+use App\Models\Artikal;
+use App\Policies\StanjePolicy;
+use App\Models\Stanje;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -33,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider
         Oblik::class => OblikPolicy::class,
         Materijal::class => MaterijalPolicy::class,
         Font::class => FontPolicy::class,
+        Artikal::class => ArtikalPolicy::class,
+        Stanje::class => StanjePolicy::class,
+
+
 
 
     ];

@@ -12,21 +12,25 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 mt-5 mx-7">
-        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Naziv</label>
-        <input list="Proizvodi" onchange="ToggleNarudzba()" id="naziv" name="naziv" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 
-        focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent" 
-        type="text"  value="{{ old('naziv')}}" placeholder="naziv" />
-        
-        <datalist class="bg-primary-600" id="Proizvodi">
-          <option  value="Plocica za vrata">
-          <option value="Vjesalica za kljuceve">
-          <option value="Zahvalnica">
-          <option value="Reklama">
-          <option value="Meni">
-        </datalist>
-      </div>
+      <div  class="flex flex-row items-center w-full mt-5 mx-7">
+        <div class=" w-2/3">
+              <x-input id="artikal" label="artikal" value="{{ old('artikal')}}"></x-input>
+              <x-input class="hidden" id="artikal_id" label="artikal_id" value="{{ old('artikal_id')}}"></x-input>
+        </div>
+
+        <div class="w-1/3 ml-4 ">
+          <button type="button" onClick="Show('BOartikal','MPartikal','Martikal')" 
+          class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
+          Artikal</button>
       
+        </div>
+      </div>
+
+        
+      <x-input id="tekst" label="tekst" value="{{ old('tekst')}}" class="mt-5 mx-7"></x-input>
+      <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
+
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
           <x-input id="visina" label="Visina" value="{{ old('visina')}}"></x-input>
           <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}"></x-input>
@@ -95,16 +99,19 @@
       </div>
     </form>
   </div>
-@if ($oblici->count())
-<x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
-@endif
-@if ($fontovi->count())
-<x-modal :obj="$fontovi" idBO="BOfont" idMP="MPfont" idM="Mfont" idinputa="font_id" input="font" labela="font"/>
-@endif
-
-@if ($materijali->count())
-<x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
-@endif
+  @if ($artikli->count())
+    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" labela="artikal"/>
+    @endif
+    @if ($oblici->count())
+    <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
+    @endif
+    @if ($fontovi->count())
+    <x-modal :obj="$fontovi" idBO="BOfont" idMP="MPfont" idM="Mfont" idinputa="font_id" input="font" labela="font"/>
+    @endif
+    @if ($materijali->count())
+    <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
+    @endif
+</div>
 <script>
   function ToggleNarudzba(){
 

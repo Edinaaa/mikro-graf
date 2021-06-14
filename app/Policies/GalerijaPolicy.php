@@ -19,6 +19,10 @@ class GalerijaPolicy
 
         return $user->id=== $galerija->kreirao_id;
     }
+    public function update(User $user, Galerija $galerija){
+
+        return $user->id=== $galerija->kreirao_id;
+    }
     public function __construct()
     {
         //
