@@ -77,12 +77,16 @@
                               </div>
 
 
-                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mx-7">
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
                                     <x-input id="popust" label="Popust" value="{{ old('popust')}}"></x-input>
-                                     <x-input  id="novo" label="novo" value="{{ old('novo')}}"></x-input>
+                                     <x-input  id="cijena" label="cijena" value="{{ old('cijena')}}"></x-input>
                               </div>
-                        
-                              <x-input id="cijena" label="cijena" value="{{ old('cijena')}}" class="mt-5 mx-7"></x-input>
+
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
+                                    <x-input type="checkbox" id="aktivan[]" label="aktivan" value="{{ old('aktivan[]')}}"></x-input>
+                                     <x-input type="checkbox" id="novo[]" label="novo" value="{{ old('novo')}}"></x-input>
+                              </div> 
+                              
                               <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
 

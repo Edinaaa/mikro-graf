@@ -47,7 +47,7 @@ class NarudzbaController extends Controller
                     ->join('users', 'narudzbas.narucilac_id', '=', 'users.id')
                     ->join('artikals', 'korpas.artikals_id', '=', 'artikals.id')
                     ->where('users.id','=',auth()->id())
-                    ->select('artikals.naziv','korpas.narudzbas_id','korpas.kolicina as kolicina')
+                    ->select('artikals.naziv as naziv','korpas.narudzbas_id','korpas.kolicina as kolicina')
                     ->get();
              $narudzbe =Narudzba::latest()->where('narucilac_id','=',auth()->id())->with(['stanje'])->paginate(10);
  

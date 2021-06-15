@@ -11,6 +11,8 @@ use App\Models\Font;
 use App\Models\Materijal;
 use App\Models\Cart;
 use App\Models\Stanje;
+use App\Models\Proizvod;
+
 
 use Session;
 use Illuminate\Http\Request;
@@ -30,13 +32,11 @@ class KorpaController extends Controller
                
                  $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['artikal','font','oblik','materijal','image'])->paginate(6);
                  $stanja=Stanje::get();
- 
              }
              else{
                 
                  if($narudzba->narucilac_id==auth()->id()){
-                    $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['proizvod','font','oblik','materijal','image'])->paginate(6);
-
+                    $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['artikal','font','oblik','materijal','image'])->paginate(6);
                  }
                  else{
                     return view('auth.register');
@@ -58,6 +58,15 @@ class KorpaController extends Controller
         $oldCart=Session::has('cart')? Session::get('cart'):null;
         $cart= new Cart($oldCart);
         return view('korpa.cart',['proizvodi'=>$cart->items,'ukupnoCijena'=>$cart->totalprc,'ukupnoKolicina'=>$cart->totalqty]);
+    }
+    public function SelektAdd(Request $request,$id){
+        
+        $proizvod=Proizvod::find($id);
+        $oldCart=Session::has('cart')? Session::get('cart'):null;
+        $cart= new Cart($oldCart);
+        $cart->add($proizvod, $proizvod->id);
+        $request->session()->put('cart',$cart);
+        return redirect()->route('proizvodi');
     }
      public function store(Request $request){
         $Cart=Session::has('cart')? Session::get('cart'):null;

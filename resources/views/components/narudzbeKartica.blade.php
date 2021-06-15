@@ -22,15 +22,21 @@
         </div>
   
         <div class="pt-2 w-full flex flex-col md:flex-row justify-between items-center">
-           @auth
-               <p><span class="font-semibold"> Nardzba:</span>   @foreach ($korpe as $korpa)
+          
+               <p><span class="font-semibold"> Nardzba:</span>  
+                     @foreach ($korpe as $korpa)
                         @if ($korpa->narudzbas_id==$narudzba->id)
+                        @if (auth()->user()->hasRole('admin'))
                         {{$korpa->kolicina}}x {{$korpa->artikal->naziv}},
+
+                        @else
+                        {{$korpa->kolicina}}x {{$korpa->naziv}},
+
                         @endif
-                        @endforeach
+                        @endif
+                    @endforeach
                 </p>
               
-           @endauth
            
         </div>
    

@@ -13,6 +13,8 @@ use App\Http\Controllers\PorukaController;
 use App\Http\Controllers\KorpaController;
 use App\Http\Controllers\ArtikalController;
 use App\Http\Controllers\StanjeController;
+use App\Http\Controllers\UserController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -45,12 +47,11 @@ Route::get('/onama', function () {
     return view('ONama/onama');
 })->name('onama');
 
-Route::get('/narudzbe', function () {
-    return view('narudzba/narudzbe');
-})->name('narudzbe');
-Route::get('/narudzba/{narudzba}', function () {
-    return view('narudzba/narudzba');
-})->name('Onarudzba');
+
+
+Route::get('/user',[UserController::class, 'create'])->name('user');
+Route::post('/user/{id}',[UserController::class, 'update'])->name('user.update');
+
 
 Route::post('/poruka',[PorukaController::class, 'store'])->name('poruka');
 
@@ -66,7 +67,9 @@ Route::get('/narudzbe',[NarudzbaController::class, 'pregled'])->name('narudzba.n
 
 Route::get('/stavke/{id}',[KorpaController::class, 'create'])->name('korpa');
 Route::post('/stavke',[KorpaController::class, 'store'])->name('korpa.store');
-Route::get('/cart',[KorpaController::class, 'GetCart'])->name('korpa.cart');
+Route::get('/korpa/cart',[KorpaController::class, 'GetCart'])->name('korpa.cart');
+Route::get('/korpa/{id}',[KorpaController::class, 'SelektAdd'])->name('korpa.SelektAdd');
+
 
 Route::get('/galerija',[GalerijaController::class, 'create'])->name('galerija');
 Route::post('/galerija',[GalerijaController::class, 'store']);
@@ -78,10 +81,9 @@ Route::get('/proizvodi',[ProizvodController::class, 'create'])->name('proizvodi'
 Route::post('/proizvodi',[ProizvodController::class, 'store']);
 Route::get('/proizvodi/{proizvod}',[ProizvodController::class, 'show'])->name('proizvodi.show');
 
-Route::get('/proizvodi/{id}',[ProizvodController::class, 'SelektAdd'])->name('proizvodi.SelektAdd');
 
 Route::post('/proizvodi/{id}',[ProizvodController::class, 'update'])->name('proizvod.update');
-Route::delete('/proizvodi/{proizvod}',[ProizvodController::class, 'destroy'])->name('proizvodi.destroy');
+Route::post('/proizvodi/{proizvod}',[ProizvodController::class, 'destroy'])->name('proizvodi.destroy');
 
 Route::get('/oblik',[OblikController::class, 'create'])->name('oblik');
 Route::post('/oblik',[OblikController::class, 'store']);

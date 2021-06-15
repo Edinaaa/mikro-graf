@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="w-full h-full flex flex-col justify-items-center items-center py-10">
+<div  class=" grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
+                
 <form action="{{ route('proizvod.update',$proizvod->id) }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
@@ -80,29 +82,27 @@
 
 
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
-                                    <x-input id="popust" label="Popust" value="{{$proizvod->popust}}"></x-input>
-                                     <x-input  id="novo" label="novo" value="{{ old('novo')}}"></x-input>
+                                    <x-input id="popust" label="Popust" value="{{ $proizvod->popust}}"></x-input>
+                                     <x-input  id="cijena" label="cijena" value="{{ $proizvod->cijena}}"></x-input>
                               </div>
-                        
-                              <x-input id="cijena" label="cijena" value="{{$proizvod->cijena}}" class="mt-5 mx-7"></x-input>
+
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
+
+                                    <x-input type="checkbox" checked="{{ $proizvod->aktivan}}" id="aktivan[]" label="aktivan" value="{{ $proizvod->aktivan}}"></x-input>
+                                     <x-input type="checkbox" id="novo[]" label="novo" value="{{ $proizvod->novo}}"></x-input>
+                              </div> 
                               <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
 
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                              @can('delete',$proizvod)
-                                    <form action="{{route('proizvodi.destroy', $proizvod)}}" method="post" class="mr-1">
-                                          @csrf                                          
-                                          @method('DELETE')
-                                          <button type="submit" class='w-auto text-primary-600 hover:bg-primary-200 rounded-lg shadow-xl font-medium  px-4 py-2'>Brisi</button>
-
-                                    </form>
-                              @endcan
+                              
                                    
                                     <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</button>
                              
                               </div>
                         </form>
-</div>      
+</div>  
+</div>    
 <script>
    
 </script>

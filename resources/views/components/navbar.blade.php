@@ -15,47 +15,74 @@
 
             </div>
         </div>
-        <div id="navigacija" class="px-2 pt-2 pb-4 hidden sm:flex sm:p-0">
-            <a href="#" class=" block    px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Pocetna</a>
-            <div onMouseout="Toggle('dropdown')" onMouseover="Toggle('dropdown')" class="relative  bg-gray-900   hover:bg-gray-800">
+        <div id="navigacija" class=" px-5 pt-2 pb-4 hidden sm:flex sm:p-0">
+            <div  class="relative flex flex-col items-start sm:items-center justify-start  bg-gray-900   hover:bg-gray-800 sm:px-5  ">
                     
-                <button  class=" focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">Katalog</button>
-                <div id="dropdown" class=" z-30 relative sm:absolute bg-gray-800 sm:bg-gray-900  w-40 rounded-lg hidden grid-cols-1">
-                    <a href="{{route('proizvodi')}}"class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Proizvodi</a>
-                    <a href="{{route('galerija')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Galerija</a>
+                <button onClick="Toggle('dropdown')" class="flex flex-col  focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">
+                <div class="flex flex-row items-end justify-end">
+                   <img  class="  p-1 " src="{{asset('icona/outline_arrow_drop_down_white_24dp.png')}}"/>
+                   Katalog
+                </div>
+              
+                </button>
+                <div id="dropdown" class="  flex-col z-30 relative sm:absolute sm:top-9 bg-gray-800 sm:bg-gray-900 p-4 rounded-lg hidden ">
+                    <a href="{{route('proizvodi')}}"class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Proizvodi</a>
+                    <a href="{{route('galerija')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Galerija</a>
                      @auth
-                      <a href="{{route('narudzba.narudzbe')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudzbe</a>
+                      <a href="{{route('narudzba.narudzbe')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudzbe</a>
                      
                      @endauth
-                    <a href="{{route('narudzba')}}" class="mt-2 px-4 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Nova narudzba</a>
+                    <a href="{{route('narudzba')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0"><nobr>Nova narudzba</nobr></a>
                 </div>
             </div> 
             
-            <a href="{{route('onama')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">O nama</a>
-            @guest
-                <a href="{{route('kontakt')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">Kontakt</a>
-                <a href="{{route('login')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-800 sm:mt-0">Login</a>
-            @endguest
-            @auth
-                <div onMouseout="Toggle('dropdownKontakt')" onMouseover="Toggle('dropdownKontakt')" class="relative bg-gray-900    hover:bg-gray-800">
-                    <button  class=" focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">Kontakt</button>
-                    <div id="dropdownKontakt" class="z-30 relative sm:absolute bg-gray-800 sm:bg-gray-900  w-40 rounded-lg hidden grid-cols-1">
-                        <a href="{{route('kontakt')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Kontakt</a>
-                        <a href="{{route('razgovor')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Poruke</a>
-                    </div>
+            <div  class="relative flex flex-col items-start sm:items-center justify-start bg-gray-900 hover:bg-gray-800 sm:px-5">
+                <button onClick="Toggle('dropdownKontakt')" class=" flex flex-col focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">
+                <div class="flex flex-row items-end justify-end">
+                   <img  class="  p-1 " src="{{asset('icona/outline_arrow_drop_down_white_24dp.png')}}"/>
+                    Info
                 </div>
+                </button>
+                <div id="dropdownKontakt" class="z-30 p-4 flex-col sm:top-9 relative sm:absolute bg-gray-800 sm:bg-gray-900   rounded-lg hidden grid-cols-1">
+                     <a href="{{route('onama')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">O nama</a>
+                     <a href="{{route('kontakt')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Kontakt</a>
+                    @auth
+                     <a href="{{route('razgovor')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Poruke</a>
                         
-                <div onMouseout="Toggle('dropdownUser')" onMouseover="Toggle('dropdownUser')" class="relative   bg-gray-900    hover:bg-gray-800">
-                    <button  class=" focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">{{ auth()->user()->name}}</button>
-                    <div id="dropdownUser" class="z-30 relative sm:absolute bg-gray-800 sm:bg-gray-900  w-40 rounded-lg hidden grid-cols-1">
+                    @endauth
+                </div>
+            </div>
+
+            @guest
+                <a href="{{route('login')}}" class="flex flex-col items-start sm:items-center justify-start text-white font-semibold rounded hover:bg-gray-800 mt-2  py-1 px-5">Login</a>
+            @endguest 
+            @auth
+            <div class="relative flex flex-col items-start sm:items-center justify-start  bg-gray-900    hover:bg-gray-800 sm:px-5">
+                    <button onClick="Toggle('dropdownUser')"   class="flex flex-col  focus:outline-none mt-1 px-2 py-1 text-primary-400 font-semibold rounded  sm:mt-0">
+                   <div class="flex flex-row items-end justify-end">
+                   <img  class="  p-1 " src="{{asset('icona/outline_arrow_drop_down_white_24dp.png')}}"/>
+                    
+                    {{ auth()->user()->name}}
+                   <img  class="  px-2 " src="{{asset('icona/outline_person_white_24dp.png')}}"/>
+
+
+                   </div>
+                   </button>
+                    <div id="dropdownUser" class="z-30 relative p-4 flex-col sm:top-9   sm:absolute bg-gray-800 sm:bg-gray-900 rounded-lg hidden grid-cols-1">
+                     <a href="{{route('user',auth()->id())}}" 
+                     class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">
+                      Postavke</a>
+                       
                         <form action="{{route('logout')}}" method="post" class="inline">
                         @csrf
                             <button class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0" type="submit" >Logout</button>
                         </form>
                     </div>
                 </div>
+            @endauth
+                
 
-             @endauth
+            
         </div>
     </header>
 </div>
@@ -80,17 +107,17 @@
 
      function Toggle(id){
          var dd=document.getElementById(id);
-         if (dd.classList.contains("grid"))
+         if (dd.classList.contains("flex"))
         {
     
-        dd.classList.remove('grid');
+        dd.classList.remove('flex');
         dd.classList.add('hidden');
     
         }
         else
         {
             dd.classList.remove('hidden');
-            dd.classList.add('grid');
+            dd.classList.add('flex');
         }
     }
 </script>

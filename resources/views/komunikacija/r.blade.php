@@ -59,7 +59,7 @@
 
                                 <button type="submit" class='flex justify-center items-center bg-primary-300 hover:bg-primary-500  shadow-xl 
                                 mx-2 h-9 w-9 xs:h-11  xs:w-11  rounded-full focus:outline-none '>
-                                <img  class="h-6  " src="{{asset('icona/outline_arrow_forward_ios_white_24dp.png')}}"/>
+                                <img  class="h-6  " src="{{asset('icona/outline_send_white_24dp.png')}}"/>
 
                                 </button>
                         </div>

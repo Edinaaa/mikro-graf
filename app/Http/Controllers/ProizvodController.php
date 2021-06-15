@@ -28,29 +28,56 @@ class ProizvodController extends Controller
 
         $fontovi =Font::latest()->with('image')->paginate(6);
         $materijali =Materijal::latest()->with('image')->paginate(6);
-        $proizvodi =Proizvod::latest()->with(['image','font','oblik','materijal'])->paginate(6);
+        $proizvodi =null;
+        if(Auth::Check()){
+            if(auth()->user()->hasRole('admin')){
+                $proizvodi =Proizvod::latest()->with(['image','font','oblik','materijal'])->paginate(6);
+
+            }
+            else{
+                 $proizvodi =Proizvod::latest()->where('aktivan','=','1')->with(['image','font','oblik','materijal'])->paginate(6);
+
+            }
+        }
+        else{
+            $proizvodi =Proizvod::latest()->where('aktivan','=','1')->with(['image','font','oblik','materijal'])->paginate(6);
+
+        }
         return view('proizvodi.proizvodi',['proizvodi'=>$proizvodi,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli]);
     }
 
     public function show(Proizvod $proizvod){
-        $pproizvod =Proizvod::latest()->with(['image','font','oblik','materijal','artikal'])->get();
+      //  $p =Proizvod::where('id','=',$proizvod->id)->where('aktivan','=','true')->with(['image','font','oblik','materijal'])->first();
+
         return view('proizvodi.show',['proizvod'=>$proizvod]);
     }
 
-    public function SelektAdd(Request $request,$id){
-        dd($id);
-        $proizvod=Proizvod::find($id);
-        $oldCart=Session::has('cart')? Session::get('cart'):null;
-        $cart= new Cart($oldCart);
-        $cart->add($proizvod, $proizvod->id);
-       $request->session()->put('cart',$cart);
-        return redirect()->route('proizvodi');
-    }
+   
 
     public function update(Request $request, $id)
     {
-        $proizvod=Proizvod::find($id);
+      
 
+        $proizvod=Proizvod::find($id);
+        $aktivan=false;
+        if($request->has('aktivan')){
+            $aktivan=true;
+        }
+       
+
+        $novi=false;
+        $popust=0;
+        if($aktivan)
+       {
+            if($request->has('novo')){
+                $novi=true;
+            }
+           
+        //ako je novi proizvod nema popusta, i obratno ako ima popust nije novi
+            if(!$novi){
+                $popust=$request->get('popust')?$request->get('popust'):0;
+            }
+       }
         if($proizvod==null){
             return back();
         }
@@ -74,10 +101,7 @@ class ProizvodController extends Controller
        
             $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
         }
-        else{
-            $imagedb= Images::find($proizvod->images_id);
-
-        }
+       
 
         if (Auth::check() ) {
                
@@ -86,8 +110,9 @@ class ProizvodController extends Controller
                 $proizvod->visina=$request->get('visina');
                 $proizvod->sirina=$request->get('sirina');
                 $proizvod->cijena=$request->get('cijena');
-                $proizvod->popust=$request->get('popust')?$request->get('popust'):null;
-                $proizvod->novo=false;//$request->get('novo');
+                $proizvod->popust=$popust;
+                $proizvod->novo=$novi;
+                $proizvod->aktivan=$aktivan;
                 $proizvod->obliks_id=$request->get('oblik_id')?$request->get('oblik_id'):null;
                 $proizvod->artikals_id=$request->get('artikal_id');
                 $proizvod->fonts_id=$request->get('font_id');
@@ -112,6 +137,18 @@ class ProizvodController extends Controller
 
     public function store(Request $request)
     {
+        $aktivan=false;
+        if($request->has('aktivan')){
+            $aktivan=true;
+        }
+        $novi=false;
+        if($request->has('novo')){
+            $novi=true;
+        }
+        $popust=0;//ako je novi proizvod nema popusta, i obratno ako ima popust nije novi
+        if(!$novi){
+            $popust=$request->get('popust')?$request->get('popust'):0;
+        }
         // Validate the inputs
         $request->validate([
             'tekst'=>'required',
@@ -152,11 +189,11 @@ class ProizvodController extends Controller
                     'visina'=>$request->get('visina'),
                     'sirina'=>$request->get('sirina'),
                     'cijena'=>$request->get('cijena'),
-                    'popust'=>$request->get('popust')?$request->get('popust'):null,
-                    'novo'=>false,//$request->get('novo'),
+                    'popust'=>$popust,
+                    'novo'=>$novi,
                     'obliks_id'=>$request->get('oblik_id')?$request->get('oblik_id'):null,
                     'artikals_id'=>$request->get('artikal_id'),
-                    'aktivan'=>true,
+                    'aktivan'=>$aktivan,
                     'fonts_id'=>$request->get('font_id'),
                     'materijals_id'=>$request->get('materijal_id'),
                     "images_id" => $imagedb->id,
@@ -175,6 +212,11 @@ class ProizvodController extends Controller
     public function destroy(Proizvod $proizvod){
         
         $proizvod=Proizvod::find($proizvod->id);
+        $proizvod->aktivan=false;
+        $proizvod->novo=false;
+        $proizvod->popust=false;
+
+        $proizvod->save();
         /*  $image=Images::get()->find($proizvod->images_id);
           $proizvod->delete();
           $filename=$image->file_path.'/'.$image->name;
@@ -182,6 +224,7 @@ class ProizvodController extends Controller
          //unlink($filename);
           $image->delete();   
 */
-        return back();
+return redirect()->route('proizvodi');
+
     }
 }

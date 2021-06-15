@@ -51,7 +51,7 @@ class LoginController extends Controller
             'email'=> 'required|email' ,
             'password'=> 'required' ,
            ]);
-      //  dd('ok');
+     
         if( !auth()->attempt($request->only('email','password'), $request->remember))
             {
 

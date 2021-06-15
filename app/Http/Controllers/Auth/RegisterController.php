@@ -31,13 +31,14 @@ class RegisterController extends Controller
         'password'=> 'required|confirmed' ,///traziti ce  _confirmation, pa je bitno kako se imanuje na formi
        ]);
         
-      $user= User::create([
-        'name'=>$request->name,
-        'lastname'=>$request->lastname,
-        'telefon'=>$request->telefon,
-        'email'=>$request->email,
-        'password'=>Hash::make($request->password),
-       ]);
+        $user= User::create([
+            'name'=>$request->name,
+            'lastname'=>$request->lastname,
+            'telefon'=>$request->telefon,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+
        $kupac=Role::where('name','=','Kupac')->first();
        if($kupac==null)
        {
@@ -51,7 +52,7 @@ class RegisterController extends Controller
 
         auth()->attempt($request->only('email','password'));
     
-    return redirect()->route('proizvodi');
+        return redirect()->route('proizvodi');
 
      // dd($request);//kill page i ispise abc
     }

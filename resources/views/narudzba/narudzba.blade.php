@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class=" flex h-screen bg-gray-200 items-center justify-center my-40  md:my-32">
+<div class=" flex h-full bg-gray-200 items-center justify-center my-10  ">
   <div class="grid bg-white rounded-lg shadow-xl  w-11/12 md:w-9/12 lg:w-1/2">
     <form action="{{ route('narudzba') }}" method="post" enctype="multipart/form-data">
       @csrf
@@ -14,7 +14,7 @@
 
       <div  class="flex flex-row items-center w-full mt-5 mx-7">
         <div class=" w-2/3">
-              <x-input id="artikal" label="artikal" value="{{ old('artikal')}}"></x-input>
+              <x-input id="artikal" label="artikal"  value="{{ old('artikal')}}"></x-input>
               <x-input class="hidden" id="artikal_id" label="artikal_id" value="{{ old('artikal_id')}}"></x-input>
         </div>
 
@@ -36,7 +36,7 @@
           <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}"></x-input>
       </div>
       
-      <div  id="divOblik" class="flex flex-row items-center w-full mt-5 mx-7">
+      <div  id="divOblik" class="hidden flex-row items-center w-full mt-5 mx-7">
           <div class=" w-2/3">
               <x-input id="oblik" label="Oblik" value="{{ old('oblik')}}"></x-input>
               <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{ old('oblik_id')}}"></x-input>
@@ -46,7 +46,7 @@
             <button type="button" onClick="Show('BackgroundOverlay','ModalPanel','modal')"
             class='py-2 px-4 mt-5 flex items-center justify-center  bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl
               font-medium text-white '>
-            Odaberi oblik</button>
+            Oblik</button>
         
           </div>
       </div>
@@ -60,7 +60,7 @@
         <div class="w-1/3 ml-4 ">
           <button type="button" onClick="Show('BOfont','MPfont','Mfont')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-          Odaberi font</button>
+          Font</button>
       
         </div>
       </div>
@@ -74,13 +74,13 @@
         <div class="w-1/3 ml-4">
           <button type="button" onClick="Show('BOmaterijal','MPmaterijal','Mmaterijal')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-          Odaberi materijal</button>
+          Materijal</button>
       
         </div>
       </div>
 
       <div class="grid grid-cols-1 my-5 mx-7">
-        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Opis</label>
+        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Napomena</label>
         <textarea id="opis" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
         name="opis"  rows="4" cols="50" placeholder="Zelim da boja slova bude crna, a pozadina ..."></textarea>
       </div>
@@ -100,7 +100,7 @@
     </form>
   </div>
   @if ($artikli->count())
-    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" labela="artikal"/>
+    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" idoblik="divOblik" labela="artikal"/>
     @endif
     @if ($oblici->count())
     <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
@@ -113,24 +113,7 @@
     @endif
 </div>
 <script>
-  function ToggleNarudzba(){
-
-    var naziv=document.getElementById("naziv");
-    var divOblik=document.getElementById("divOblik");
-   // divOblik.classList.add("hidden");
-
-    if(naziv.value!="Plocica za vrata" ){
-      divOblik.classList.add("hidden");
-      divOblik.classList.remove("block");
-
-    }
-    else{
-      divOblik.classList.remove("hidden");
-      divOblik.classList.add("block");
-
-    }
-  }
-  ToggleNarudzba()
+ 
 </script>
 @endsection
 

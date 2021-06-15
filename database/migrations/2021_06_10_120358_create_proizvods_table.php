@@ -26,7 +26,7 @@ class CreateProizvodsTable extends Migration
             $table->boolean('novo');
             $table->boolean('aktivan');
 
-            $table->foreignId('images_id')->constrained();
+            $table->foreignId('images_id')->nullable()->constrained();
             $table->foreignId('artikals_id')->constrained();
 
             $table->foreignId('kreirao_id')->constrained('users');

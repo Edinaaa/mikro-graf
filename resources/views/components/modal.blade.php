@@ -1,4 +1,4 @@
-@props(['obj'=>'$oblici','idBO'=>$idBO, 'idMP'=>$idMP, 'idM'=>$idM, 'idinputa'=>$idinputa,'input'=>$input, 'labela'=>$labela])
+@props(['obj'=>'$oblici','idBO'=>$idBO, 'idMP'=>$idMP, 'idM'=>$idM, 'idinputa'=>$idinputa,'input'=>$input, 'idoblik'=>'','labela'=>$labela])
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -131,11 +131,30 @@ function Odabrano(id,naziv,input,hiden){
   var img=document.getElementById(input).value=naziv;//naziv;
 
     var input=document.getElementById(hiden).value=id;
-
+    ToggleNarudzba(naziv);
 
 
 }
+function ToggleNarudzba(artikal){
+  if($idoblik!=''){
 
+    var divOblik=document.getElementById("{{$idoblik}}");
+   // divOblik.classList.add("hidden");
+
+    if(artikal!="Plocica za vrata" ){
+      divOblik.classList.add("hidden");
+      divOblik.classList.remove("flex");
+
+    }
+    else{
+      divOblik.classList.remove("hidden");
+      divOblik.classList.add("flex");
+
+    }
+  }
+   
+  }
+ 
 
   Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')
 
