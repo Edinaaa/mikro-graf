@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto  pl-16  px-4"> 
+<div class="container mx-auto   px-4"> 
 <div class="flex w-full bg-whiteitems-center justify-center ">
 
       @auth
@@ -151,24 +151,28 @@
             @else
                   <p>Nema proizvoda.</p>
             @endif
-            <div class="p-2  fixed bottom-10 right-10">
-                  <a href="{{route('korpa.cart')}}" class="bg-transparent">
-                        <div class="flex flex-row items-start">
-                              <div class=" bg-primary-500 shadow-md rounded-full focus:outline-none hover:bg-primary-700">
-                              <img  class="p-3 " src="{{asset('icona/outline_shopping_cart_white_24pt_1x.png')}}"/>
-                              
-                              </div>
+            @auth
+                  @if(!auth()->user()->hasRole('admin'))
+                        <div class="p-2  fixed bottom-10 right-10">
+                              <a href="{{route('korpa.cart')}}" class="bg-transparent">
+                                    <div class="flex flex-row items-start">
+                                          <div class=" bg-primary-500 shadow-md rounded-full focus:outline-none hover:bg-primary-700">
+                                          <img  class="p-3 " src="{{asset('icona/outline_shopping_cart_white_24pt_1x.png')}}"/>
+                                          
+                                          </div>
 
-                              @if (Session::has('cart') )
+                                          @if (Session::has('cart') )
 
-                              <div class="py-1 px-2 text-xs font-semibold text-white  bg-primary-500 rounded-full  ">
-                                  
-                                    {{Session::get('cart')->totalqty}}
-                              </div>
-                              @endif
+                                          <div class="py-1 px-2 text-xs font-semibold text-white  bg-primary-500 rounded-full  ">
+                                          
+                                                {{Session::get('cart')->totalqty}}
+                                          </div>
+                                          @endif
+                                    </div>
+                              </a>
                         </div>
-                  </a>
-            </div>
+                  @endif
+            @endauth
       </div>     
 </div>     
 

@@ -14,6 +14,9 @@ use App\Http\Controllers\KorpaController;
 use App\Http\Controllers\ArtikalController;
 use App\Http\Controllers\StanjeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CaptchaServiceController;
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -107,7 +110,7 @@ Route::get('/stanje',[StanjeController::class, 'create'])->name('stanje');
 Route::post('/stanje',[StanjeController::class, 'store']);
 Route::delete('/stanje/{stanje}',[StanjeController::class, 'destroy'])->name('stanje.destroy');
 
-Route::get('/aGalerija', function () {
-    return view('galerija/aGalerija');
-})->name('aGalerija');
+Route::get('/contact-form', [CaptchaServiceController::class, 'index'])->name('captchaform');
+Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate'])->name('captchaValidate');
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 

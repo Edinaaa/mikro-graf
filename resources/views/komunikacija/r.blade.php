@@ -34,13 +34,13 @@
                     <div class=" w-full flex flex-col h-full bg-gray-100 ">
 
                         @if ($odabraniRazgovor->poruke->count())
-                        <div class=" w-full h-full min-h-5/12 flex-grow  overflow-y-auto ">
-                                    @foreach($odabraniRazgovor->poruke as $poruka)
-                                    <x-poruka :poruka="$poruka"></x-poruka>
+                            <div class=" w-full h-full min-h-5/12 flex-grow  overflow-y-auto ">
+                                        @foreach($odabraniRazgovor->poruke as $poruka)
+                                        <x-poruka :poruka="$poruka"></x-poruka>
 
-                                    @endforeach
-                        </div> 
-                                                
+                                        @endforeach
+                            </div> 
+                                                    
                             
                         @else
                                 <p>Nema poruka.</p>
@@ -81,6 +81,7 @@
 </div>
     <div id="razgovori" class="h-full bg-primary-200 hidden w-2/5 sm:flex flex-col flex-grow overflow-x-auto max-h-screen ">
             @if ($razgovori->count())
+            
                 <div class="w-full ">
                     @foreach($razgovori as $razgovor)
                     <x-razgovor :razgovor="$razgovor"/>

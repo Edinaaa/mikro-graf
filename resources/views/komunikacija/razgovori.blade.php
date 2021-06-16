@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-@if (auth()->user()->hasRole('admin'))
-<div class=" absolute top-0 w-full pl-14 flex flex-row justify-between items-start h-screen max-h-screen">
-
-        @else
-        <div class=" absolute top-0 w-full pt-14 flex flex-row justify-between items-start h-screen max-h-screen">
-
-        @endif
 @auth
+    
+
+<div class=" absolute top-0 w-full pt-14 flex flex-row justify-between items-start h-screen max-h-screen">
 
 <div id="poruke"   class=" relative sm:w-2/3 w-full pt-14   flex flex-col h-full  bg-gray-200    ">
      
@@ -43,13 +39,13 @@
                     <div class=" w-full flex flex-col   h-full bg-gray-100 ">
 
                         @if ($odabraniRazgovor->poruke->count())
-                        <div class=" w-full  h-full  flex-grow  overflow-y-auto ">
-                                    @foreach($odabraniRazgovor->poruke as $poruka)
-                                    <x-poruka :poruka="$poruka"></x-poruka>
+                            <div class=" w-full  h-full  flex-grow  overflow-y-auto ">
+                                        @foreach($odabraniRazgovor->poruke as $poruka)
+                                        <x-poruka :poruka="$poruka"></x-poruka>
 
-                                    @endforeach
-                        </div> 
-                                                
+                                        @endforeach
+                            </div> 
+                                                    
                             
                         @else
                                 <p>Nema poruka.</p>

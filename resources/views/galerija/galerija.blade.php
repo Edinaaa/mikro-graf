@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 "> 
-<div class=" flex  w-full  bg-gray-200 items-center justify-center  ">
+<div class=" mx-auto  "> 
+<div class=" flex flex-col  w-full  bg-gray-200 items-center justify-center  ">
       @auth
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
@@ -27,10 +27,10 @@
                   </div>
             @endif
       @endauth
-</div>
+
             
       @if ($slike->count())
-            <div class="w-full bg-gray-200 pl-14 py-1 rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
+            <div class="w-full bg-gray-200  py-1 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
                   @foreach($slike as $slika)
                         <x-slika :slika="$slika"/>
                   @endforeach
@@ -41,5 +41,6 @@
             <p>Galerija je prazna.</p>
       @endif
                
+</div>
 </div>
 @endsection

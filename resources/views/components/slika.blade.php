@@ -1,34 +1,33 @@
 @props(['slika'=>$slika])
-<div  onMouseover="silkahover('{{$slika->id}}')" onMouseout="silkahoverout('{{$slika->id}}')" class="w-11/12 bg-gray-400 relative flex justify-center items-center m-2 rounded-md overflow-hidden">
-<a href="#">
-  <img class="flex flex-col  justify-between w-full h-96 
-      shadow-md  object-cover object-center"
+<div class=" border-gray-400 border-solid border-2 w-11/12 bg-gray-50 relative flex justify-center items-start m-2 rounded-md overflow-hidden">
+
+  <img class=" w-full "
       src="{{asset('images/'.$slika->image->name)}}"
      />
     
-      <div id="{{$slika->id}}" class="flex flex-col  w-full absolute bottom-0 bg-transparent text-transparent shadow-md   p-4 ">
-      <div class="flex justify-between w-full">
-      <h3 class="text-xl  font-bold pb-2">{{$slika->name}}</h3>
-      <div class="flex flex-row">
-          @can('delete',$slika)
-            <form action="{{route('galerija.destroy', $slika)}}" method="post" class="mr-1">
-              @csrf                                          
-              @method('DELETE')
-              <button type="submit"  class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Brisi</button>
-            </form>
-          @endcan
-          @can('update',$slika)
-              
-             <button onClick="Show('BO{{$slika->id}}', 'MP{{$slika->id}}', 'M{{$slika->id}}')" class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</button>
+      <div id="{{$slika->id}}" class="flex flex-col  w-full absolute bottom-0  shadow-md bg-opacity-50 bg-black text-gray-200 p-4 ">
+        <div class="flex justify-between w-full">
+        <h3 class="text-xl  font-bold pb-2">{{$slika->name}}</h3>
+        <div class="flex flex-row items-center">
+            @can('delete',$slika)
+              <form action="{{route('galerija.destroy', $slika)}}" method="post" class="mr-1">
+                @csrf                                          
+                @method('DELETE')
+                <button type="submit"  class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Brisi</button>
+              </form>
+            @endcan
+            @can('update',$slika)
+                
+              <button onClick="Show('BO{{$slika->id}}', 'MP{{$slika->id}}', 'M{{$slika->id}}')" class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</button>
 
-          @endcan
-      </div>
-      <x-modalFrmGalerija :galerija="$slika" idBO="BO{{$slika->id}}" idMP="MP{{$slika->id}}" idM="M{{$slika->id}}" />
+            @endcan
+        </div>
+        <x-modalFrmGalerija :galerija="$slika" idBO="BO{{$slika->id}}" idMP="MP{{$slika->id}}" idM="M{{$slika->id}}" />
+      
+        </div>
      
       </div>
      
-      </div>
-      </a>
 
 </div>
 <script>

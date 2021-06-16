@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-@if (auth()->user()->hasRole('admin'))
-<div class=" flex  w-full  bg-gray-200 items-center justify-center  ">
 
-@else
 <div class=" flex  w-full  bg-gray-200 items-center justify-center mt-8 ">
 
-@endif
         <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
             
 

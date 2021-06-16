@@ -32,8 +32,8 @@
 
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-          <x-input id="visina" label="Visina" value="{{ old('visina')}}"></x-input>
-          <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}"></x-input>
+          <x-input id="visina" label="Visina u cm" value="{{ old('visina')}}"></x-input>
+          <x-input id="sirina" label="Sirina u cm" value="{{ old('sirina')}}"></x-input>
       </div>
       
       <div  id="divOblik" class="hidden flex-row items-center w-full mt-5 mx-7">
@@ -82,7 +82,7 @@
       <div class="grid grid-cols-1 my-5 mx-7">
         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Napomena</label>
         <textarea id="opis" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
-        name="opis"  rows="4" cols="50" placeholder="Zelim da boja slova bude crna, a pozadina ..."></textarea>
+        name="opis"  rows="4" cols="50" placeholder="Ukoliko imate poseban zahtjev ili upit, ovdje ga mozete dostaviti."></textarea>
       </div>
       @guest
         <label class="  mx-7 uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Kontakt podatci</label>

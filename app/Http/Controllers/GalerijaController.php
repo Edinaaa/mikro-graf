@@ -7,11 +7,14 @@ use App\Http\Requests;
 use Image;
 use File;
 use Illuminate\Http\Request;
+use Mail;
 
 class GalerijaController extends Controller
 {
     public function create()
     {
+       
+
         $slike =Galerija::latest()->with('image')->paginate(6);
         return view('galerija.galerija',['slike'=>$slike]);
     }
