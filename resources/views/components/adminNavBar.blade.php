@@ -1,6 +1,6 @@
 <div>
 @auth
-<header class="z-10 relative bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
+<header class="z-10 relative bg-gray-900 sm:flex sm:justify-between sm:items-center px-4 sm:py-3">
      
      <div class="flex  items-center  justify-between px-4 py-3 sm:p-0">
          <div class=" text-gray-100 font-semibold text-2xl">

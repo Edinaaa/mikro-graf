@@ -12,6 +12,7 @@ class Font extends Model
         'naziv',
         'images_id',
         'kreirao_id',
+        'aktivan',
 
     ];
     public function image(){

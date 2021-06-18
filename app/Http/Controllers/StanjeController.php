@@ -13,19 +13,43 @@ class StanjeController extends Controller
         return view('stanje.stanje',['stanja'=>$stanja]);
     }
 
+    public function show(Stanje $stanje){
+        return view('stanje.stanjeUpdate',['stanje'=>$stanje]);
+    }
+    public function update(Request $request, $id)
+    {
+        $stanje=Stanje::find($id);
+     
+
+           $aktivan=false;
+           if($request->has('aktivan')){
+               $aktivan=true;
+           }
+           $stanje->naziv=$request->get('naziv');
+           $stanje->aktivan=$aktivan;
+           $stanje->save();
+           
+           $request->session()->flash('alert-success', 'Uspjesno izmjenjeno stanje.');
+    
+           return redirect()->route('stanje');
+    }
     public function store(Request $request)
     {
         $request->validate([
             "naziv"=>'required',
 
         ]);
-
+        $aktivan=false;
+        if($request->has('aktivan')){
+            $aktivan=true;
+        }
         
-            Stanje::create([
+            stanje::create([
                     "naziv" =>$request->get('naziv'),
+                    "aktivan"=>$aktivan,
                     "kreirao_id" =>auth()->id()]);
     
-    
+    $request->session()->flash('alert-success', 'Uspjesno dodano stanje.');
         return back();
     }
     public function destroy(Stanje $stanje){

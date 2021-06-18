@@ -17,8 +17,8 @@
               </form>
             @endcan
             @can('update',$slika)
-                
-              <button onClick="Show('BO{{$slika->id}}', 'MP{{$slika->id}}', 'M{{$slika->id}}')" class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</button>
+           
+              <a href=" {{route('galerija.show', $slika)}}" class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
 
             @endcan
         </div>

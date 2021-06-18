@@ -6,24 +6,25 @@
                
 
     <a href="{{route('korpa', $narudzba->id)}}">
-        <div class=" font-semibold text-gray-700 w-full flex flex-col md:flex-row justify-between items-center">
+        <div class=" font-semibold text-gray-700 w-full flex flex-col md:flex-row justify-between items-start">
            
             @isset($narudzba->user)
-            <p>Narucilac: {{$narudzba->user->name}} {{$narudzba->user->lastname}}</p>
+            <p class="px-2">Narucilac: {{$narudzba->user->name}} {{$narudzba->user->lastname}}</p>
             @endisset
             
             @isset($narudzba->email)
             <div class="flex flex-col">
-            <p>Narucilac: {{$narudzba->email}} <span>tel: {{$narudzba->telefon}}</span> </p>
-
+                <p class="px-2">Narucilac: {{$narudzba->email}}  </p>
+                
+                <p class="px-2">Telefon: {{$narudzba->telefon}}</p>
             </div>
             @endisset
-            <p class="text-primary-500 text-lg">Cijena: {{$narudzba->cijena}} KM</p>
+            <p class="text-primary-500 text-lg px-2">Cijena: {{$narudzba->cijena}} KM</p>
         </div>
   
         <div class="pt-2 w-full flex flex-col md:flex-row justify-between items-center">
           
-               <p><span class="font-semibold"> Nardzba:</span>  
+               <p class="px-2"><span class="font-semibold"> Nardzba:</span>  
                      @foreach ($korpe as $korpa)
                         @if ($korpa->narudzbas_id==$narudzba->id)
                         @if (auth()->user()->hasRole('admin'))
@@ -43,8 +44,8 @@
        
         <div  class="pt-4 text-gray-600 text-sm w-full flex flex-col md:flex-row justify-between items-center">
             
-            <p>Stanje: {{$narudzba->stanje->naziv}}</p>
-            <p>Naruceno prije: {{$narudzba->created_at->diffForHumans()}}</p>
+            <p class="px-2">Stanje: {{$narudzba->stanje->naziv}}</p>
+            <p class="px-2">Naruceno prije: {{$narudzba->created_at->diffForHumans()}}</p>
         </div>
     </a>
     @endauth

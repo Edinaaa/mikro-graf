@@ -15,6 +15,7 @@ class Narudzba extends Model
         "telefon",
         'narucilac_id',
         'stanjes_id',
+        'verifikacioni_code',
        
     ];
     public function stanje(){

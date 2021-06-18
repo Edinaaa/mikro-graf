@@ -16,7 +16,13 @@
                               </div>
                               </div>
 
-                              <x-input id="galerijaName" label="Naziv slike" value="{{ old('galerijaName')}}" class="mt-5 mx-7"></x-input>
+                              <x-input id="name" label="Naziv slike" value="{{ old('name')}}" class="mt-5 mx-7">
+                              @error("naziv")
+                              <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              {{$message}}
+                              </div>
+                              @enderror
+                              </x-input>
                               <x-input type="file" id="file"  label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
                               
@@ -30,7 +36,7 @@
 
             
       @if ($slike->count())
-            <div class="w-full bg-gray-200  py-1 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
+            <div class="w-full bg-gray-200  py-1 rounded-lg place-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
                   @foreach($slike as $slika)
                         <x-slika :slika="$slika"/>
                   @endforeach

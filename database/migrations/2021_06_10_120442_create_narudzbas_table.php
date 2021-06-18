@@ -19,6 +19,8 @@ class CreateNarudzbasTable extends Migration
             ///u slucaju da narudzbu kreira ne logirani korisnik
              $table->string('email',191)->nullable();
              $table->string('telefon',15)->nullable();
+             $table->string('verifikacioni_code',7)->nullable();
+
              $table->foreignId('stanjes_id')->constrained();
              $table->foreignId('narucilac_id')->nullable()->constrained('users');
              

@@ -11,12 +11,12 @@
     
         @isset($odabraniRazgovor)
             <div   class="  absolute top-0 w-full flex flex-row justify-between items-center p-4 min-h-1/12 bg-primary-300">
-                @if ($odabraniRazgovor->posiljaoc_id!=auth()->id())
-                <h3 class="text-gray-900 ">{{$odabraniRazgovor->posiljaoc->name}} {{$odabraniRazgovor->posiljaoc->lastname}}</h3>
-
+                @if($odabraniRazgovor->posiljaoc_id==null)
+                    <h3 class="text-gray-900 ">{{$odabraniRazgovor->email}}</h3>
+                @elseif ($odabraniRazgovor->posiljaoc_id==auth()->id())
+                    <h3 class="text-gray-900 ">{{$odabraniRazgovor->primaoc->name}} {{$odabraniRazgovor->primaoc->lastname}}</h3>
                 @else
-                <h3 class="text-gray-900 ">{{$odabraniRazgovor->primaoc->name}} {{$odabraniRazgovor->primaoc->lastname}}</h3>
-
+                    <h3 class="text-gray-900 ">{{$odabraniRazgovor->posiljaoc->name}} {{$odabraniRazgovor->posiljaoc->lastname}}</h3>
                 @endif
 
                 <h3 class="text-gray-700 uppercase truncate">{{$odabraniRazgovor->tema}}</h3>

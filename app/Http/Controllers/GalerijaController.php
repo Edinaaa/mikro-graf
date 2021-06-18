@@ -61,6 +61,7 @@ class GalerijaController extends Controller
 
          
           $galerija->name=$request->get('name');
+          $galerija->save();
           if($imagedb!=null){
 
             $image=Images::get()->find($galerija->images_id);
@@ -71,15 +72,19 @@ class GalerijaController extends Controller
             $image->delete();
           }
 
-        $galerija->save();
+      
+          $request->session()->flash('alert-success', 'Uspjesno izmjenjena galerija.');
     
         return redirect()->route('galerija');
+    }
+    public function show(Galerija $galerija){
+        return view('galerija.galerijaUpdate',['galerija'=>$galerija]);
     }
     public function store(Request $request)
     {
         // Validate the inputs
         $request->validate([
-            "galerijaName"=>'required',
+            "name"=>'required',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);
@@ -117,10 +122,11 @@ class GalerijaController extends Controller
 
             $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
             Galerija::create([
-                    "name" =>$request->get('galerijaName'),
+                    "name" =>$request->get('name'),
                     "images_id" => $imagedb->id,
                     "kreirao_id" =>auth()->id()]);
         }
+        $request->session()->flash('alert-success', 'Uspjesno dodana slika.');
     
         return back();
     }
@@ -132,6 +138,7 @@ class GalerijaController extends Controller
           File::delete($filename);
          //unlink($filename);
           $image->delete();   
+          $request->session()->flash('alert-success', 'Uspjesno izbrisana slika.');
 
         return back();
     }

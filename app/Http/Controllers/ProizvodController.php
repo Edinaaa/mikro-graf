@@ -47,9 +47,11 @@ class ProizvodController extends Controller
     }
 
     public function show(Proizvod $proizvod){
-      //  $p =Proizvod::where('id','=',$proizvod->id)->where('aktivan','=','true')->with(['image','font','oblik','materijal'])->first();
-
-        return view('proizvodi.show',['proizvod'=>$proizvod]);
+       $oblici =Oblik::latest()->with('image')->paginate(6);
+       $artikli =Artikal::latest()->paginate(10);
+       $fontovi =Font::latest()->with('image')->paginate(6);
+       $materijali =Materijal::latest()->with('image')->paginate(6);
+        return view('proizvodi.show',['proizvod'=>$proizvod,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli]);
     }
 
    
@@ -117,6 +119,8 @@ class ProizvodController extends Controller
                 $proizvod->artikals_id=$request->get('artikal_id');
                 $proizvod->fonts_id=$request->get('font_id');
                 $proizvod->materijals_id=$request->get('materijal_id');
+                $proizvod->save();
+
                 if($imagedb!=null){
                     $image=Images::get()->find($proizvod->images_id);
                     $proizvod->images_id=$imagedb->id;
@@ -127,7 +131,7 @@ class ProizvodController extends Controller
                     
 
                 }
-                $proizvod->save();
+                $request->session()->flash('alert-success', 'Uspjesno izmjenjen proizvod.');
             }
         
         }
@@ -199,7 +203,7 @@ class ProizvodController extends Controller
                     "images_id" => $imagedb->id,
                     "kreirao_id" =>auth()->id()]);
                 
-                
+                    $request->session()->flash('alert-success', 'Uspjesno dodan proizvod.');
             }
         
             

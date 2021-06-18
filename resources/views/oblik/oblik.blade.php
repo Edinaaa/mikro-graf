@@ -16,7 +16,15 @@
                               </div>
                               </div>
 
-                              <x-input id="naziv" label="Naziv oblika" value="" class="mt-5 mx-7"></x-input>
+                              <x-input id="naziv" label="Naziv oblika" value="{{ old('naziv')}}" class="mt-5 mx-7">
+                              @error("naziv")
+                              <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              {{$message}}
+                              </div>
+                              @enderror
+                              </x-input>
+                              <x-input type="checkbox" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan[]')}}"></x-input>
+                              
                               <x-input type="file" id="file" label="slika" value="" class="mt-5 mx-7"></x-input>
 
                               
@@ -28,18 +36,16 @@
             @endif
       @endauth
 </div>
-            
+ 
       @if ($oblici->count())
             <div class="w-full bg-gray-200  py-1 rounded-lg flex flex-col items-center">
                   @foreach($oblici as $oblik)
                         <x-oblikkartica :oblik="$oblik">
-                              @can('delete',$oblik)
-                                    <form action="{{route('oblik.destroy', $oblik)}}" method="post" >
-                                    @csrf                                          
-                                    @method('DELETE')
-                                    <button type="submit"  class=" rounded-md focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200  px-4 py-1 hover:bg-primary-300  text-primary-600">Brisi</button>
-                                    </form>
-                              @endcan
+                        @can('update',$oblik)
+                  
+                  <a href=" {{route('oblik.show', $oblik)}}" class="flex justify-center items-center focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
+
+                  @endcan
                         </x-oblikkartica>
                   @endforeach
             </div>

@@ -18,7 +18,7 @@ class CreateRazgovorsTable extends Migration
             $table->foreignId('primaoc_id')->nullable()->constrained('users');
             $table->foreignId('posiljaoc_id')->nullable()->constrained('users');
             $table->string('tema',100)->charset('utf8mb4');
-
+            $table->string('email',191)->nullable();
             $table->timestamps();
         });
     }

@@ -11,7 +11,26 @@
     
       <div class="flex  w-1/2   text-gray-700 p-4 ">
       <div class="flex sm:flex-row flex-col  justify-between w-full">
+      <div class="flex flex-col  justify-between w-full">
       <p class=" text-base sx:text-xl   ">Naziv: {{$oblik->naziv}}</p>
+      
+            @if (!$oblik->aktivan)
+            <p class=" text-base sx:text-xl   ">Status: Nedostupno </p>
+
+            @else
+            <p class=" text-base sx:text-xl   ">Status: Dostupno </p>
+            
+            @endif
+     
+      @if ($oblik->visina)
+            <p class=" text-base sx:text-xl   ">
+            Dimenzije: v{{$oblik->visina}}cm
+            s{{$oblik->sirina}}cm
+            </p>
+      @endif
+
+      </div>
+     
       {{$slot}}
    
       </div>

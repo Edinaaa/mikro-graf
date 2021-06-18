@@ -12,8 +12,20 @@
     </div>
     <form method="POST" action="{{ route('login') }}">
        @csrf
-    <x-input id="email" type="email" label="Email" value="" class="mt-5 mx-7"></x-input>
-    <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7"></x-input>
+    <x-input id="email" type="email" label="Email" value="" class="mt-5 mx-7">
+    @error("email")
+    <div for="email" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+    {{$message}}
+    </div>
+    @enderror
+    </x-input>
+    <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7">
+    @error("password")
+    <div for="password" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+    {{$message}}
+    </div>
+    @enderror
+    </x-input>
 
     <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
       <a class='w-auto bg-white hover:bg-primary-300 rounded-lg shadow-xl font-medium text-primary-600 px-4 py-2' href="{{route('register')}}">Registuj se</a>

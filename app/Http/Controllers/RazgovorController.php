@@ -100,7 +100,7 @@ class RazgovorController extends Controller
                 'email'=>'required|email|max:255',
     
             ]);
-            $role=Role::where('name','=','Admin')->with('users')->first();
+           
 
             $users = DB::table('users')
             ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -108,19 +108,17 @@ class RazgovorController extends Controller
             ->where('roles.name','=','admin')
             ->select('users.id')
             ->get();
-            Razgovor::create([
+            $r=Razgovor::create([
                 'tema'=>$request->get('tema'),
                 'email'=>$request->get('email'),
                 'primaoc_id'=>$users[0]->id]);
 
-            $r=Razgovor::where('tema','=',$request->get('tema'))->
-            where('email','=',$request->get('email'))->latest()->first();
-
+        
             Poruka::create([
                 'sadrzaj'=>$request->get('sadrzaj'),
                 'email'=>$request->get('email'),
                 'razgovor_id'=>$r->id]);
-        
+                $request->session()->flash('alert-success', 'Hvala vam na javljanju.');
         }
         return back();
     }

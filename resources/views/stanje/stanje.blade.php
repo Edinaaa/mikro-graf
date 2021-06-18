@@ -16,8 +16,16 @@
                               </div>
                               </div>
 
-                              <x-input id="naziv" label="Naziv stanje" value="" class="mt-5 mx-7"></x-input>
+                              <x-input id="naziv" label="Naziv artikal" value="{{ old('naziv')}}" class="mt-5 mx-7">
+                              @error("naziv")
+                              <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              {{$message}}
+                              </div>
+                              @enderror
+                              </x-input>
 
+                              <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
+                              
                               
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
                               <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Dodaj</button>
@@ -32,13 +40,11 @@
             <div class="w-full bg-gray-200  py-1 rounded-lg flex flex-col items-center">
                   @foreach($stanja as $stanje)
                         <x-oblikkartica :oblik="$stanje">
-                              @can('delete',$stanje)
-                                    <form action="{{route('stanje.destroy', $stanje)}}" method="post" >
-                                    @csrf                                          
-                                    @method('DELETE')
-                                    <button type="submit"  class=" rounded-md focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200  px-4 py-1 hover:bg-primary-300  text-primary-600">Brisi</button>
-                                    </form>
-                              @endcan
+                        @can('update',$stanje)
+                  
+                  <a href=" {{route('stanje.show', $stanje)}}" class="flex justify-center items-center focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
+
+                  @endcan
                         </x-oblikkartica>
                   @endforeach
             </div>

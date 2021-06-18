@@ -17,7 +17,7 @@ class CreateStanjesTable extends Migration
             $table->id();
             $table->string('naziv',30)->charset('utf8mb4');
             $table->foreignId('kreirao_id')->constrained('users');
-
+            $table->boolean('aktivan');
             $table->timestamps();
         });
     }

@@ -29,7 +29,7 @@
       
             </div>      
             @if($ukupnoKolicina)
-                    <div class=" w-full bg-gray-200  py-1  grid grid-cols-1 lg:grid-cols-2 ">
+                    <div class=" w-full bg-gray-200  py-1 place-items-center  grid grid-cols-1 lg:grid-cols-2 ">
                         @foreach($proizvodi as $stavka)
                 <x-cartKartica :stavka="$stavka"></x-cartKartica>
 

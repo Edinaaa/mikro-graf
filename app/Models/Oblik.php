@@ -12,7 +12,7 @@ class Oblik extends Model
         'naziv',
         'images_id',
         'kreirao_id',
-
+        'aktivan',
     ];
     public function image(){
         return $this->belongsTo(Images::class,'images_id','id');

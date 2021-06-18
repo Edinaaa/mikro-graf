@@ -20,6 +20,10 @@ class ArtikalPolicy
 
         return $user->id=== $artikal->kreirao_id;
     }
+    public function update(User $user, Artikal $artikal){
+
+        return $user->id=== $artikal->kreirao_id;
+    }
     public function __construct()
     {
         //

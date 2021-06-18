@@ -11,6 +11,6 @@ class Stanje extends Model
     protected $fillable = [
         'naziv',
         'kreirao_id',
-
+        'aktivan',
     ];
 }

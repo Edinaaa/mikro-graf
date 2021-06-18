@@ -12,6 +12,10 @@ class Materijal extends Model
         'naziv',
         'images_id',
         'kreirao_id',
+        'visina',
+        'sirina',
+        'aktivan',
+
 
     ];
     public function image(){

@@ -43,7 +43,7 @@
                                     <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}"></x-input>
                               </div>
                               
-                              <div  id="divOblik" class="flex flex-row justify-start items-center w-full  mt-5 mx-7">
+                              <div  id="divOblik" class="hidden flex-row justify-start items-center w-full  mt-5 mx-7">
                                     <div class=" w-3/5 ">
                                           <x-input id="oblik" label="Oblik" value="{{ old('oblik')}}"></x-input>
                                           <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{ old('oblik_id')}}"></x-input>
@@ -108,8 +108,9 @@
             @endif
       @endauth
 </div>  
+
       @if ($artikli->count())
-      <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" labela="artikal"/>
+      <x-modal :obj="$artikli"  idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" idoblik="divOblik" labela="artikal"/>
       @endif
       @if ($oblici->count())
       <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
@@ -124,7 +125,7 @@
       <div class=" flex flex-col  w-full  bg-gray-200 items-center justify-center pt-8 ">
             
             @if ($proizvodi->count())
-                  <div class="w-full bg-gray-200  py-1 rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
+                  <div class="w-full bg-gray-200  py-1 place-items-center rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
                         @foreach($proizvodi as $proizvod)
                               @auth
                                     @if (auth()->user()->hasRole('admin'))

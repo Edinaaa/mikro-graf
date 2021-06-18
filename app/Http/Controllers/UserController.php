@@ -20,30 +20,30 @@ class UserController extends Controller
 
     }
     public function update(Request $request, $id){
-     if(Auth::check()){
-        $this->validate($request,[
-            'lastname'=> 'required|max:255' ,
-            'telefon'=> 'required|max:255' ,
-            'email'=> 'required|email|max:255' ,
-           ]);
-            $user= User::find($id);
-            $user->name=$request->name;
-            $user->lastname=$request->lastname;
-            $user->telefon=$request->telefon;
-            $user->email=$request->email;
-            if($request->password!=null){
-                $this->validate($request,[
-                    'password'=> 'required|confirmed',
-                ]);
-                $user->password=Hash::make($request->password);
+        if(Auth::check()){
+            $this->validate($request,[
+                'lastname'=> 'required|max:255' ,
+                'telefon'=> 'required|max:255' ,
+                'email'=> 'required|email|max:255' ,
+            ]);
+                $user= User::find($id);
+                $user->name=$request->name;
+                $user->lastname=$request->lastname;
+                $user->telefon=$request->telefon;
+                $user->email=$request->email;
+                if($request->password!=null){
+                    $this->validate($request,[
+                        'password'=> 'required|confirmed',
+                    ]);
+                    $user->password=Hash::make($request->password);
 
-            }
-            $user->save();
+                }
+                $user->save();
         }
       
         Auth::login($user);
         //auth()->attempt(['email'=>$user->email,'password'=>$user->password]);
-    
+        $request->session()->flash('alert-success', 'Uspjesno izmjenjeni podaci.');
         return redirect()->route('proizvodi');
 
      // dd($request);//kill page i ispise abc

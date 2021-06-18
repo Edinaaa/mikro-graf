@@ -72,7 +72,7 @@
         </div>
 
         <div class="w-1/3 ml-4">
-          <button type="button" onClick="Show('BOmaterijal','MPmaterijal','Mmaterijal')" 
+          <button type="button" onClick="ShowM('BOmaterijal','MPmaterijal','Mmaterijal')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
           Materijal</button>
       
@@ -84,14 +84,7 @@
         <textarea id="opis" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
         name="opis"  rows="4" cols="50" placeholder="Ukoliko imate poseban zahtjev ili upit, ovdje ga mozete dostaviti."></textarea>
       </div>
-      @guest
-        <label class="  mx-7 uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Kontakt podatci</label>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mx-7">
-            <x-input id="telefon" label="telefon" value="{{ old('telefon')}}"></x-input>
-            <x-input type="email" id="email" label="email" value="{{ old('email')}}"></x-input>
-        </div>
-      @endguest
+  
       
 
       <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -109,7 +102,7 @@
     <x-modal :obj="$fontovi" idBO="BOfont" idMP="MPfont" idM="Mfont" idinputa="font_id" input="font" labela="font"/>
     @endif
     @if ($materijali->count())
-    <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
+    <x-modalMaterijali :obj="$materijali" :ams="$artikal_materijals" idartikal="artikal_id" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
     @endif
 </div>
 <script>

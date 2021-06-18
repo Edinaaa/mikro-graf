@@ -19,6 +19,10 @@ class StanjePolicy
 
         return $user->id=== $artikal->kreirao_id;
     }
+    public function update(User $user, Stanje $artikal){
+
+        return $user->id=== $artikal->kreirao_id;
+    }
     public function __construct()
     {
         //

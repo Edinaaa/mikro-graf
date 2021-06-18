@@ -19,6 +19,10 @@ class MaterijalPolicy
 
         return $user->id=== $materijal->kreirao_id;
     }
+    public function update(User $user, Materijal $materijal){
+
+        return $user->id=== $materijal->kreirao_id;
+    }
     public function __construct()
     {
         //

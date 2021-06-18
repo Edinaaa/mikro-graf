@@ -31,7 +31,7 @@ class KorpaController extends Controller
              if(auth()->user()->hasRole('admin')){
                
                  $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['artikal','font','oblik','materijal','image'])->paginate(6);
-                 $stanja=Stanje::get();
+               
              }
              else{
                 
@@ -113,6 +113,8 @@ class KorpaController extends Controller
                        ]);
                
             }
+        
+
             Session::forget('cart');
 
         }
@@ -136,11 +138,5 @@ class KorpaController extends Controller
              return back();*/
      }
  
-     public function show(){
- 
-       /* return view('posts.show',[
- 
-             'objava'=>$objava
-         ]);*/ 
-     }
+  
 }

@@ -1,4 +1,4 @@
-@props(['obj'=>'$oblici','idBO'=>$idBO, 'idMP'=>$idMP, 'idM'=>$idM, 'idinputa'=>$idinputa,'input'=>$input, 'idoblik'=>'','labela'=>$labela])
+@props(['obj'=>'$oblici', 'idoblik'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -25,12 +25,12 @@
                     @foreach($obj as $objekat)
                       <div
                       onClick="
-                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}');
+                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}','{{$idoblik}}');
                       Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')"
                        class=" flex flex-row justify-items-end items-center bg-gray-50 
                        border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
                        @if($objekat->image==null)
-                        <p class="w-full text-lg p-2 ">Naziv: {{$objekat->naziv}}</p>
+                        <p class="w-full text-lg p-2 ">Naziv: {{$objekat->naziv}}   {{$objekat->id}}</p>
                        
                         @endif
                        @isset($objekat->image)
@@ -125,33 +125,35 @@ function Hide(idBO, idMP, idM){
 
 }
 
-function Odabrano(id,naziv,input,hiden){
+function Odabrano(id,naziv,input,hiden,idoblik){
 
   //  var img=document.getElementById(id).src=btn.src;
   var img=document.getElementById(input).value=naziv;//naziv;
 
     var input=document.getElementById(hiden).value=id;
-    ToggleNarudzba(naziv);
+    ToggleNarudzba(naziv,idoblik);
 
 
 }
-function ToggleNarudzba(artikal){
-  if($idoblik!=''){
+function ToggleNarudzba(artikal,idoblik){
 
-    var divOblik=document.getElementById("{{$idoblik}}");
-   // divOblik.classList.add("hidden");
+  var divOblik=document.getElementById(idoblik);
 
-    if(artikal!="Plocica za vrata" ){
-      divOblik.classList.add("hidden");
-      divOblik.classList.remove("flex");
+    if(divOblik!=null){
 
+      // divOblik.classList.add("hidden");
+
+      if(artikal!="Plocica za vrata" ){
+        divOblik.classList.add("hidden");
+        divOblik.classList.remove("flex");
+
+      }
+      else{
+        divOblik.classList.remove("hidden");
+        divOblik.classList.add("flex");
+
+      }
     }
-    else{
-      divOblik.classList.remove("hidden");
-      divOblik.classList.add("flex");
-
-    }
-  }
    
   }
  

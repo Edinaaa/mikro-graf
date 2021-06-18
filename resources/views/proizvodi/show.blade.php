@@ -30,8 +30,8 @@
                               </div>
                               
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-                                    <x-input id="visina" label="Visina" value="{{$proizvod->visina}}"></x-input>
-                                    <x-input id="sirina" label="Sirina" value="{{$proizvod->sirina}}"></x-input>
+                                    <x-input id="visina" label="Visina u cm" value="{{$proizvod->visina}}"></x-input>
+                                    <x-input id="sirina" label="Sirina u cm" value="{{$proizvod->sirina}}"></x-input>
                               </div>
                               @isset($proizvod->oblik)
                               <div  id="divOblik" class="flex flex-row justify-start items-center w-full  mt-5 mx-7">
@@ -83,13 +83,13 @@
 
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
                                     <x-input id="popust" label="Popust" value="{{ $proizvod->popust}}"></x-input>
-                                     <x-input  id="cijena" label="cijena" value="{{ $proizvod->cijena}}"></x-input>
+                                     <x-input  id="cijena" label="Cijena u KM" value="{{ $proizvod->cijena}}"></x-input>
                               </div>
 
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
 
                                     <x-input type="checkbox" checked="{{ $proizvod->aktivan}}" id="aktivan[]" label="aktivan" value="{{ $proizvod->aktivan}}"></x-input>
-                                     <x-input type="checkbox" id="novo[]" label="novo" value="{{ $proizvod->novo}}"></x-input>
+                                     <x-input type="checkbox" checked="{{ $proizvod->novo}}"  id="novo[]" label="novo" value="{{ $proizvod->novo}}"></x-input>
                               </div> 
                               <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
 
@@ -101,6 +101,18 @@
                              
                               </div>
                         </form>
+                        @if ($artikli->count())
+    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" idoblik="divOblik" labela="artikal"/>
+    @endif
+    @if ($oblici->count())
+    <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
+    @endif
+    @if ($fontovi->count())
+    <x-modal :obj="$fontovi" idBO="BOfont" idMP="MPfont" idM="Mfont" idinputa="font_id" input="font" labela="font"/>
+    @endif
+    @if ($materijali->count())
+    <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
+    @endif
 </div>  
 </div>    
 <script>

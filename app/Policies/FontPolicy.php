@@ -19,6 +19,10 @@ class FontPolicy
 
         return $user->id=== $font->kreirao_id;
     }
+    public function update(User $user, Font $font){
+
+        return $user->id=== $font->kreirao_id;
+    }
     public function __construct()
     {
         //

@@ -16,7 +16,52 @@ class FontController extends Controller
         $fontovi =Font::latest()->with('image')->paginate(6);
         return view('font.font',['fontovi'=>$fontovi]);
     }
+    public function show(Font $font){
+         return view('font.fontUpdate',['font'=>$font]);
+     }
+     public function update(Request $request, $id)
+     {
+         $font=Font::find($id);
+         $imagedb=null;
+         if ($request->hasFile('file')) {
+             $image = $request->file('file');
+              $input['imagename'] = time().'.'.$image->extension();
+             $filePath = public_path('/images');
+             $img = Image::make($image->path());
+             $img->resize(400, 400, function ($const) {
+                 $const->aspectRatio();
+                 $const->upsize();
+             })->save($filePath.'/'.$input['imagename']);
+ 
+             $imagedb= Images::create([
+                 "name" => $input['imagename'],
+                 "file_path" =>  $filePath]);
+               
+        }
 
+            $aktivan=false;
+            if($request->has('aktivan')){
+                $aktivan=true;
+            }
+            $font->naziv=$request->get('naziv');
+            $font->aktivan=$aktivan;
+            $font->save();
+            if($imagedb!=null){
+
+
+            $image=Images::get()->find($font->images_id);
+            $font->images_id =$imagedb->id;
+
+            $font->save();
+            $filename=$image->file_path.'/'.$image->name;
+            File::delete($filename);
+            $image->delete();
+            }
+         
+            $request->session()->flash('alert-success', 'Uspjesno izmjenjen font.');
+     
+            return redirect()->route('font');
+     }
     public function store(Request $request)
     {
         $request->validate([
@@ -40,16 +85,20 @@ class FontController extends Controller
                 $const->upsize();
             })->save($filePath.'/'.$input['imagename']);
 
-            Images::create([
+            $imagedb= Images::create([
                 "name" => $input['imagename'],
                 "file_path" =>  $filePath]);
-     
-            $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
             Font::create([
                     "naziv" =>$request->get('naziv'),
                     "images_id" => $imagedb->id,
+                    "aktivan"=>$aktivan,
                     "kreirao_id" =>auth()->id()]);
         }
+        $request->session()->flash('alert-success', 'Uspjesno dodan font.');
     
         return back();
     }

@@ -17,6 +17,51 @@ class OblikController extends Controller
         return view('oblik.oblik',['oblici'=>$oblici]);
     }
 
+    public function show(Oblik $oblik){
+        return view('oblik.oblikUpdate',['oblik'=>$oblik]);
+    }
+    public function update(Request $request, $id)
+    {
+        $oblik=Oblik::find($id);
+        $imagedb=null;
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+             $input['imagename'] = time().'.'.$image->extension();
+            $filePath = public_path('/images');
+            $img = Image::make($image->path());
+            $img->resize(400, 400, function ($const) {
+                $const->aspectRatio();
+                $const->upsize();
+            })->save($filePath.'/'.$input['imagename']);
+
+            $imagedb= Images::create([
+                "name" => $input['imagename'],
+                "file_path" =>  $filePath]);
+              
+       }
+
+           $aktivan=false;
+           if($request->has('aktivan')){
+               $aktivan=true;
+           }
+           $oblik->naziv=$request->get('naziv');
+           $oblik->aktivan=$aktivan;
+           $oblik->save();
+           if($imagedb!=null){
+
+
+           $image=Images::get()->find($oblik->images_id);
+           $oblik->images_id =$imagedb->id;
+
+           $oblik->save();
+           $filename=$image->file_path.'/'.$image->name;
+           File::delete($filename);
+           $image->delete();
+           }
+        
+    
+           return redirect()->route('oblik');
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -45,11 +90,19 @@ class OblikController extends Controller
                 "file_path" =>  $filePath]);
      
             $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+       
+            $aktivan=false;
+            if($request->has('aktivan')){
+                $aktivan=true;
+            }
             Oblik::create([
                     "naziv" =>$request->get('naziv'),
                     "images_id" => $imagedb->id,
-                    "kreirao_id" =>auth()->id()]);
+                    "aktivan"=>$aktivan,
+                    "kreirao_id" =>auth()->id()]); 
         }
+        
+        $request->session()->flash('alert-success', 'Uspjesno dodan oblik.');
     
         return back();
     }

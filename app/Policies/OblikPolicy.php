@@ -19,6 +19,10 @@ class OblikPolicy
 
         return $user->id=== $oblik->kreirao_id;
     }
+    public function update(User $user, Oblik $oblik){
+
+        return $user->id=== $oblik->kreirao_id;
+    }
     public function __construct()
     {
         //

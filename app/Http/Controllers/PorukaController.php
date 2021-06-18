@@ -45,7 +45,7 @@ class PorukaController extends Controller
                 'sadrzaj'=>$request->get('sadrzaj'),
                 'email'=>$request->get('email'),
                 'razgovor_id'=>$r->id]);
-        
+                $request->session()->flash('alert-success', 'Poruka uspjesno poslana.');
         }
     
         return back();

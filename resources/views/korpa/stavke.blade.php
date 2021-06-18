@@ -14,10 +14,10 @@
         <div  class='flex flex-row h-auto items-center justify-center '>
                   <p class="px-4  text-lg text-gray-800"> Stanje: {{$narudzba->stanje->naziv}}</p>  
               @if (auth()->user()->hasRole('admin'))
-                      <a  href="#" onClick="Show('BOizmjena', 'MPizmjena', 'Mizmjena')" class=' w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</a>
-                        @if ($stanja->count())
-                                <x-modalIzmajenaNarudzba :stanja="$stanja" idnarudzbe="{{$narudzba->id}}" idBO="BOizmjena" idMP="MPizmjena" idM="Mizmjena"/>
-                        @endif
+              @can('update',$narudzba)
+                  
+                  <a href=" {{route('narudzba.show', $narudzba)}}"  class=' w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</a>
+                   @endcan     
               @endif
         </div>
        

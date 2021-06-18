@@ -16,7 +16,7 @@
                   @isset($narudzba->font)
                   font {{$narudzba->font->naziv}},
                   @endisset
-                  dimenzije visina {{$narudzba->visina}} i sirina {{$narudzba->sirina}}, 
+                  dimenzije visina {{$narudzba->visina}}cm i sirina {{$narudzba->sirina}}cm, 
                   @isset($narudzba->oblik)
                   oblik {{$narudzba->oblik->naziv}}, 
                   @endisset
