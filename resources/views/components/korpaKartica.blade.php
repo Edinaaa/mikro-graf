@@ -21,7 +21,7 @@
                   oblik {{$narudzba->oblik->naziv}}, 
                   @endisset
                   
-                  materijal {{$narudzba->font->materijal}}.
+                  materijal {{$narudzba->materijal->naziv}}.
                </p>
 
                @if ($narudzba->opis!="")

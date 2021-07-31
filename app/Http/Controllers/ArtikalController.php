@@ -7,7 +7,8 @@ use App\Models\Artikal_materijals;
 
 
 use App\Http\Requests;
-
+use Session;
+use App\Models\SelektovaniMaterijali;
 use Illuminate\Http\Request;
 
 class ArtikalController extends Controller
@@ -46,6 +47,8 @@ class ArtikalController extends Controller
             "naziv"=>'required',
 
         ]);
+
+       
         $aktivan=false;
         if($request->has('aktivan')){
             $aktivan=true;
@@ -56,18 +59,22 @@ class ArtikalController extends Controller
                     "aktivan"=>$aktivan,
                     "kreirao_id" =>auth()->id()]);
 
-            $materials=   $request->get('materials');
-            if($materials!=null){
-                foreach($materials as $materijal)
+                $oldmaterijali=Session::has('materijali')? Session::get('materijali'):null;
+                $ms= new SelektovaniMaterijali($oldmaterijali);
+            if($ms && $ms->items!=null){
+                
+                foreach($ms->items as $m)
                 {
                     
                     Artikal_materijals::create([
                         'artikals_id'=>$artikal->id,
-                        'materijals_id'=>$materijal]);
+                        'materijals_id'=>$m->id]);
 
                 }
 
             }
+            Session::forget('materijali');
+
             $request->session()->flash('alert-success', 'Uspjesno dodan artikal.');
     
         return back();

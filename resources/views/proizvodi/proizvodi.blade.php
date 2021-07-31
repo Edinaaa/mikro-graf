@@ -122,7 +122,7 @@
       @if ($materijali->count())
       <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
       @endif
-      <div class=" flex flex-col  w-full  bg-gray-200 items-center justify-center pt-8 ">
+      <div class="  flex flex-col  w-full  bg-gray-200 items-center justify-center pt-8 ">
             
             @if ($proizvodi->count())
                   <div class="w-full bg-gray-200  py-1 place-items-center rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
@@ -142,6 +142,9 @@
                                     <a href="{{route('korpa.SelektAdd', $proizvod->id)}}">
                                           <x-kartica :proizvod="$proizvod" />
                                     </a>
+                                    <div class="p-2  fixed bottom-10 right-10">
+                            
+                        </div>
                               @endguest
                         
                   
@@ -152,7 +155,9 @@
             @else
                   <p>Nema proizvoda.</p>
             @endif
+
             @auth
+                 
                   @if(!auth()->user()->hasRole('admin'))
                         <div class="p-2  fixed bottom-10 right-10">
                               <a href="{{route('korpa.cart')}}" class="bg-transparent">
@@ -174,6 +179,26 @@
                         </div>
                   @endif
             @endauth
+            @guest
+            <div class="p-2  fixed bottom-10 right-10">
+                              <a href="{{route('korpa.cart')}}" class="bg-transparent">
+                                    <div class="flex flex-row items-start">
+                                          <div class=" bg-primary-500 shadow-md rounded-full focus:outline-none hover:bg-primary-700">
+                                          <img  class="p-3 " src="{{asset('icona/outline_shopping_cart_white_24pt_1x.png')}}"/>
+                                          
+                                          </div>
+
+                                          @if (Session::has('cart') )
+
+                                          <div class="py-1 px-2 text-xs font-semibold text-white  bg-primary-500 rounded-full  ">
+                                          
+                                                {{Session::get('cart')->totalqty}}
+                                          </div>
+                                          @endif
+                                    </div>
+                              </a>
+                        </div>
+            @endguest
       </div>     
 </div>     
 

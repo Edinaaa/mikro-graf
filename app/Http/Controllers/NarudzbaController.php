@@ -9,6 +9,8 @@ use App\Models\Artikal;
 use App\Models\Stanje;
 use Image;
 
+
+use App\Mail\NarudzbaIzmjena;
 use App\Models\Oblik;
 use App\Models\Font;
 use App\Models\Materijal;
@@ -16,6 +18,8 @@ use App\Models\Artikal_materijals;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
 use Session;
 use App\Models\NarudzbaPodaci;
 
@@ -36,7 +40,7 @@ class NarudzbaController extends Controller
       // $posts= Posts::get()  ;  vraca sve posts iz baze ::where(),Find()
          //orderBy('created_at','desc') je isto sto latest()
          return view('narudzba.narudzba',['oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli,'artikal_materijals'=>$artikal_materijals]);
-     }
+    }
 
      public function Pregled(){
 
@@ -72,8 +76,6 @@ class NarudzbaController extends Controller
    
      public function NarudzbaGost(Request $request ){
  
-     
-     
        $narudzba=null;
        $stanje=Stanje::where('naziv','=','Naruceno')->first();
        if($stanje==null){
@@ -90,6 +92,8 @@ class NarudzbaController extends Controller
            ]);
 
        }
+       $Cart=Session::has('cart')? Session::get('cart'):null;
+
        $narudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
        if($narudzbaPodaci){
            $narudzba=Narudzba::create([
@@ -123,24 +127,53 @@ class NarudzbaController extends Controller
      
           $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
       }
-       Korpa::create([
-           'tekst'=>$narudzbaPodaci->tekst,
-           'visina'=>$narudzbaPodaci->visina,
-           'sirina'=>$narudzbaPodaci->sirina,
-           'opis'=>$narudzbaPodaci->opis,
-           'cijena'=>'0',
-           'kolicina'=>1, 
-           'obliks_id'=>$narudzbaPodaci->obliks_id?$narudzbaPodaci->obliks_id:null,
-           'fonts_id'=>$narudzbaPodaci->fonts_id?$narudzbaPodaci->fonts_id:null,
-           'materijals_id'=>$narudzbaPodaci->materijals_id,
-           'images_id'=>$imagedb?$imagedb->id:null,
-           'narudzbas_id'=>$narudzba->id,
-           'artikals_id'=>$narudzbaPodaci->artikals_id
-           ]);
-           Session::forget('narudzbaPodaci');
-        
-           $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti cete blagovremeno obavjesteni.');
-           return redirect()->action([ProizvodController::class, 'create']);
+      if($narudzbaPodaci->tekst){
+        Korpa::create([
+            'tekst'=>$narudzbaPodaci->tekst,
+            'visina'=>$narudzbaPodaci->visina,
+            'sirina'=>$narudzbaPodaci->sirina,
+            'opis'=>$narudzbaPodaci->opis,
+            'cijena'=>'0',
+            'kolicina'=>1, 
+            'obliks_id'=>$narudzbaPodaci->obliks_id?$narudzbaPodaci->obliks_id:null,
+            'fonts_id'=>$narudzbaPodaci->fonts_id?$narudzbaPodaci->fonts_id:null,
+            'materijals_id'=>$narudzbaPodaci->materijals_id,
+            'images_id'=>$imagedb?$imagedb->id:null,
+            'narudzbas_id'=>$narudzba->id,
+            'artikals_id'=>$narudzbaPodaci->artikals_id
+         ]);
+      }
+      elseif($Cart){
+        foreach($Cart->items as $korpa)
+        { 
+                
+                Korpa::create([
+                    'tekst'=>$korpa['item']->tekst,
+                    'visina'=>$korpa['item']->visina,
+                    'sirina'=>$korpa['item']->sirina,
+                    'opis'=>"",
+                    'cijena'=>$korpa['price'],
+                    'kolicina'=>$korpa['qty'],
+                    'obliks_id'=> $korpa['item']->obliks_id?$korpa['item']->obliks_id:null,
+                    'fonts_id'=>$korpa['item']->fonts_id?$korpa['item']->fonts_id:null,
+                    'artikals_id'=>$korpa['item']->artikals_id,
+                    'proizvods_id'=>$korpa['item']->id,
+                    'narudzbas_id'=>$narudzba->id,
+                    'images_id'=>$korpa['item']->images_id?$korpa['item']->images_id:null,
+                    'materijals_id'=>$korpa['item']->materijals_id,
+                   ]);
+           
+        }
+    
+
+        Session::forget('cart');
+      }
+     
+
+        Session::forget('narudzbaPodaci');
+    
+        $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti cete blagovremeno obavjesteni.');
+        return redirect()->action([ProizvodController::class, 'create']);
 }
      public function store(Request $request){
  
@@ -255,12 +288,16 @@ class NarudzbaController extends Controller
                         $narudzba->cijena=$request->get('cijena');
                     if($request->get('stanjes_id')!=null ){
                         $stanje=Stanje::find($request->get('stanjes_id'));
-                        if($stanje!=null )
-                        $narudzba->stanjes_id=$stanje->id;
+                        if($stanje!=null ){
+                            $narudzba->stanjes_id=$stanje->id;
+                        }
 
                     }
                 }
                 $narudzba->save();
+                $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['artikal','font','oblik','materijal','image'])->get();
+                Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $korpa));
+           
             }
         }
      

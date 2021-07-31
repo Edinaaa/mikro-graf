@@ -16,8 +16,11 @@
             </div>
         </div>
         <div id="navigacija" class=" px-5 pt-2 pb-4 hidden sm:flex sm:p-0">
+        <a href="{{route('home')}}" class="flex flex-col items-start sm:items-center justify-start text-white font-semibold rounded hover:bg-gray-800 mt-2  py-1 px-5">Pocetna</a>
+
             <div  class="relative flex flex-col items-start sm:items-center justify-start  bg-gray-900   hover:bg-gray-800 sm:px-5  ">
-                    
+  
+              
                 <button onClick="Toggle('dropdown')" class="flex flex-col  focus:outline-none mt-1 px-2 py-1 text-white font-semibold rounded  sm:mt-0">
                 <div class="flex flex-row items-end justify-end">
                    <img  class="  p-1 " src="{{asset('icona/outline_arrow_drop_down_white_24dp.png')}}"/>

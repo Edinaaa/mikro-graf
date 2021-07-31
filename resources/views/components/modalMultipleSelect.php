@@ -1,4 +1,4 @@
-@props(['obj'=>'$oblici','ams'=>'$artikal_materijal', 'idartikal'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
+@props(['obj'=>'$oblici', 'idoblik'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -15,34 +15,30 @@
         <div class="sm:flex sm:items-start">
           
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" >
              Odaberite {{$labela}}
             </h3>
             <div class="mt-2">
             <div class="flex-grow overflow-y-auto max-h-96">
-                <div  class="w-full   rounded-lg flex flex-col ">
+                <div class="w-full   rounded-lg flex flex-col ">
                 
                     @foreach($obj as $objekat)
-                    
-                            <div id="{{$objekat->id}}"  onClick="
-                                    Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}');
-                                    HideM('{{$idBO}}', '{{$idMP}}', '{{$idM}}')"
-                                    class=" flex flex-row justify-items-end items-center bg-gray-50 
-                                    border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
-                                    <div class="w-2/3 text-lg pl-2 ">
+                    <a href="{{route('materijal.SelektAdd', $objekat->id)}}">
+                      <div class=" flex flex-row justify-items-end items-center bg-gray-50 
+                       border-primary-300 hover:bg-gray-200 hover:shadow-l focus:bg-primary-200 border-2 m-2 rounded-lg" >
+                   
+                        <div class="w-2/3 text-lg pl-2 ">
                                       <p >Naziv: {{$objekat->naziv}}</p>
                                       <p>Dimenzije: v{{$objekat->visina}}cm s{{$objekat->sirina}}cm</p>
-                                    </div>
-                                        <div class="p-1 rounded-xl " >
-                                        <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
-                                        </div>
-                                        
-                            </div>
-                     
-
+                        </div>
+                        <div class="p-1 rounded-xl " >
+                        
+                          <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
+                        </div>
+                       
+                      </div>
+                    </a>
                     @endforeach
-                 
-                   
                 </div>
                 </div>
                
@@ -51,7 +47,7 @@
         </div>
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button type="button" onClick="HideM('{{$idBO}}', '{{$idMP}}', '{{$idM}}')" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
+        <button type="button" onClick="Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
           Zatvori
         </button>
        
@@ -64,11 +60,11 @@
 
 <script>
 
-  function ShowM(idBO, idMP, idM){
+  function Show(idBO, idMP, idM){
     var bo=document.getElementById(idBO);
     var mp=document.getElementById(idMP);
     var m=document.getElementById(idM);
-    artikal('{{$ams}}','{{$obj}}', '{{$idartikal}}')
+  
     m.classList.add('block');
     m.classList.remove('hidden');
 
@@ -93,7 +89,7 @@
 
 }
 
-function HideM(idBO, idMP, idM){
+function Hide(idBO, idMP, idM){
     var bo=document.getElementById(idBO);
     var mp=document.getElementById(idMP);
     var m=document.getElementById(idM);
@@ -124,56 +120,18 @@ function HideM(idBO, idMP, idM){
 
 }
 
-function OdabranoM(id,naziv,input,hiden){
+function Odabrano(id,naziv,input,hiden,idoblik){
 
   //  var img=document.getElementById(id).src=btn.src;
   var img=document.getElementById(input).value=naziv;//naziv;
 
     var input=document.getElementById(hiden).value=id;
-    
-
-}
-
-function artikal(ams,materijali,id){
-  materijali= JSON.parse(materijali.replace(/&quot;/g,'"'));
-  ams= JSON.parse(ams.replace(/&quot;/g,'"'));
-
-   // alert(materijali[0].artikals_id);
-   
-   var a=document.getElementById(id).value; 
- 
-   for(var i=0;i<materijali.length;i++){
-      //prikazuje samo materijale za odredjeni artikal, 
-          //ako nije artikal selektovan prikazuje sve materijale
-        var objekat=document.getElementById(materijali[i].id);
-        // alert(materijali[i].id);
-      var dodaj=true;
-      if(a!=null){
-        for(var j=0;j<ams.length;j++){
-          if(ams[j].artikals_id==a){
-            if(materijali[i].id!=ams[j].materijals_id){
-              dodaj=false;
-            }
-          } 
-        }
-        
-      }
-      
-      if(dodaj){
-        objekat.classList.add('flex');
-        objekat.classList.remove('hidden');
-      }
-      else{
-        objekat.classList.add('hidden');
-        objekat.classList.remove('flex');
-      }
-      
-    }
 
 
 }
 
-  HideM('{{$idBO}}', '{{$idMP}}', '{{$idM}}')
+
+  Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')
 
  
  </script>

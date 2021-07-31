@@ -41,8 +41,24 @@
             </div>
             <form action="{{route('razgovor')}}" method="post">
                  @csrf
-                <x-input type="email" id="email" name="email" label="Email" value="" class="mt-5 mx-7"></x-input>
 
+                 <div class="grid grid-cols-1 mt-5 mx-7">
+                    <label for="primaoc_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Primaoc</label>
+                    <select name="primaoc_id" id="primaoc_id" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    
+                        <option value="0" selected>odaberite</option>
+
+                        @if($primaoci->count())
+                            @foreach ($primaoci as $primaoc)
+                                
+                            <option value="{{$primaoc->id}}">{{$primaoc->name}} {{$primaoc->lastname}}</option>
+                            @endforeach
+                        @endif
+                    </select> 
+              </div>
+              @guest
+                 <x-input type="email" id="email" name="email" label="Email" value="" class="mt-5 mx-7"></x-input>
+              @endguest
                 <x-input id="tema" label="Naslov" name="tema" value="" class="mt-5 mx-7"></x-input>
 
                 <div class="grid grid-cols-1 mt-5 mx-7">

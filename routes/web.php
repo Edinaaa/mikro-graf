@@ -15,6 +15,9 @@ use App\Http\Controllers\ArtikalController;
 use App\Http\Controllers\StanjeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CaptchaServiceController;
+use App\Http\Controllers\KontaktController;
+
+
 
 
 
@@ -42,15 +45,16 @@ Route::post('/register',[RegisterController::class, 'store']);
 
 Route::post('/logout',[LogoutController::class, 'store'])->name('logout');
 
-Route::get('/kontakt', function () {
-    return view('kontakt/kontakt');
-})->name('kontakt');
+Route::get('/kontakt',[KontaktController::class, 'create'])->name('kontakt');
 
 Route::get('/onama', function () {
     return view('ONama/onama');
 })->name('onama');
 
 
+Route::get('/home', function () {
+    return view('home/home');
+})->name('home');
 
 Route::get('/user',[UserController::class, 'create'])->name('user');
 Route::post('/user/{id}',[UserController::class, 'update'])->name('user.update');
@@ -104,6 +108,8 @@ Route::get('/materijal',[MaterijalController::class, 'create'])->name('materijal
 Route::post('/materijal',[MaterijalController::class, 'store']);
 Route::get('/materijal/{materijal}',[MaterijalController::class, 'show'])->name('materijal.show');
 Route::post('/materijal/{id}',[MaterijalController::class, 'update'])->name('materijal.update');
+Route::get('/materijalselect',[MaterijalController::class, 'SelektAdd'])->name('materijal.SelektAdd');
+Route::get('/materijal/selectshow',[MaterijalController::class, 'selectshow'])->name('materijal.selectshow');
 
 Route::get('/artikal',[ArtikalController::class, 'create'])->name('artikal');
 Route::post('/artikal',[ArtikalController::class, 'store']);

@@ -8,6 +8,9 @@ use App\Http\Requests;
 use Image;
 use File;
 use Illuminate\Http\Request;
+use Session;
+use App\Models\SelektovaniMaterijali;
+
 
 class MaterijalController extends Controller
 {
@@ -16,9 +19,57 @@ class MaterijalController extends Controller
         $materijali =Materijal::latest()->with('image')->paginate(6);
         return view('materijal.materijal',['materijali'=>$materijali]);
     }
+    public function SelektAdd(Request $request){
 
+        /*$materijal=Materijal::find($request->get('materijalId'));
+       
+        $oldmaterijali=Session::has('materijali')? Session::get('materijali'):null;
+       
+        if($oldmaterijali){
+            if (($key = array_search($materijal->id, $oldmaterijali)) !== false) {
+                unset($oldmaterijali[$key]);
+            }
+            else{
+                if(!array_key_exists($materijal->id, $oldmaterijali)){
+                    array_push( $oldmaterijali,$materijal->id);
+                }
+            }
+        }
+        else{
+            $oldmaterijali=array();
+            array_push( $oldmaterijali,$materijal->id);
+
+
+        }
+        
+        $materijali=$oldmaterijali;
+dd($noviMaterijali);
+        $request->session()->put('materijali',$materijali);*/
+
+        if(!Session::has('materijali'))
+        {
+            $emptyArray=array();
+            array_push($emptyArray,$request->get('materijalId'));
+            Session::put('materijali',$emptyArray);
+        }else{
+            $sessionMaterijali = Session::get('materijali');
+            if (($key = array_search($request->get('materijalId'), $sessionMaterijali)) !== false) {
+                unset($sessionMaterijali[$key]);
+                $sessionMaterijali = array_values($sessionMaterijali);
+            }else{
+                array_push($sessionMaterijali,$request->get('materijalId'));
+            }
+            Session::put('materijali',$sessionMaterijali);
+        }
+        return response()->json(Session::get('materijali'));
+
+    }
     public function show(Materijal $materijal){
         return view('materijal.materijalUpdate',['materijal'=>$materijal]);
+    }
+    public function selectshow(){
+        $materijali =Materijal::latest()->get();
+        return view('materijal.selectshow',['materijali'=>$materijali]);
     }
     public function store(Request $request)
     {

@@ -6,6 +6,10 @@ use App\Models\Poruka;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Odgovor;
+
+
 
 class PorukaController extends Controller
 {
@@ -21,18 +25,27 @@ class PorukaController extends Controller
 
         
         if (Auth::check() ) {
-            $request->validate([
-               
-    
-            ]);
+          
            
-            $r=Razgovor::find($request->get('razgovor_id'));
-
-            Poruka::create([
+            $r=Razgovor::with('poruke')->find($request->get('razgovor_id'));
+         
+            $poruka= Poruka::create([
                 'sadrzaj'=>$request->get('sadrzaj'),
                 'razgovor_id'=>$r->id,
                 'posiljaoc_id'=>auth()->id()]);
 
+            if($r->email!=null && auth()->user()->hasRole('admin'))
+            {
+
+                Mail::send('emails.odgovor', ['razgovor' => $r, 'poruka' => $poruka], function ($message) use ($poruka, $r)
+                {
+                    $message->from('no-reply@mikro-graf.com');
+                    $message->to($r->email);
+                    $message->subject($r->tema);
+                });
+               // Mail::to($r->email)->send(new Odgovor($r,$poruka,$r->tema));
+                
+            }
         }
 
         else{

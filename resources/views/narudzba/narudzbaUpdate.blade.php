@@ -7,7 +7,7 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                  <form method="POST" action="{{ route('narudzba.update',$narudzba->id) }}">
+            <form method="POST" action="{{ route('narudzba.update',$narudzba->id) }}">
                     @csrf
                     <div class="flex justify-center pt-4">
                               <div class="flex">
