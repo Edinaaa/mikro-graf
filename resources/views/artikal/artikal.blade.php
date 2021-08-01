@@ -54,6 +54,7 @@
                                           </div>
                                     </div>
                               </div>
+                              <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 " value=""></x-input>
               
                               <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
                               
@@ -86,35 +87,34 @@
     
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
 
 
    function Select(id) {
      var e= document.getElementById(id);
-     var pronaden=false;
-        $.ajax({
-            type: 'GET',
-            url:"{{ url('/materijalselect') }}",
-            data: { materijalId: id },
-            success: function (data) {
-                var  ms= data;
+     var pronaden=-1;
 
-                ms.forEach(function(element) {
-                        if(element==id)
-                        {pronaden=true;} 
-                  }
+     let s= document.getElementById("selecMaterijali").value;
+      const niz=s.split(",");
 
-                  if(pronaden){
-                  e.classList.add('bg-primary-200');
-                  e.classList.remove('bg-gray-50');}
-                  else{
-                  e.classList.remove('bg-primary-200');
-                  e.classList.add('bg-gray-50');
-                  }
-            }
-        });
-      
+      for (let i = 0; i < niz.length; i++) {
+            if(niz[i]==id)
+            { pronaden=i;}
+      } 
+      if(pronaden==-1)
+      {
+           niz.push(id);  
+
+            e.classList.add('bg-primary-200');
+            e.classList.remove('bg-gray-50');
+      }
+      else{
+            //delete niz[pronaden];
+            niz.splice(pronaden, 1);
+            e.classList.remove('bg-primary-200');
+            e.classList.add('bg-gray-50');
+      }
+      document.getElementById("selecMaterijali").value=niz;
     } 
 </script>
 @endsection

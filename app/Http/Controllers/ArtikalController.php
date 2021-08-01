@@ -59,21 +59,17 @@ class ArtikalController extends Controller
                     "aktivan"=>$aktivan,
                     "kreirao_id" =>auth()->id()]);
 
-                $oldmaterijali=Session::has('materijali')? Session::get('materijali'):null;
-                $ms= new SelektovaniMaterijali($oldmaterijali);
-            if($ms && $ms->items!=null){
-                
-                foreach($ms->items as $m)
+                     $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
+                foreach($ms as $id)
                 {
+                    if($id!=""){
+                        Artikal_materijals::create([
+                            'artikals_id'=>$artikal->id,
+                            'materijals_id'=>$id]);
+                    }
                     
-                    Artikal_materijals::create([
-                        'artikals_id'=>$artikal->id,
-                        'materijals_id'=>$m->id]);
 
                 }
-
-            }
-            Session::forget('materijali');
 
             $request->session()->flash('alert-success', 'Uspjesno dodan artikal.');
     

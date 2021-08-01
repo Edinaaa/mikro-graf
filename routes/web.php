@@ -108,7 +108,6 @@ Route::get('/materijal',[MaterijalController::class, 'create'])->name('materijal
 Route::post('/materijal',[MaterijalController::class, 'store']);
 Route::get('/materijal/{materijal}',[MaterijalController::class, 'show'])->name('materijal.show');
 Route::post('/materijal/{id}',[MaterijalController::class, 'update'])->name('materijal.update');
-Route::get('/materijalselect',[MaterijalController::class, 'SelektAdd'])->name('materijal.SelektAdd');
 Route::get('/materijal/selectshow',[MaterijalController::class, 'selectshow'])->name('materijal.selectshow');
 
 Route::get('/artikal',[ArtikalController::class, 'create'])->name('artikal');
