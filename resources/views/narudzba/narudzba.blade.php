@@ -15,7 +15,7 @@
       <div  class="flex flex-row items-center w-full mt-5 mx-7">
         <div class=" w-2/3">
               <x-input id="artikal" label="artikal"  value="{{ old('artikal')}}"></x-input>
-              <x-input class="hidden" id="artikal_id" label="artikal_id" value="{{ old('artikal_id')}}"></x-input>
+              <x-input class="hidden" onChange="artikal('$artikal_materijals', '$materijali', 'artikal_id')" id="artikal_id" label="artikal_id" value="{{ old('artikal_id')}}"></x-input>
         </div>
 
         <div class="w-1/3 ml-4 ">

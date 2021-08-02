@@ -22,7 +22,6 @@
 
             @endcan
         </div>
-        <x-modalFrmGalerija :galerija="$slika" idBO="BO{{$slika->id}}" idMP="MP{{$slika->id}}" idM="M{{$slika->id}}" />
       
         </div>
      

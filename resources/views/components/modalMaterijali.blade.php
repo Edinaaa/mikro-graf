@@ -138,42 +138,48 @@ function artikal(ams,materijali,id){
   materijali= JSON.parse(materijali.replace(/&quot;/g,'"'));
   ams= JSON.parse(ams.replace(/&quot;/g,'"'));
 
-   // alert(materijali[0].artikals_id);
+   // alert(ams[0].artikals_id);
    
    var a=document.getElementById(id).value; 
+   //alert(a);
  
    for(var i=0;i<materijali.length;i++){
       //prikazuje samo materijale za odredjeni artikal, 
           //ako nije artikal selektovan prikazuje sve materijale
         var objekat=document.getElementById(materijali[i].id);
         // alert(materijali[i].id);
-      var dodaj=true;
-      if(a!=null){
+      var dodaj=false;
+
+
+      if(a){//ako a ima vrijednost,ako je selektovan artikal
+       
         for(var j=0;j<ams.length;j++){
-          if(ams[j].artikals_id==a){
-            if(materijali[i].id!=ams[j].materijals_id){
-              dodaj=false;
-            }
+          if(ams[j].artikals_id==a && materijali[i].id==ams[j].materijals_id){
+              dodaj=true;
           } 
+        }
+
+        if(dodaj){
+          objekat.classList.add('flex');
+          objekat.classList.remove('hidden');
+        }
+        else{
+          objekat.classList.add('hidden');
+          objekat.classList.remove('flex');
         }
         
       }
       
-      if(dodaj){
-        objekat.classList.add('flex');
-        objekat.classList.remove('hidden');
-      }
-      else{
-        objekat.classList.add('hidden');
-        objekat.classList.remove('flex');
-      }
-      
+     
+     
     }
 
 
 }
 
   HideM('{{$idBO}}', '{{$idMP}}', '{{$idM}}')
+ 
+
 
  
  </script>
