@@ -11,16 +11,18 @@ use Illuminate\Http\Request;
 
 class FontController extends Controller
 {
-    public function create()
-    {
+    public function create(){
         $fontovi =Font::latest()->with('image')->paginate(6);
         return view('font.font',['fontovi'=>$fontovi]);
     }
     public function show(Font $font){
          return view('font.fontUpdate',['font'=>$font]);
-     }
-     public function update(Request $request, $id)
-     {
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            "naziv"=>'required'
+        ]);
          $font=Font::find($id);
          $imagedb=null;
          if ($request->hasFile('file')) {
@@ -61,9 +63,9 @@ class FontController extends Controller
             $request->session()->flash('alert-success', 'Uspjesno izmjenjen font.');
      
             return redirect()->route('font');
-     }
-    public function store(Request $request)
-    {
+    }
+
+    public function store(Request $request){
         $request->validate([
             "naziv"=>'required',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
@@ -102,14 +104,5 @@ class FontController extends Controller
     
         return back();
     }
-    public function destroy(Font $oblik){
-        
-          $image=Images::get()->find($font->images_id);
-          $font->delete();
-          $filename=$image->file_path.'/'.$image->name;
-          File::delete($filename);
-          $image->delete();   
-
-        return back();
-    }
+   
 }

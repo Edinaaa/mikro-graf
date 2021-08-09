@@ -74,6 +74,9 @@ class MaterijalController extends Controller
     {
         $materijal=Materijal::find($id);
         $aktivan=false;
+        $request->validate([
+            "name"=>'required'
+        ]);
         if($request->has('aktivan')){
             $aktivan=true;
         }
@@ -99,8 +102,8 @@ class MaterijalController extends Controller
      
         }
         $materijal->naziv=$request->get('naziv');
-        $materijal->visina=$request->get('visina');
-        $materijal->sirina=$request->get('sirina');
+        $materijal->visina=$request->get('visina')?$request->get('visina'):0;
+        $materijal->sirina=$request->get('sirina')?$request->get('sirina'):0;
         $materijal->aktivan=$aktivan;
 
         $materijal->save();
@@ -118,14 +121,5 @@ class MaterijalController extends Controller
         $request->session()->flash('alert-success', 'Uspjesno izmjenjen materijal.');
         return redirect()->route('materijal');
     }
-    public function destroy(Materijal $materijal){
-        
-          $image=Images::get()->find($materijal->images_id);
-          $materijal->delete();
-          $filename=$image->file_path.'/'.$image->name;
-          File::delete($filename);
-          $image->delete();   
 
-        return back();
-    }
 }

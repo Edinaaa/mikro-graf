@@ -54,7 +54,7 @@
                                           </div>
                                     </div>
                               </div>
-                              <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 " value=""></x-input>
+                              <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 hidden" value=""></x-input>
               
                               <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
                               

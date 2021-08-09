@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 class KorpaController extends Controller
 {
+    //stavke narudzbe
     public function create($id){
          $narudzba=Narudzba::with(['stanje'])->find($id);
             $stanja=null;
@@ -53,12 +54,14 @@ class KorpaController extends Controller
  
          
     }
+    //stavke narudzbe prije nego noruci kupac
     public function GetCart(){
         
         $oldCart=Session::has('cart')? Session::get('cart'):null;
         $cart= new Cart($oldCart);
         return view('korpa.cart',['proizvodi'=>$cart->items,'ukupnoCijena'=>$cart->totalprc,'ukupnoKolicina'=>$cart->totalqty]);
     }
+    //dodavanje proizvoda u kurpu
     public function SelektAdd(Request $request,$id){
         
         $proizvod=Proizvod::find($id);
@@ -69,24 +72,8 @@ class KorpaController extends Controller
       //  dd($cart);
         return redirect()->route('proizvodi');
     }
-     public function store(Request $request){
-        dd("izbrisati");
-           
-         return redirect()->route('proizvodi');
-     }
- 
-     public function destroy(){
-       /*bez policy
-        if(!$objava->ownedBy(auth()->user())){
- 
-             dd('no');
-         }
-      //u Objavapolicy smo definisali sta radi delete metoda authorize('delete',
-      // prvi parameter se ne preosljeduje, nega dohvati kao trenutno logiranog
-         $this->authorize('delete',$objava);//authorize ako ne prodje baca exception 
-             $objava->delete();
-             return back();*/
-     }
+
+  
  
   
 }

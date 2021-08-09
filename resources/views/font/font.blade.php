@@ -23,7 +23,7 @@
                               </div>
                               @enderror
                               </x-input>
-                              <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
+                              <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan[]')}}"></x-input>
 
                               <x-input type="file" id="file" label="slika" value="" class="mt-5 mx-7"></x-input>
 

@@ -15,7 +15,7 @@ class NarudzbaPodaci
    public $obliks_id=null;
    public $fonts_id=null;
    public $materijals_id;
-   public $file;
+   public $images_id;
    public $artikals_id;
 
    public function __construct($oldNarudzbaPodaci){
@@ -30,7 +30,7 @@ class NarudzbaPodaci
            $this->obliks_id=$oldNarudzbaPodaci->obliks_id;
            $this->fonts_id=$oldNarudzbaPodaci->fonts_id;
            $this->materijals_id=$oldNarudzbaPodaci->materijals_id;
-           $this->file=$oldNarudzbaPodaci->file;
+           $this->images_id=$oldNarudzbaPodaci->images_id;
            $this->artikals_id=$oldNarudzbaPodaci->artikals_id;
 
 

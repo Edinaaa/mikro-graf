@@ -9,20 +9,20 @@
                 <p class="text-lg text-primary-600"> Ukopna cijena: {{$ukupnoCijena}} KM</p>  
                 <p class="text-lg text-gray-800"> Ukuplo proizvoda: {{$ukupnoKolicina}}</p>  
               
-              @guest
-              <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                        <a href="{{ route('captchaform')}}"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruci</a>
-                    </div>
+                    @guest
+                        <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+                                <a href="{{ route('captchaform')}}"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruci</a>
+                        </div>
                     @endguest
                     @auth
-                  <form method="POST" action="{{ route('korpa.store') }}">
-                    @csrf
-                    
-                   
-                    <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                        <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruci</button>
-                    </div>
-                </form>      
+                        <form method="POST" action="{{ route('narudzba') }}">
+                            @csrf
+                            
+                        
+                            <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+                                <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruci</button>
+                            </div>
+                        </form>      
                     @endauth
    
       

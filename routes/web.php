@@ -75,7 +75,6 @@ Route::get('/NarudzbaGost',[NarudzbaController::class, 'NarudzbaGost'])->name('n
 
 
 Route::get('/stavke/{id}',[KorpaController::class, 'create'])->name('korpa');
-Route::post('/stavke',[KorpaController::class, 'store'])->name('korpa.store');
 Route::get('/korpa/cart',[KorpaController::class, 'GetCart'])->name('korpa.cart');
 Route::get('/korpa/{id}',[KorpaController::class, 'SelektAdd'])->name('korpa.SelektAdd');
 
@@ -122,7 +121,6 @@ Route::post('/stanje/{id}',[StanjeController::class, 'update'])->name('stanje.up
 
 Route::post('/telefon', [CaptchaServiceController::class, 'TelefonValidate'])->name('telefon');
 Route::get('/telefon', [CaptchaServiceController::class, 'CreateTelefon'])->name('CreateTelefon');
-
 Route::get('/contact-form', [CaptchaServiceController::class, 'index'])->name('captchaform');
 Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate'])->name('captchaValidate');
 Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);

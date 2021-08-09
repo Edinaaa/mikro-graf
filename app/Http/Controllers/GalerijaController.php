@@ -21,7 +21,9 @@ class GalerijaController extends Controller
     public function update(Request $request, $id)
     {
         $galerija=  Galerija::find($id);
-
+        $request->validate([
+            "name"=>'required'
+        ]);
         if($galerija==null){
             return back();
         }

@@ -28,7 +28,7 @@
 
                               
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                              <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Dodaj</button>
+                              <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Snimi</button>
                               </div>
                         </form>         
                   </div>
