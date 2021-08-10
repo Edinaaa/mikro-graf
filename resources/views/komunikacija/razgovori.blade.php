@@ -35,7 +35,7 @@
                
                
             </div>
-                <div class="absolute bottom-14  top-14 flex  flex-col items-end w-full">
+                <div class="absolute bottom-14  top-14 pb-1  flex  flex-col items-end w-full">
                     <div class=" w-full flex flex-col   h-full bg-gray-100 ">
 
                         @if ($odabraniRazgovor->poruke->count())
@@ -65,7 +65,7 @@
                                 name="sadrzaj" rows="1" placeholder="poruka" ></textarea>
 
                                 <button type="submit" class='flex justify-center items-center bg-primary-300 hover:bg-primary-500  shadow-xl 
-                                mx-2 h-9 w-9 xs:h-11  xs:w-11  rounded-full focus:outline-none '>
+                                m-2 h-11  w-11  rounded-full focus:outline-none '>
                                 <img  class="h-6  " src="{{asset('icona/outline_send_white_24dp.png')}}"/>
 
                                 </button>
@@ -92,7 +92,7 @@
             @if ($razgovori->count())
                 <div class=" w-full h-full min-h-5/12 flex-grow  overflow-y-auto">
                     @foreach($razgovori as $razgovor)
-                    <x-razgovor :razgovor="$razgovor"/>
+                    <x-razgovor :razgovor="$razgovor" />
 
                     @endforeach
                 </div>

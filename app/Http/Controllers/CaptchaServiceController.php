@@ -5,6 +5,7 @@ use Session;
 use App\Models\NarudzbaPodaci;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Exception;
 
 class CaptchaServiceController extends Controller
 {
@@ -32,7 +33,52 @@ class CaptchaServiceController extends Controller
 
         $oldNarudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
         $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
-        $telefonV='1234';//generisati random br i poslati poruku na mob.
+
+       // $telefonV='1234';//generisati random br.
+       $telefonV=rand(1000,10000);
+       $request->session()->flash('alert-warning', 'code: '.$telefonV);
+
+       /*
+            try {
+
+                $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+
+                $client = new \Nexmo\Client($basic);
+
+    
+
+                $receiverNumber =$request->get('telefon');
+
+                $message = $telefonV;
+
+    
+
+                $message = $client->message()->send([
+
+                    'to' => $receiverNumber,
+
+                    'from' => 'mikro-graf',
+
+                    'text' => $message
+
+                ]);
+
+    
+
+            // dd('SMS Sent Successfully.');
+
+                
+
+            } catch (Exception $e) {
+
+                $request->session()->flash('alert-warning',$e->getMessage());
+
+            
+
+            }
+            */
+        
+        
         $narudzbaPodaci->edit($request->get('email'),$request->get('telefon'),$telefonV);
         $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
         return redirect()->route('CreateTelefon');

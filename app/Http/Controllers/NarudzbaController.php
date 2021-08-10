@@ -165,8 +165,8 @@ class NarudzbaController extends Controller
           
           // dd($request);
         $oblik_id=$request->get('oblik_id')? $request->get('oblik_id'):null;
-        $fonts_id=$request->get('font_id')? $request->get('font_id'):null;
-        $materijals_id=$request->get('materijal_id')? $request->get('materijal_id'):null;
+        $font_id=$request->get('font_id')? $request->get('font_id'):null;
+        $materijal_id=$request->get('materijal_id')? $request->get('materijal_id'):null;
         $stanje=Stanje::where('naziv','=','Naruceno')->first();
             if($stanje==null){
                 $users = DB::table('users')
@@ -202,7 +202,7 @@ class NarudzbaController extends Controller
                                 'cijena'=>$korpa['price'],
                                 'kolicina'=>$korpa['qty'],
                                 'obliks_id'=> $korpa['item']->obliks_id?$korpa['item']->obliks_id:null,
-                                'fonts_id'=>$korpa['item']->fonts_id?$korpa['item']->fonts_id:null,
+                                'fonts_id'=>$korpa['item']->font_id?$korpa['item']->font_id:null,
                                 'artikals_id'=>$korpa['item']->artikals_id,
                                 'proizvods_id'=>$korpa['item']->id,
                                 'narudzbas_id'=>$narudzba->id,
@@ -262,10 +262,10 @@ class NarudzbaController extends Controller
                      'kolicina'=>1,
                      'proizvods_id'=>null,
                      'obliks_id'=>$oblik_id,
-                     'fonts_id'=>$fonts_id,
-                     'materijals_id'=>$materijals_id,
+                     'fonts_id'=>$font_id,
+                     'materijals_id'=>$materijal_id,
                      'narudzbas_id'=>$narudzba->id,
-                     'images_id'=>$imagedb->id,
+                     'images_id'=>$images_id,
                      'artikals_id'=>$request->get('artikal_id'),
                  ]);
 
@@ -316,7 +316,7 @@ class NarudzbaController extends Controller
                 
                 $narudzbaPodaci->add($request->get('tekst'),$request->get('visina'),
                 $request->get('sirina'),$request->get('opis'),$oblik_id,
-                $font_id,$materijal_id, $imagedb->id, $request->get('artikal_id'));
+                $font_id,$materijal_id, $images_id, $request->get('artikal_id'));
                 
                 $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
 

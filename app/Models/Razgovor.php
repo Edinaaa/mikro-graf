@@ -24,7 +24,8 @@ class Razgovor extends Model
         return $this->hasMany(Poruka::class)->latest();
     }
     public function poruke(){
-        return $this->hasMany(Poruka::class);
+        return $this->hasMany(Poruka::class)->with('user');
     }
+  
    
 }

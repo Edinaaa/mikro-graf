@@ -4,7 +4,7 @@
 bg-white hover:bg-gray-200 border-primary-300  border-solid  border-2">
 <a class="w-full" href="{{route('razgovor',$razgovor->id)}}">
 <div class="w-full p-2 uppercase truncate">{{$razgovor->tema}} </div>
-<div class="w-full flex flex-row justify-between items-center">
+<div class="w-full  pl-2 flex flex-row justify-between items-center">
     @if($razgovor->posiljaoc_id==null)
         <h3 class="text-gray-900 ">{{$razgovor->email}}</h3>
     @elseif ($razgovor->posiljaoc_id==auth()->id())

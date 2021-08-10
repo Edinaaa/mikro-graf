@@ -51,7 +51,7 @@ class RazgovorController extends Controller
                 $odabraniRazgovor =Razgovor::
                 where('posiljaoc_id','=',auth()->id())->
                 orWhere('primaoc_id','=',auth()->id())->
-                with('poruke')->first();
+                with(['poruke'])->first();
             }
 
         return view('komunikacija.razgovori',['razgovori'=>$razgovori,'odabraniRazgovor'=>$odabraniRazgovor]);

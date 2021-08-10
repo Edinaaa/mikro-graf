@@ -15,7 +15,7 @@ class Poruka extends Model
         'razgovor_id',
     ];
     public function user(){
-        return $this->belongsTo(Uesr::class,'posiljaoc_id','id');
+        return $this->belongsTo(User::class,'posiljaoc_id','id');
     }
     public function razgovor(){
         return $this->belongsTo(Razgovor::class,'razgovor_id','id');

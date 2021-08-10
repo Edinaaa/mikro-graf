@@ -1,12 +1,12 @@
 <div>
-    <header class="z-10 relative bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
+    <header class="z-10 relative bg-gray-900 sm:flex sm:justify-between sm:items-center sm:pr-4">
      
-        <div class="flex  items-center  justify-between px-4 py-3 sm:p-0">
-            <div class=" text-gray-100 font-semibold text-2xl">
-                <a href="{{route('onama')}}" >MIKRO-<span class=" text-primary-600">GRAF</span></a>
-            </div>
+        <div class="flex  items-center  justify-between ">
+          
+            <img  class=" h-14 " src="{{asset('icona/mikrograf logo-1.jpg')}}"/>
+
             <div class="sm:hidden">
-                <button type="button" onClick="togglemenu()" class="text-gray-500 hover:text-white focus:text-white focus:outline-none">
+                <button type="button" onClick="togglemenu()" class="text-gray-500 hover:text-white focus:text-white focus:outline-none pr-5 py-3 sm:p-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24"stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> 
                     </svg>
