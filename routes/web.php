@@ -56,6 +56,10 @@ Route::get('/home', function () {
     return view('home/home');
 })->name('home');
 
+Route::get('/', function () {
+    return redirect('/home');
+});
+
 Route::get('/user',[UserController::class, 'create'])->name('user');
 Route::post('/user/{id}',[UserController::class, 'update'])->name('user.update');
 
