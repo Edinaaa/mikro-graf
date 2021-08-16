@@ -82,20 +82,24 @@
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1415.1514610675677!2d15.863238571983452!3d44.815393069301884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47614181b439707f%3A0xf23701fe07b59cab!2sMikroGraf!5e0!3m2!1sbs!2sba!4v1620781472858!5m2!1sbs!2sba"
                 class="flex-row rounded-xl lg:rounded-md h-56 w-full mt-4 " allowfullscreen="" loading="lazy">
             </iframe>
-            <div class="flex flex-row items-center justify-center p-10">
-            <a  href="mailto:myemailaddress@gmail.com">
-                 <img class="rounded-lg bg-blue-400 p-2 m-2" src="{{asset('icona/outline_email_white_24dp.png')}}"/> </a>
+            <div class="flex items-center justify-center p-10 text-gray-600">
+                <ul> 
+                    <li class="flex flex-row items-center">
+                    Email: <a class="flex flex-row items-center pl-2"  href="mailto:{{$primaoci[0]->email}}" > {{$primaoci[0]->email}} 
+                       </a> 
+                    </li>
+                    <li class="flex flex-row items-center">
+                    Facebook: <a class="flex flex-row items-center pl-2" href="https://www.facebook.com/mikrograf1/"> www.facebook.com/mikrograf1
+                       </a> 
+                    </li>
+                    <li class="flex flex-row items-center">
+                    Telefon: {{$primaoci[0]->telefon}} 
+                
+                </li>
+                </ul>
+     
                
-                  <a  href="https://www.facebook.com/mikrograf1/">
-                 <img class=" rounded-lg bg-blue-700 p-2 m-2" src="{{asset('icona/outline_facebook_white_24dp.png')}}"/> </a>
-             
                  
-                    <a  href="https://www.facebook.com/mikrograf1/">
-                 <img class=" rounded-lg bg-green-400 p-2 m-2" src="{{asset('icona/outline_phone_white_24dp.png')}}"/> </a>
-               
-                 <a  href="viber://chat?number=061240862">
-                 <img class=" rounded-lg bg-purple-500 p-2 m-2" src="{{asset('icona/outline_phone_in_talk_white_24dp.png')}}"/> </a>
-              
             </div>
         </div>
     </div>

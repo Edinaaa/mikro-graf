@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artikal_materijals extends Model
+class Kategorija_materijals extends Model
 {
     use HasFactory;
    
         protected $fillable = [
-            'artikals_id',
+            'kategorijas_id',
             'materijals_id',
         ];
-        public function artikal(){
-            return $this->belongsTo(Artikal::class,'artikals_id','id');
+        public function kategorija(){
+            return $this->belongsTo(Kategorija::class,'kategorijas_id','id');
         }
         public function materijal(){
             return $this->belongsTo(Materijal::class,'materijals_id','id');

@@ -14,14 +14,14 @@
 
       <div  class="flex flex-row items-center w-full mt-5 mx-7">
         <div class=" w-2/3">
-              <x-input id="artikal" label="artikal"  value="{{ old('artikal')}}"></x-input>
-              <x-input class="hidden" onChange="artikal('$artikal_materijals', '$materijali', 'artikal_id')" id="artikal_id" label="artikal_id" value="{{ old('artikal_id')}}"></x-input>
+              <x-input id="kategorija" label="kategorija"  value="{{ old('kategorija')}}"></x-input>
+              <x-input class="hidden" onChange="kategorija('$kategorija_materijals', '$materijali', 'kategorija_id')" id="kategorija_id" label="kategorija_id" value="{{ old('kategorija_id')}}"></x-input>
         </div>
 
         <div class="w-1/3 ml-4 ">
-          <button type="button" onClick="Show('BOartikal','MPartikal','Martikal')" 
+          <button type="button" onClick="Show('BOkategorija','MPkategorija','Mkategorija')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-          Artikal</button>
+          Kategorija</button>
       
         </div>
       </div>
@@ -92,8 +92,8 @@
       </div>
     </form>
   </div>
-  @if ($artikli->count())
-    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" idoblik="divOblik" labela="artikal"/>
+  @if ($kategorije->count())
+    <x-modal :obj="$kategorije" idBO="BOkategorija" idMP="MPkategorija" idM="Mkategorija" idinputa="kategorija_id" input="kategorija" idoblik="divOblik" labela="kategorija"/>
     @endif
     @if ($oblici->count())
     <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
@@ -102,7 +102,7 @@
     <x-modal :obj="$fontovi" idBO="BOfont" idMP="MPfont" idM="Mfont" idinputa="font_id" input="font" labela="font"/>
     @endif
     @if ($materijali->count())
-    <x-modalMaterijali :obj="$materijali" :ams="$artikal_materijals" idartikal="artikal_id" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
+    <x-modalMaterijali :obj="$materijali" :ams="$kategorija_materijals" idkategorija="kategorija_id" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
     @endif
 </div>
 <script>

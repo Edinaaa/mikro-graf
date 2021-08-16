@@ -15,7 +15,7 @@ class CreateGalerijasTable extends Migration
     {
         Schema::create('galerijas', function (Blueprint $table) {
             $table->id();
-            $table->string('name',30)->charset('utf8mb4');
+            $table->string('name',100)->charset('utf8mb4');
             $table->foreignId('images_id')->constrained();
             $table->foreignId('kreirao_id')->constrained('users');
 

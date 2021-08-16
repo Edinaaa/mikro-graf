@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Images;
 use App\Models\Proizvod;
-use App\Models\Artikal;
+use App\Models\Kategorija;
 
 use App\Models\Oblik;
 use App\Models\Font;
@@ -24,7 +24,7 @@ class ProizvodController extends Controller
     public function create()
     {
         $oblici =Oblik::latest()->with('image')->paginate(6);
-        $artikli =Artikal::latest()->paginate(10);
+        $kategorije =Kategorija::latest()->paginate(10);
 
         $fontovi =Font::latest()->with('image')->paginate(6);
         $materijali =Materijal::latest()->with('image')->paginate(6);
@@ -43,15 +43,15 @@ class ProizvodController extends Controller
             $proizvodi =Proizvod::latest()->where('aktivan','=','1')->with(['image','font','oblik','materijal'])->paginate(6);
 
         }
-        return view('proizvodi.proizvodi',['proizvodi'=>$proizvodi,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli]);
+        return view('proizvodi.proizvodi',['proizvodi'=>$proizvodi,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'kategorije'=>$kategorije]);
     }
 
     public function show(Proizvod $proizvod){
        $oblici =Oblik::latest()->with('image')->paginate(6);
-       $artikli =Artikal::latest()->paginate(10);
+       $kategorije =Kategorija::latest()->paginate(10);
        $fontovi =Font::latest()->with('image')->paginate(6);
        $materijali =Materijal::latest()->with('image')->paginate(6);
-        return view('proizvodi.show',['proizvod'=>$proizvod,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli]);
+        return view('proizvodi.show',['proizvod'=>$proizvod,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'kategorije'=>$kategorije]);
     }
 
    
@@ -116,7 +116,7 @@ class ProizvodController extends Controller
                 $proizvod->novo=$novi;
                 $proizvod->aktivan=$aktivan;
                 $proizvod->obliks_id=$request->get('oblik_id')?$request->get('oblik_id'):null;
-                $proizvod->artikals_id=$request->get('artikal_id');
+                $proizvod->kategorijas_id=$request->get('kategorija_id');
                 $proizvod->fonts_id=$request->get('font_id');
                 $proizvod->materijals_id=$request->get('materijal_id');
                 $proizvod->save();
@@ -160,7 +160,7 @@ class ProizvodController extends Controller
             'sirina'=>'required',
             'cijena'=>'required',
             'font_id'=>'required',
-            'artikal_id'=>'required',
+            'kategorija_id'=>'required',
             'materijal_id'=>'required',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
@@ -196,7 +196,7 @@ class ProizvodController extends Controller
                     'popust'=>$popust,
                     'novo'=>$novi,
                     'obliks_id'=>$request->get('oblik_id')?$request->get('oblik_id'):null,
-                    'artikals_id'=>$request->get('artikal_id'),
+                    'kategorijas_id'=>$request->get('kategorija_id'),
                     'aktivan'=>$aktivan,
                     'fonts_id'=>$request->get('font_id'),
                     'materijals_id'=>$request->get('materijal_id'),
@@ -215,19 +215,19 @@ class ProizvodController extends Controller
     }
     public function destroy(Proizvod $proizvod){
         
-        $proizvod=Proizvod::find($proizvod->id);
+     /*    $proizvod=Proizvod::find($proizvod->id);
         $proizvod->aktivan=false;
         $proizvod->novo=false;
         $proizvod->popust=false;
 
-        $proizvod->save();
-        /*  $image=Images::get()->find($proizvod->images_id);
+        $proizvod->save();*/
+         $image=Images::get()->find($proizvod->images_id);
           $proizvod->delete();
           $filename=$image->file_path.'/'.$image->name;
           File::delete($filename);
          //unlink($filename);
           $image->delete();   
-*/
+
 return redirect()->route('proizvodi');
 
     }

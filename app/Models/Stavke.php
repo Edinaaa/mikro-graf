@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Korpa extends Model
+class Stavke extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -21,14 +21,14 @@ class Korpa extends Model
         'materijals_id',
         'narudzbas_id',
         'images_id',
-        'artikals_id',
+        'kategorijas_id',
        
     ];
     public function image(){
         return $this->belongsTo(Images::class,'images_id','id');
     }
-    public function artikal(){
-        return $this->belongsTo(Artikal::class,'artikals_id','id');
+    public function kategorija(){
+        return $this->belongsTo(Kategorija::class,'kategorijas_id','id');
     }
     public function proizvod(){
         return $this->belongsTo(Proizvod::class,'proizvods_id','id');

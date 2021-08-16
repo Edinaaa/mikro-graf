@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Artikal;
+use App\Models\Kategorija;
 use App\Models\Materijal;
-use App\Models\Artikal_materijals;
+use App\Models\Kategorija_materijals;
 use Illuminate\Support\Facades\DB;
 
 
@@ -12,28 +12,28 @@ use Session;
 use App\Models\SelektovaniMaterijali;
 use Illuminate\Http\Request;
 
-class ArtikalController extends Controller
+class KategorijaController extends Controller
 {
     public function create()
     {
-        $artikli =Artikal::latest()->paginate(10);
+        $kategorije =Kategorija::latest()->paginate(10);
         $materijali =Materijal::get();
 
-        return view('artikal.artikal',['artikli'=>$artikli,'materijali'=>$materijali]);
+        return view('kategorija.kategorija',['kategorije'=>$kategorije,'materijali'=>$materijali]);
     }
-    public function show(Artikal $artikal){
+    public function show(Kategorija $kategorija){
 
         $materijali =Materijal::get();
-        $artikal_materijals=DB::table('artikal_materijals')
-        ->where('artikals_id','=',$artikal->id)
+        $kategorija_materijals=DB::table('kategorija_materijals')
+        ->where('kategorijas_id','=',$kategorija->id)
         ->select('materijals_id')
         ->get();
-        $selecMaterijali=$artikal_materijals->implode('materijals_id', ',');
-        return view('artikal.update',['artikal'=>$artikal,'materijali'=>$materijali,'selecMaterijali'=>$selecMaterijali]);
+        $selecMaterijali=$kategorija_materijals->implode('materijals_id', ',');
+        return view('kategorija.update',['kategorija'=>$kategorija,'materijali'=>$materijali,'selecMaterijali'=>$selecMaterijali]);
     }
     public function update(Request $request, $id)
     {
-        $artikal=Artikal::find($id);
+        $kategorija=Kategorija::find($id);
      
         $request->validate([
             "naziv"=>'required',
@@ -43,18 +43,18 @@ class ArtikalController extends Controller
            if($request->has('aktivan')){
                $aktivan=true;
            }
-           $artikal->naziv=$request->get('naziv');
-           $artikal->aktivan=$aktivan;
-           $artikal->save();
+           $kategorija->naziv=$request->get('naziv');
+           $kategorija->aktivan=$aktivan;
+           $kategorija->save();
            $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
 
-        $artikal_materijal=Artikal_materijals::where('artikals_id','=',$id)->get();
+        $kategorija_materijal=Kategorija_materijals::where('kategorijas_id','=',$id)->get();
 
            foreach($ms as $id)
            {
              $nijepronadjen=true;
 
-               foreach ($artikal_materijal as $am){
+               foreach ($kategorija_materijal as $am){
 
                     if($id==$am->materijals_id)
                     {
@@ -64,11 +64,11 @@ class ArtikalController extends Controller
                }
                
                if($nijepronadjen && $id!=""){
-                Artikal_materijals::create([
-                    'artikals_id'=>$artikal->id,
+                Kategorija_materijals::create([
+                    'kategorijas_id'=>$kategorija->id,
                     'materijals_id'=>$id]);}
            }
-           foreach($artikal_materijal as $am)
+           foreach($kategorija_materijal as $am)
            {
            $pronadjen=false;
 
@@ -89,9 +89,9 @@ class ArtikalController extends Controller
             
            }
         
-           $request->session()->flash('alert-success', 'Uspjesno izmjenjen artikal.');
+           $request->session()->flash('alert-success', 'Uspjesno izmjenjena kategorija.');
     
-           return redirect()->route('artikal');
+           return redirect()->route('kategorija');
     }
     public function store(Request $request)
     {
@@ -106,7 +106,7 @@ class ArtikalController extends Controller
             $aktivan=true;
         }
         
-           $artikal= Artikal::create([
+           $kategorija= Kategorija::create([
                     "naziv" =>$request->get('naziv'),
                     "aktivan"=>$aktivan,
                     "kreirao_id" =>auth()->id()]);
@@ -115,15 +115,15 @@ class ArtikalController extends Controller
                 foreach($ms as $id)
                 {
                     if($id!=""){
-                        Artikal_materijals::create([
-                            'artikals_id'=>$artikal->id,
+                        Kategorija_materijals::create([
+                            'kategorijas_id'=>$kategorija->id,
                             'materijals_id'=>$id]);
                     }
                     
 
                 }
 
-            $request->session()->flash('alert-success', 'Uspjesno dodan artikal.');
+            $request->session()->flash('alert-success', 'Uspjesno dodana kategorija.');
     
         return back();
     }

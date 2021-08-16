@@ -3,11 +3,11 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Artikal;
+use App\Models\Kategorija;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ArtikalPolicy
+class KategorijaPolicy
 {
     use HandlesAuthorization;
 
@@ -16,13 +16,13 @@ class ArtikalPolicy
      *
      * @return void
      */
-    public function delete(User $user, Artikal $artikal){
+    public function delete(User $user, Kategorija $kategorija){
 
-        return $user->id=== $artikal->kreirao_id;
+        return $user->id=== $kategorija->kreirao_id;
     }
-    public function update(User $user, Artikal $artikal){
+    public function update(User $user, Kategorija $kategorija){
 
-        return $user->id=== $artikal->kreirao_id;
+        return $user->id=== $kategorija->kreirao_id;
     }
     public function __construct()
     {

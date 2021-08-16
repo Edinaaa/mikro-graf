@@ -7,7 +7,7 @@
     @if($narudzbe->count())
             <div class=" w-full bg-gray-200  py-1 place-items-center  grid grid-cols-1 lg:grid-cols-2 ">
                   @foreach($narudzbe as $narudzba)
-        <x-narudzbeKartica :narudzba="$narudzba" :korpe="$korpe"></x-narudzbeKartica>
+        <x-narudzbeKartica :narudzba="$narudzba" :stavke="$stavke"></x-narudzbeKartica>
 
                   @endforeach
             </div>

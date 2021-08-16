@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Narudzba;
-use App\Models\Korpa;
+use App\Models\Stavke;
 
 use App\Models\Images;
-use App\Models\Artikal;
+use App\Models\Kategorija;
 use App\Models\Stanje;
 use Image;
 
@@ -14,7 +14,7 @@ use App\Mail\NarudzbaIzmjena;
 use App\Models\Oblik;
 use App\Models\Font;
 use App\Models\Materijal;
-use App\Models\Artikal_materijals;
+use App\Models\Kategorija_materijals;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,17 +30,17 @@ class NarudzbaController extends Controller
         $oblici =Oblik::latest()->where('aktivan','=',1)->with('image')->get();
         $fontovi =Font::latest()->where('aktivan','=',1)->with('image')->get();
         $materijali =Materijal::latest()->where('aktivan','=',1)->with('image')->get();
-        $artikal_materijals=DB::table('artikal_materijals')
-        ->join('materijals', 'artikal_materijals.materijals_id', '=', 'materijals.id')
+        $kategorija_materijals=DB::table('kategorija_materijals')
+        ->join('materijals', 'kategorija_materijals.materijals_id', '=', 'materijals.id')
         ->where('materijals.aktivan','=',1)
-        ->select('artikal_materijals.*')
+        ->select('kategorija_materijals.*')
         ->get();
-        $artikli =Artikal::latest()->where('aktivan','=',1)->get();
+        $kategorije =Kategorija::latest()->where('aktivan','=',1)->get();
  
          //https://laravel.com/docs/8.x/eloquent-relationships#eager-loading
       // $posts= Posts::get()  ;  vraca sve posts iz baze ::where(),Find()
          //orderBy('created_at','desc') je isto sto latest()
-         return view('narudzba.narudzba',['oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'artikli'=>$artikli,'artikal_materijals'=>$artikal_materijals]);
+         return view('narudzba.narudzba',['oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'kategorije'=>$kategorije,'kategorija_materijals'=>$kategorija_materijals]);
     }
 //pregled narudzbi sa stavkama
      public function Pregled(){
@@ -49,24 +49,24 @@ class NarudzbaController extends Controller
          {
             
              if(auth()->user()->hasRole('admin')){
-                $korpe =Korpa::latest()->with(['artikal'])->get();
+                $stavke =Stavke::latest()->with(['kategorija'])->get();
                 
                  $narudzbe =Narudzba::latest()->with(['stanje','user'])->paginate(6);
  
              }
              else{
-                $korpe = DB::table('korpas')
-                    ->join('narudzbas', 'korpas.narudzbas_id', '=', 'narudzbas.id')
+                $stavke = DB::table('stavkes')
+                    ->join('narudzbas', 'stavkes.narudzbas_id', '=', 'narudzbas.id')
                     ->join('users', 'narudzbas.narucilac_id', '=', 'users.id')
-                    ->join('artikals', 'korpas.artikals_id', '=', 'artikals.id')
+                    ->join('kategorijas', 'stavkes.kategorijas_id', '=', 'kategorijas.id')
                     ->where('users.id','=',auth()->id())
-                    ->select('artikals.naziv as naziv','korpas.narudzbas_id','korpas.kolicina as kolicina')
+                    ->select('kategorijas.naziv as naziv','stavkes.narudzbas_id','stavkes.kolicina as kolicina')
                     ->get();
              $narudzbe =Narudzba::latest()->where('narucilac_id','=',auth()->id())->with(['stanje'])->paginate(10);
  
              }
  
-             return view('narudzba.narudzbe',['narudzbe'=>$narudzbe,'korpe'=>$korpe]);
+             return view('narudzba.narudzbe',['narudzbe'=>$narudzbe,'stavke'=>$stavke]);
          }
          else{
              return view('auth.register');
@@ -110,7 +110,7 @@ class NarudzbaController extends Controller
        }
       
       if($narudzbaPodaci->tekst){
-        Korpa::create([
+        Stavke::create([
             'tekst'=>$narudzbaPodaci->tekst,
             'visina'=>$narudzbaPodaci->visina,
             'sirina'=>$narudzbaPodaci->sirina,
@@ -122,14 +122,14 @@ class NarudzbaController extends Controller
             'materijals_id'=>$narudzbaPodaci->materijals_id,
             'images_id'=>$narudzbaPodaci->images_id,
             'narudzbas_id'=>$narudzba->id,
-            'artikals_id'=>$narudzbaPodaci->artikals_id
+            'kategorijas_id'=>$narudzbaPodaci->kategorijas_id
          ]);
       }
       elseif($Cart){
         foreach($Cart->items as $korpa)
         { 
                 
-                Korpa::create([
+                Stavke::create([
                     'tekst'=>$korpa['item']->tekst,
                     'visina'=>$korpa['item']->visina,
                     'sirina'=>$korpa['item']->sirina,
@@ -138,7 +138,7 @@ class NarudzbaController extends Controller
                     'kolicina'=>$korpa['qty'],
                     'obliks_id'=> $korpa['item']->obliks_id?$korpa['item']->obliks_id:null,
                     'fonts_id'=>$korpa['item']->fonts_id?$korpa['item']->fonts_id:null,
-                    'artikals_id'=>$korpa['item']->artikals_id,
+                    'kategorijas_id'=>$korpa['item']->kategorijas_id,
                     'proizvods_id'=>$korpa['item']->id,
                     'narudzbas_id'=>$narudzba->id,
                     'images_id'=>$korpa['item']->images_id?$korpa['item']->images_id:null,
@@ -194,7 +194,7 @@ class NarudzbaController extends Controller
                     foreach($Cart->items as $korpa)
                     { 
                             
-                            Korpa::create([
+                            Stavke::create([
                                 'tekst'=>$korpa['item']->tekst,
                                 'visina'=>$korpa['item']->visina,
                                 'sirina'=>$korpa['item']->sirina,
@@ -203,7 +203,7 @@ class NarudzbaController extends Controller
                                 'kolicina'=>$korpa['qty'],
                                 'obliks_id'=> $korpa['item']->obliks_id?$korpa['item']->obliks_id:null,
                                 'fonts_id'=>$korpa['item']->font_id?$korpa['item']->font_id:null,
-                                'artikals_id'=>$korpa['item']->artikals_id,
+                                'kategorijas_id'=>$korpa['item']->kategorijas_id,
                                 'proizvods_id'=>$korpa['item']->id,
                                 'narudzbas_id'=>$narudzba->id,
                                 'images_id'=>$korpa['item']->images_id?$korpa['item']->images_id:null,
@@ -220,7 +220,7 @@ class NarudzbaController extends Controller
                         'tekst'=>'required',
                         'visina'=>'required',
                         'sirina'=>'required',
-                        'artikal_id'=>'required',
+                        'kategorija_id'=>'required',
        
                     ]);
                     $imagedb=null;
@@ -253,7 +253,7 @@ class NarudzbaController extends Controller
                         'stanjes_id'=>$stanje->id
                     ]);
  
-                 $korpa=Korpa::create([
+                 $stavke=Stavke::create([
                      'tekst'=>$request->get('tekst'),
                      'visina'=>$request->get('visina'),
                      'sirina'=>$request->get('sirina'),
@@ -266,7 +266,7 @@ class NarudzbaController extends Controller
                      'materijals_id'=>$materijal_id,
                      'narudzbas_id'=>$narudzba->id,
                      'images_id'=>$images_id,
-                     'artikals_id'=>$request->get('artikal_id'),
+                     'kategorijas_id'=>$request->get('kategorija_id'),
                  ]);
 
                  
@@ -282,7 +282,7 @@ class NarudzbaController extends Controller
                     'tekst'=>'required',
                     'visina'=>'required',
                     'sirina'=>'required',
-                    'artikal_id'=>'required',
+                    'kategorija_id'=>'required',
    
                 ]);
 
@@ -316,7 +316,7 @@ class NarudzbaController extends Controller
                 
                 $narudzbaPodaci->add($request->get('tekst'),$request->get('visina'),
                 $request->get('sirina'),$request->get('opis'),$oblik_id,
-                $font_id,$materijal_id, $images_id, $request->get('artikal_id'));
+                $font_id,$materijal_id, $images_id, $request->get('kategorija_id'));
                 
                 $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
 
@@ -341,8 +341,8 @@ class NarudzbaController extends Controller
                     }
                 }
                 $narudzba->save();
-                $korpa =Korpa::latest()->where('narudzbas_id','=',$id)->with(['artikal','font','oblik','materijal','image'])->get();
-                Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $korpa));
+                $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->get();
+                Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
            
             }
         }

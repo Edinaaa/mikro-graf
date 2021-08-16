@@ -1,11 +1,11 @@
-@props(['narudzba'=>'$narudzba','korpe'=>'$korpe'])
+@props(['narudzba'=>'$narudzba','stavke'=>'$stavke'])
 
      <!-- Start of component -->
 <div class="max-w-xl  m-2 flex flex-col   bg-white border-2 border-gray-300 hover:bg-primary-200 p-5 rounded-md tracking-wide shadow-lg">
 @auth
                
 
-    <a href="{{route('korpa', $narudzba->id)}}">
+    <a href="{{route('stavke', $narudzba->id)}}">
         <div class=" font-semibold text-gray-700 w-full flex flex-col md:flex-row justify-between items-start">
            
             @isset($narudzba->user)
@@ -25,13 +25,13 @@
         <div class="pt-2 w-full flex flex-col md:flex-row justify-between items-center">
           
                <p class="px-2"><span class="font-semibold"> Nardzba:</span>  
-                     @foreach ($korpe as $korpa)
-                        @if ($korpa->narudzbas_id==$narudzba->id)
+                     @foreach ($stavke as $stavka)
+                        @if ($stavka->narudzbas_id==$narudzba->id)
                         @if (auth()->user()->hasRole('admin'))
-                        {{$korpa->kolicina}}x {{$korpa->artikal->naziv}},
+                        {{$stavka->kolicina}}x {{$stavka->artikal->naziv}},
 
                         @else
-                        {{$korpa->kolicina}}x {{$korpa->naziv}},
+                        {{$stavka->kolicina}}x {{$stavka->naziv}},
 
                         @endif
                         @endif

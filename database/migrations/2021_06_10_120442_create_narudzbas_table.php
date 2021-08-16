@@ -15,7 +15,7 @@ class CreateNarudzbasTable extends Migration
     {
         Schema::create('narudzbas', function (Blueprint $table) {
             $table->id();
-            $table->float('cijena',4,2);//cijena narudzbe koja se moze naknadno dodati
+            $table->float('cijena',6,2);//cijena narudzbe koja se moze naknadno dodati
             ///u slucaju da narudzbu kreira ne logirani korisnik
              $table->string('email',191)->nullable();
              $table->string('telefon',15)->nullable();

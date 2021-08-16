@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Proizvod extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'tekst',
         'visina',
@@ -22,12 +23,12 @@ class Proizvod extends Model
         'materijals_id',
         'images_id',
         'kreirao_id',
-        'artikals_id',
+        'kategorijas_id',
 
 
     ];
-    public function artikal(){
-        return $this->belongsTo(Artikal::class,'artikals_id','id');
+    public function kategorija(){
+        return $this->belongsTo(Kategorija::class,'kategorijas_id','id');
     }
     public function image(){
         return $this->belongsTo(Images::class,'images_id','id');

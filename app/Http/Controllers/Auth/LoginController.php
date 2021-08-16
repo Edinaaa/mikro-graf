@@ -57,6 +57,6 @@ class LoginController extends Controller
 
                 return back()->with('status','Pogresan unos!');
             }
-        return redirect()->route('proizvodi');
+        return redirect()->route('home');
     }
 }

@@ -91,7 +91,9 @@
 
 
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Dodaj</button>
+      <a class='w-auto bg-white hover:bg-primary-300 rounded-lg shadow-xl font-medium text-primary-600 px-4 py-2' href="{{route('proizvod.destroy')}}">Izbriši</a>
+
+                                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</button>
                               </div>
                         </form>
                         </div>

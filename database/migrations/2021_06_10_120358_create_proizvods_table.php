@@ -16,18 +16,18 @@ class CreateProizvodsTable extends Migration
         Schema::create('proizvods', function (Blueprint $table) {
             $table->id();
             $table->string('tekst',200)->charset('utf8mb4');
-            $table->float('visina', 4, 2);
-            $table->float('sirina', 4, 2);    
+            $table->float('visina', 6, 2);
+            $table->float('sirina', 6, 2);    
             $table->foreignId('obliks_id')->nullable()->constrained();
             $table->foreignId('fonts_id')->constrained();
             $table->foreignId('materijals_id')->constrained();
-            $table->float('cijena', 4, 2);
+            $table->float('cijena', 6, 2);
             $table->integer('popust');
             $table->boolean('novo');
             $table->boolean('aktivan');
 
-            $table->foreignId('images_id')->nullable()->constrained();
-            $table->foreignId('artikals_id')->constrained();
+            $table->foreignId('images_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('kategorijas_id')->constrained();
 
             $table->foreignId('kreirao_id')->constrained('users');
             $table->timestamps();

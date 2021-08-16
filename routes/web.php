@@ -11,7 +11,7 @@ use App\Http\Controllers\NarudzbaController;
 use App\Http\Controllers\RazgovorController;
 use App\Http\Controllers\PorukaController;
 use App\Http\Controllers\KorpaController;
-use App\Http\Controllers\ArtikalController;
+use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\StanjeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CaptchaServiceController;
@@ -78,9 +78,13 @@ Route::get('/narudzbe',[NarudzbaController::class, 'pregled'])->name('narudzba.n
 Route::get('/NarudzbaGost',[NarudzbaController::class, 'NarudzbaGost'])->name('narudzba.NarudzbaGost');
 
 
-Route::get('/stavke/{id}',[KorpaController::class, 'create'])->name('korpa');
+Route::get('/stavke/{id}',[StavkeController::class, 'create'])->name('stavke');
+
+
 Route::get('/korpa/cart',[KorpaController::class, 'GetCart'])->name('korpa.cart');
 Route::get('/korpa/{id}',[KorpaController::class, 'SelektAdd'])->name('korpa.SelektAdd');
+Route::get('/korpa',[KorpaController::class, 'odustani'])->name('korpa.odustani');
+
 
 
 Route::get('/galerija',[GalerijaController::class, 'create'])->name('galerija');
@@ -94,6 +98,7 @@ Route::get('/proizvodi',[ProizvodController::class, 'create'])->name('proizvodi'
 Route::post('/proizvodi',[ProizvodController::class, 'store']);
 Route::get('/proizvodi/{proizvod}',[ProizvodController::class, 'show'])->name('proizvodi.show');
 Route::post('/proizvodi/{id}',[ProizvodController::class, 'update'])->name('proizvod.update');
+Route::delete('/proizvodi/{proizvod}',[ProizvodController::class, 'destroy'])->name('proizvod.destroy');
 
 Route::get('/oblik',[OblikController::class, 'create'])->name('oblik');
 Route::post('/oblik',[OblikController::class, 'store']);
@@ -113,10 +118,10 @@ Route::get('/materijal/{materijal}',[MaterijalController::class, 'show'])->name(
 Route::post('/materijal/{id}',[MaterijalController::class, 'update'])->name('materijal.update');
 Route::get('/materijal/selectshow',[MaterijalController::class, 'selectshow'])->name('materijal.selectshow');
 
-Route::get('/artikal',[ArtikalController::class, 'create'])->name('artikal');
-Route::post('/artikal',[ArtikalController::class, 'store']);
-Route::get('/artikal/{artikal}',[ArtikalController::class, 'show'])->name('artikal.show');
-Route::post('/artikal/{id}',[ArtikalController::class, 'update'])->name('artikal.update');
+Route::get('/kategorija',[KategorijaController::class, 'create'])->name('kategorija');
+Route::post('/kategorija',[KategorijaController::class, 'store']);
+Route::get('/kategorija/{kategorija}',[KategorijaController::class, 'show'])->name('kategorija.show');
+Route::post('/kategorija/{id}',[KategorijaController::class, 'update'])->name('kategorija.update');
 
 Route::get('/stanje',[StanjeController::class, 'create'])->name('stanje');
 Route::post('/stanje',[StanjeController::class, 'store']);

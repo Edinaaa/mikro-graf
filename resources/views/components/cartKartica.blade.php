@@ -11,7 +11,7 @@
 <div  class="flex justify-between  flex-col ml-5">
             <div>
                
-               <h4  class=" uppercase text-primary-600 text-xl  mb-2">{{$stavka['item']->artikal->naziv}}</h4>
+               <h4  class=" uppercase text-primary-600 text-xl  mb-2">{{$stavka['item']->kategorija->naziv}}</h4>
                <p  class="text-gray-800 mt-2">Natpis {{$stavka['item']->tekst}},
                   @isset($stavka['item']->font)
                   font {{$stavka['item']->font->naziv}},

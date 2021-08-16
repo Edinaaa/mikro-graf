@@ -17,14 +17,14 @@
 
                                <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
                                     <div class=" w-3/5">
-                                          <x-input id="artikal" label="artikal" value="{{$proizvod->artikal->naziv}}"></x-input>
-                                          <x-input class="hidden" id="artikal_id" label="artikal_id" value="{{$proizvod->artikal->id}}"></x-input>
+                                          <x-input id="kategorija" label="kategorija" value="{{$proizvod->kategorija->naziv}}"></x-input>
+                                          <x-input class="hidden" id="kategorija_id" label="kategorija_id" value="{{$proizvod->kategorija->id}}"></x-input>
                                     </div>
 
                                     <div class="w-1/4 ml-4">
-                                    <button type="button" onClick="Show('BOartikal','MPartikal','Martikal')" 
+                                    <button type="button" onClick="Show('BOkategorija','MPkategorija','Mkategorija')" 
                                     class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-                                    Artikal</button>
+                                    Kategorija</button>
                                     
                                     </div>
                               </div>
@@ -101,8 +101,18 @@
                              
                               </div>
                         </form>
-                        @if ($artikli->count())
-    <x-modal :obj="$artikli" idBO="BOartikal" idMP="MPartikal" idM="Martikal" idinputa="artikal_id" input="artikal" idoblik="divOblik" labela="artikal"/>
+
+                        <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
+                              @can('delete',$proizvod)
+                                    <form action="{{route('proizvod.destroy', $proizvod)}}" method="post" class="mr-1">
+                                          @csrf                                          
+                                          @method('DELETE')
+                                          <button type="submit"  class='w-auto bg-white hover:bg-primary-300 rounded-lg shadow-xl font-medium text-primary-600 px-4 py-2'>Izbriši</button>
+                                    </form>
+                              @endcan
+                        </div>
+                        @if ($kategorije->count())
+    <x-modal :obj="$kategorije" idBO="BOkategorija" idMP="MPkategorija" idM="Mkategorija" idinputa="kategorija_id" input="kategorija" idoblik="divOblik" labela="kategorija"/>
     @endif
     @if ($oblici->count())
     <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>

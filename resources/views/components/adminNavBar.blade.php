@@ -46,7 +46,7 @@
                     <a href="{{route('font')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Font</a>
                     <a href="{{route('oblik')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Oblik</a>
                     <a href="{{route('materijal')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Materijal</a>
-                    <a href="{{route('artikal')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Artikal</a>
+                    <a href="{{route('kategorija')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Kategorija</a>
                     <a href="{{route('stanje')}}" class="block mt-1 px-2 py-1 text-white font-semibold rounded hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Stanje</a>
              </div>
          </div>

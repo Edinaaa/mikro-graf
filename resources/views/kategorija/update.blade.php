@@ -7,16 +7,16 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form action="{{ route('artikal.update',$artikal->id) }}" method="post" >
+                        <form action="{{ route('kategorija.update',$kategorija->id) }}" method="post" >
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
                               <div class="flex">
-                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Artikal</h1>
+                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Kategorija</h1>
                               </div>
                               </div>
 
-                              <x-input id="naziv" label="Naziv artikal" value="{{ $artikal->naziv}}" class="mt-5 mx-7">
+                              <x-input id="naziv" label="Naziv kategorija" value="{{ $kategorija->naziv}}" class="mt-5 mx-7">
                               @error("naziv")
                               <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                               {{$message}}
@@ -26,7 +26,7 @@
                               </x-input>
                               
                               <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
-                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za artikal</label>
+                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za kategorija</label>
                                     <div id="divMaterijala" class="flex-grow overflow-y-auto max-h-40 hidden">
                                           <div class="w-full   rounded-lg flex flex-col ">
                                           
@@ -60,7 +60,7 @@
                               </div>
                               <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 hidden " value="{{$selecMaterijali}}"></x-input>
               
-                              <x-input type="checkbox" checked="{{ $artikal->aktivan}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ $artikal->aktivan}}"></x-input>
+                              <x-input type="checkbox" checked="{{ $kategorija->aktivan}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ $kategorija->aktivan}}"></x-input>
 
                               
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>

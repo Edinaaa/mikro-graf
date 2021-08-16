@@ -7,16 +7,16 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form action="{{ route('artikal') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('kategorija') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
                               <div class="flex">
-                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Novi Artikal</h1>
+                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Nova kategorija</h1>
                               </div>
                               </div>
 
-                              <x-input id="naziv" label="Naziv artikal" value="{{ old('naziv')}}" class="mt-5 mx-7">
+                              <x-input id="naziv" label="Naziv kategorija" value="{{ old('naziv')}}" class="mt-5 mx-7">
                               @error("naziv")
                               <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                               {{$message}}
@@ -24,7 +24,7 @@
                               @enderror
                               </x-input>
                               <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
-                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za artikal</label>
+                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za kategorija</label>
                                     <div class="flex-grow overflow-y-auto max-h-40">
                                           <div class="w-full   rounded-lg flex flex-col ">
                                           
@@ -67,22 +67,22 @@
       @endauth
 </div>
             
-      @if ($artikli->count())
+      @if ($kategorije->count())
             <div class="w-full bg-gray-200  py-1 rounded-lg flex flex-col items-center">
-                  @foreach($artikli as $artikal)
-                        <x-oblikkartica :oblik="$artikal">
-                        @can('update',$artikal)
+                  @foreach($kategorije as $kategorija)
+                        <x-oblikkartica :oblik="$kategorija">
+                        @can('update',$kategorija)
                   
-                  <a href=" {{route('artikal.show', $artikal)}}" class="flex justify-center items-center focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
+                  <a href=" {{route('kategorija.show', $kategorija)}}" class="flex justify-center items-center focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
 
                   @endcan
                         </x-oblikkartica>
                   @endforeach
             </div>
                               
-            {{$artikli->links()}}
+            {{$kategorije->links()}}
       @else
-            <p>Nema artikala.</p>
+            <p>Nema kategorija.</p>
       @endif
     
 </div>

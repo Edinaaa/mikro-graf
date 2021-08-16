@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArtikalMaterijalsTable extends Migration
+class CreateKategorijasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateArtikalMaterijalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('artikal_materijals', function (Blueprint $table) {
+        Schema::create('kategorijas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('artikals_id')->constrained();
-            $table->foreignId('materijals_id')->constrained();
-
+            $table->string('naziv',100)->charset('utf8mb4');
+            $table->foreignId('kreirao_id')->constrained('users');
+            $table->boolean('aktivan');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateArtikalMaterijalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artikal_materijals');
+        Schema::dropIfExists('kategorijas');
     }
 }
