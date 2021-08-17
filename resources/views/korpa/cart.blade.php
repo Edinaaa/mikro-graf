@@ -12,7 +12,7 @@
                                 <a href="{{ route('korpa.odustani')}}"  class='w-auto bg-white hover:bg-primary-300 rounded-lg shadow-xl font-medium text-primary-600 px-4 py-2 mx-2'>Odustani</a>
                         
                     @guest
-                             <a href="{{ route('captchaform')}}"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2 mx-2'>Naruci</a>
+                             <a href="{{ route('contactForm')}}"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2 mx-2'>Naruci</a>
                         
                     @endguest
                     @auth

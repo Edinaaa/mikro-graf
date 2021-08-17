@@ -6,7 +6,7 @@
      
         <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
         
-              <form action="{{ route('telefon') }}" method="post" >
+              <form action="{{ route('TelefonVerifikacija') }}" method="post" >
                     <!-- Add CSRF Token -->
                     @csrf
                     <div class="flex justify-center pt-4">

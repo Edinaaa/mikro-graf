@@ -2,6 +2,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
 use App\Http\Controllers\GalerijaController;
 use App\Http\Controllers\ProizvodController;
 use App\Http\Controllers\OblikController;
@@ -13,6 +15,8 @@ use App\Http\Controllers\PorukaController;
 use App\Http\Controllers\KorpaController;
 use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\StanjeController;
+use App\Http\Controllers\StavkeController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\KontaktController;
@@ -44,6 +48,14 @@ Route::post('/register',[RegisterController::class, 'store']);
 
 
 Route::post('/logout',[LogoutController::class, 'store'])->name('logout');
+
+
+Route::get('/resetpass',[ResetPasswordController::class, 'index'])->name('resetpassword');
+Route::post('/resetpass',[ResetPasswordController::class, 'create']);
+Route::get('/newpass',[ResetPasswordController::class, 'newpass'])->name('newpass');
+Route::post('/novalozinka',[ResetPasswordController::class, 'novalozinka'])->name('novalozinka');
+Route::get('/reloadcaptcha', [ResetPasswordController::class, 'reloadCaptcha']);
+
 
 Route::get('/kontakt',[KontaktController::class, 'create'])->name('kontakt');
 
@@ -128,9 +140,9 @@ Route::post('/stanje',[StanjeController::class, 'store']);
 Route::get('/stanje/{stanje}',[StanjeController::class, 'show'])->name('stanje.show');
 Route::post('/stanje/{id}',[StanjeController::class, 'update'])->name('stanje.update');
 
-Route::post('/telefon', [CaptchaServiceController::class, 'TelefonValidate'])->name('telefon');
-Route::get('/telefon', [CaptchaServiceController::class, 'CreateTelefon'])->name('CreateTelefon');
-Route::get('/contact-form', [CaptchaServiceController::class, 'index'])->name('captchaform');
-Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate'])->name('captchaValidate');
-Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
+Route::post('/telefon-verification', [VerifikacijaController::class, 'TelefonVerifikacija'])->name('TelefonVerifikacija');
+Route::get('/telefon-form', [Verifikacijaontroller::class, 'telefonForm'])->name('telefonForm');
+Route::get('/contact-form', [VerifikacijaController::class, 'contactForm'])->name('contactForm');
+Route::post('/contact-captcha-verification', [VerifikacijaController::class, 'contactCaptchaVerifikacija'])->name('contactCaptchaVerification');
+Route::get('/reload-captcha', [VerifikacijaController::class, 'reloadCaptcha']);
 

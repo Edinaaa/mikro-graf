@@ -23,17 +23,17 @@
        
         @endisset
       </div>      
-    @if($korpa->count())
+    @if($stavke->count())
             <div class=" w-full bg-gray-200  py-1  grid grid-cols-1 lg:grid-cols-2 ">
-                  @foreach($korpa as $stavka)
+                  @foreach($stavke as $stavka)
         <x-korpaKartica :narudzba="$stavka"></x-korpaKartica>
 
                   @endforeach
             </div>
                               
-            {{$korpa->links()}}<!--paging koristeci tailwind-->
+            {{$stavke->links()}}<!--paging koristeci tailwind-->
     @else
-            <p>Korpa je prazna.</p>
+            <p>Nema stavki.</p>
     @endif
 
 </div>

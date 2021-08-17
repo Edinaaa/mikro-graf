@@ -73,7 +73,6 @@ class NarudzbaController extends Controller
  
          }
      }
- 
    
      public function NarudzbaGost(Request $request ){
  
@@ -320,15 +319,15 @@ class NarudzbaController extends Controller
                 
                 $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
 
-                return redirect()->action([CaptchaServiceController::class, 'index']);
+                return redirect()->action([VerifikacijaController::class, 'contactForm']);
             }
      }
-     public function update(Request $request, $id){
+    public function update(Request $request, $id){
  
         // Validate the inputs provjeravati cu da li su null ako nisu update
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
-                $narudzba=Narudzba::find($id);
+                $narudzba=Narudzba::with('user')->find($id);
                 if(isset($narudzba)){
                     if($request->get('cijena')!=null )
                         $narudzba->cijena=$request->get('cijena');
@@ -342,8 +341,71 @@ class NarudzbaController extends Controller
                 }
                 $narudzba->save();
                 $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->get();
-                Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
-           
+                if($request->has('email')){
+                    if($narudzba->email!=null){
+                         Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
+
+                    }
+                    else if($narudzba->narucilac_id!=null){
+                        Mail::to($narudzba->user->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
+
+                    }
+                   
+                }
+                if($request->has('sms')){
+                if($narudzba->telefon!=null){
+                        try {
+
+                            $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+                            $client = new \Nexmo\Client($basic);
+            
+                            $receiverNumber =$narudzba->telefon;
+            
+                            $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+
+                          
+                            dd($message);
+                            $message = $client->message()->send([
+                                'to' => $receiverNumber,
+                                'from' => 'mikro-graf',
+                                'text' => $message
+            
+                            ]);
+            
+                        }
+                        catch (Exception $e) {
+                            $request->session()->flash('alert-warning',$e->getMessage());
+                            }
+                        
+                }
+                if($narudzba->narucilac_id!=null){
+                    try {
+
+                        $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+                        $client = new \Nexmo\Client($basic);
+        
+                        $receiverNumber =$narudzba->user->telefon;
+        
+                        $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+                      
+                        dd($message);
+                        $message = $client->message()->send([
+                            'to' => $receiverNumber,
+                            'from' => 'mikro-graf',
+                            'text' => $message
+        
+                        ]);
+        
+                    }
+                    catch (Exception $e) {
+                        $request->session()->flash('alert-warning',$e->getMessage());
+                        
+                    }
+                  }
+                  
+                }
+                  
+                
             }
         }
      
@@ -351,7 +413,7 @@ class NarudzbaController extends Controller
     }
 
  
-     public function show(Narudzba $narudzba){
+    public function show(Narudzba $narudzba){
         $stanja=Stanje::get();
         return view('narudzba.narudzbaUpdate',['narudzba'=>$narudzba,'stanja'=>$stanja]);
     }

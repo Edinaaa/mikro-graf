@@ -11,7 +11,7 @@
 <div  class="flex justify-between  flex-col ml-5">
             <div>
                
-               <h4  class=" uppercase text-primary-600 text-xl  my-4">{{$narudzba->artikal->naziv}}</h4>
+               <h4  class=" uppercase text-primary-600 text-xl  my-4">{{$narudzba->kategorija->naziv}}</h4>
                <p  class="text-gray-800 mt-2">Natpis {{$narudzba->tekst}},
                   @isset($narudzba->font)
                   font {{$narudzba->font->naziv}},

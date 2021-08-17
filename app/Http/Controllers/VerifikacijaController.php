@@ -7,23 +7,24 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Exception;
 
-class CaptchaServiceController extends Controller
+class VerifikacijaController extends Controller
 {
-    public function index()
+    public function contactForm()
     {
-        
+       
        
         return view('captcha.index');
         
     }
-    public function CreateTelefon()
+    public function telefonForm()
     {
         
        
         return view('captcha.telefonKood');
         
     }
-    public function capthcaFormValidate(Request $request)
+  
+    public function contactCaptchaVerifikacija(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -76,15 +77,15 @@ class CaptchaServiceController extends Controller
             
 
             }
-            */
+        */
         
         
         $narudzbaPodaci->edit($request->get('email'),$request->get('telefon'),$telefonV);
         $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
-        return redirect()->route('CreateTelefon');
+        return redirect()->route('telefonForm');
     }
 
-    public function TelefonValidate(Request $request)
+    public function TelefonVerifikacija(Request $request)
     {
         
 

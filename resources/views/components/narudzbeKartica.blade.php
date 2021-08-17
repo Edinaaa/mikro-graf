@@ -28,7 +28,7 @@
                      @foreach ($stavke as $stavka)
                         @if ($stavka->narudzbas_id==$narudzba->id)
                         @if (auth()->user()->hasRole('admin'))
-                        {{$stavka->kolicina}}x {{$stavka->artikal->naziv}},
+                        {{$stavka->kolicina}}x {{$stavka->kategorija->naziv}},
 
                         @else
                         {{$stavka->kolicina}}x {{$stavka->naziv}},

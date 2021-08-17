@@ -14,6 +14,7 @@
                                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Narudzba</h1>
                               </div>
                               </div>
+
                     <x-input id="cijena" label="cijena" value="{{ old('cijena')}}" class="mt-5 mx-7">
                     @error("cijena")
                               <div for="cijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
@@ -23,7 +24,7 @@
                     </x-input>
                   
                   <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
-                        <label for="stanjes_id" class="block text-sm font-medium text-gray-700">Stanje narudzbe</label>
+                        <label for="stanjes_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Stanje narudzbe</label>
                         <select id="stanjes_id" name="stanjes_id" autocomplete="stanjes_id" class="mt-1 block w-full py-2 px-3 border border-primary-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                               <option>Odaberi</option>
                               @foreach ($stanja as $stanje)
@@ -31,7 +32,14 @@
                               @endforeach
                         </select>
                   </div>
-                   
+
+                  <label  class=" grid  uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mt-5  mx-7">Obavjesti kupca poutem:</label>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5   mx-7">
+
+                        <x-input type="checkbox"  id="email[]" label="email" value="" ></x-input>
+                        <x-input type="checkbox"  id="sms[]" label="sms" value=""></x-input>
+                  </div> 
                    
                     <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
                    
