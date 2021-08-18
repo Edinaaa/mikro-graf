@@ -7,7 +7,7 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
                   
-                        <form action="{{ route('galerija') }}" method="post" enctype="multipart/form-data">
+                        <form name="galerijafrm" onsubmit="return validateForm('galerijafrm')" action="{{ route('galerija') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
@@ -16,14 +16,26 @@
                               </div>
                               </div>
 
-                              <x-input id="name" label="Naziv slike" value="{{ old('name')}}" class="mt-5 mx-7">
+                              <x-input id="naziv" label="Naziv slike" value="{{ old('name')}}" class="mt-5 mx-7">
                               @error("naziv")
                               <div for="naziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                               {{$message}}
                               </div>
                               @enderror
+                              <div id="errornaziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                               </x-input>
-                              <x-input type="file" id="file"  label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
+                              <x-input type="file" id="file"  label="slika" value="{{ old('file')}}" class="mt-5 mx-7">
+                              @error("file")
+                              <div for="file" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              {{$message}}
+                              </div>
+                              @enderror
+                              <div id="errorfile" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
+                              </x-input>
 
                               
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -49,4 +61,7 @@
                
 </div>
 </div>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

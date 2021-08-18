@@ -7,7 +7,7 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form action="{{ route('kategorija.update',$kategorija->id) }}" method="post" >
+                        <form name="kategorijaupdatefrm" onsubmit="return validateKategorijaForm('kategorijaupdatefrm')" action="{{ route('kategorija.update',$kategorija->id) }}" method="post" >
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
@@ -22,7 +22,9 @@
                               {{$message}}
                               </div>
                               @enderror
-
+                              <div id="errornaziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                               </x-input>
                               
                               <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
@@ -54,9 +56,12 @@
                                           </div>
                                   
                                     </div>
-                                    <div class='flex items-start justify-start  md:gap-8 gap-4 py-5'>
-                              <button id="button" type="button"  onClick="Selektovani()" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</button>
+                              <div class='flex items-start justify-start  md:gap-8 gap-4 py-5'>
+                                    <button id="button" type="button"  onClick="Selektovani()" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Izmjeni</button>
                               </div>
+                              <div id="errormaterijali" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                               </div>
                               <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 hidden " value="{{$selecMaterijali}}"></x-input>
               
@@ -128,4 +133,7 @@ function Selektovani() {
 } 
 
 </script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

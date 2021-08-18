@@ -7,7 +7,7 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form action="{{ route('stanje') }}" method="post" enctype="multipart/form-data">
+                        <form name="stanjefrm" onsubmit="return validateStanjeForm('stanjefrm')" action="{{ route('stanje') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
@@ -22,6 +22,9 @@
                               {{$message}}
                               </div>
                               @enderror
+                              <div id="errornaziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                               </x-input>
 
                               <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan[]" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
@@ -55,4 +58,7 @@
       @endif
                
 </div>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

@@ -30,7 +30,9 @@ class MaterijalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:30',
+            "visina"=>'required|between:0,9999.99',
+            "sirina"=>'required|between:0,9999.99',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);
@@ -75,7 +77,9 @@ class MaterijalController extends Controller
         $materijal=Materijal::find($id);
         $aktivan=false;
         $request->validate([
-            "name"=>'required'
+            "naziv"=>'required|max:30',
+            "visina"=>'required|between:0,9999.99',
+            "sirina"=>'required|between:0,9999.99',
         ]);
         if($request->has('aktivan')){
             $aktivan=true;

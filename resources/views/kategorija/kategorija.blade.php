@@ -7,13 +7,13 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form action="{{ route('kategorija') }}" method="post" enctype="multipart/form-data">
+                        <form name="kategorijafrm" onsubmit="return validateKategorijaForm('kategorijafrm')" action="{{ route('kategorija') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
-                              <div class="flex">
-                                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Nova kategorija</h1>
-                              </div>
+                                    <div class="flex">
+                                          <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Nova kategorija</h1>
+                                    </div>
                               </div>
 
                               <x-input id="naziv" label="Naziv kategorija" value="{{ old('naziv')}}" class="mt-5 mx-7">
@@ -22,6 +22,9 @@
                               {{$message}}
                               </div>
                               @enderror
+                              <div id="errornaziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                               </x-input>
                               <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
                                     <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za kategorija</label>
@@ -53,8 +56,11 @@
                                                 @endforeach
                                           </div>
                                     </div>
+                                    <div id="errormaterijali" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              
+                                     </div>
                               </div>
-                              <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 hidden" value=""></x-input>
+                              <x-input type="text"   id="selecMaterijali" label="selecMaterijali" class="mt-5 mx-7 " value=""></x-input>
               
                               <x-input type="checkbox" checked="{{ old('aktivan')}}" id="aktivan" label="aktivan" class="mt-5 mx-7" value="{{ old('aktivan')}}"></x-input>
                               
@@ -117,4 +123,7 @@
       document.getElementById("selecMaterijali").value=niz;
     } 
 </script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

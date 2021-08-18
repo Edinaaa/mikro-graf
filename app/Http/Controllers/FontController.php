@@ -21,7 +21,9 @@ class FontController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
-            "naziv"=>'required'
+            "naziv"=>'required|max:30',
+            'file' => 'image|mimes:jpeg,bmp,png' 
+
         ]);
          $font=Font::find($id);
          $imagedb=null;
@@ -67,7 +69,7 @@ class FontController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:30',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);

@@ -22,16 +22,14 @@ class GalerijaController extends Controller
     {
         $galerija=  Galerija::find($id);
         $request->validate([
-            "name"=>'required'
+            "naziv"=>'required|max:30',
+            'file' => 'image|mimes:jpeg,bmp,png' 
+
         ]);
         if($galerija==null){
             return back();
         }
-        // Validate the inputs
-        $request->validate([
-            "name"=>'required'
-
-        ]);
+       
 
         $imagedb=null;
         // ensure the request has a file before we attempt anything else.
@@ -86,7 +84,7 @@ class GalerijaController extends Controller
     {
         // Validate the inputs
         $request->validate([
-            "name"=>'required',
+            "naziv"=>'required|max:30'
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);
@@ -124,7 +122,7 @@ class GalerijaController extends Controller
 
             $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
             Galerija::create([
-                    "name" =>$request->get('name'),
+                    "name" =>$request->get('naziv'),
                     "images_id" => $imagedb->id,
                     "kreirao_id" =>auth()->id()]);
         }

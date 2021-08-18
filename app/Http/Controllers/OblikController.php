@@ -22,6 +22,11 @@ class OblikController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            "naziv"=>'required|max:30',
+            'file' => 'image|mimes:jpeg,bmp,png' 
+
+        ]);
         $oblik=Oblik::find($id);
         $imagedb=null;
         if ($request->hasFile('file')) {
@@ -65,7 +70,7 @@ class OblikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:30',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);

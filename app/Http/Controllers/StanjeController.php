@@ -18,6 +18,10 @@ class StanjeController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            "naziv"=>'required|max:30',
+
+        ]);
         $stanje=Stanje::find($id);
      
 
@@ -36,7 +40,7 @@ class StanjeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:30',
 
         ]);
         $aktivan=false;

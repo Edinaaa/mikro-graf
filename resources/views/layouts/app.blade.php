@@ -31,5 +31,6 @@
     @endforeach
   </div> <!-- end .flash-message -->  
     @yield('content')
+    @yield('footer-scripts')
 </body>
 </html>
