@@ -2,14 +2,14 @@
 
 //https://newbedev.com/laravel-right-way-to-import-javascript-into-blade-templates
 
-function ObaveznoPolje(element,error) {
+function ObaveznoPolje(element,error,message="Ovo je obavezno polje.") {
 
     if (element.value == "") {
-        error.innerHTML="Ovo je obavezno polje.";
+        error.innerHTML=message;
     return false;
     }
     else{
-        error.innerHTML=error.innerHTML.replace('Ovo je obavezno polje.','');
+        error.innerHTML=error.innerHTML.replace(message,'');
     return true;   
     }
 }    
@@ -23,6 +23,18 @@ function MaxLenght(element,error, l) {
           error.innerHTML=error.innerHTML.replace('Maksimalan broj znakova je '+l+'.','');
           
           return true;   
+    }
+} 
+function MinLenght(element,error, l) {
+
+    if (element.value.length<l && element.value.length!=0) {
+        error.innerHTML="Minimalan broj znakova je "+l+".";
+        return false;
+    }
+    else{
+        error.innerHTML=error.innerHTML.replace('Minimalan broj znakova je '+l+'.','');
+        
+        return true;   
     }
 }  
 function fileValidan(element,error) {
@@ -54,17 +66,79 @@ function FloatVrijednost(element,error) {
     }
 }  
 function IntVrijednost(element,error,message) {
-var n=element.value.replace(',','');
-if(!Number(n)  || n<0 && n!="") 
-{
-    error.innerHTML=message;
-    return false;
-}
-else{
-   
-   error.innerHTML=error.innerHTML.replace(message,'');
+    var n=element.value.replace(',','');
+    if((!Number(n)  || n<0 )&& n!="") 
+    {
+        error.innerHTML=message;
+        return false;
+    }
+    else{
+    
+    error.innerHTML=error.innerHTML.replace(message,'');
 
-    return true;   
-}
+        return true;   
+    }
 }  
+function JednakeVrijednost(element1,element2,error,message) {
+    if(element1.value!=element2.value) 
+    {
+        error.innerHTML=message;
+        return false;
+    }
+    else{
+    
+    error.innerHTML=error.innerHTML.replace(message,'');
+
+        return true;   
+    }
+} 
+function PassVrijednost(element,error) {
+
+    var objRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,100}$/;  
+    if(element.value !="" ) {
+        if(objRegex.test(element.value) ) 
+        {
+        error.innerHTML="";
+            return true;
+        }
+        else{
+            error.innerHTML="Lozinka treba sadržavati barem po jedno slovo, broj i znak @$!%*#?&.";
+            return false;   
+        }
+    
+    }
+    return true;
+}
+function EmailVrijednost(element,error) {
+
+    var objRegex = /\S+@\S+\.\S+/;  
+    if(element.value !="" ) {
+        if(objRegex.test(element.value) ) 
+        {
+            error.innerHTML=error.innerHTML.replace('Vaš email nije validan.','');
+            return true;
+        }
+        else{
+            error.innerHTML="Vaš email nije validan.";
+            return false;   
+        }
+
+    }
+    return true;
+}
+function CheckboxVrijednost(element,element2,error) {
+
+    if(element.checked || element2.checked) {
+        error.innerHTML=error.innerHTML.replace('Odaberite bar jedno od ponuđenog.','');
+        
+        return true;
+    }
+    else{
+        error.innerHTML='Odaberite bar jedno od ponuđenog.';
+        return false;   
+    }
+
+
+return true;
+}
 </script>

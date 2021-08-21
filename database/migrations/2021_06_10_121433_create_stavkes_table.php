@@ -23,7 +23,7 @@ class CreateStavkesTable extends Migration
             $table->integer('kolicina');
             $table->foreignId('obliks_id')->nullable()->constrained();
             $table->foreignId('fonts_id')->nullable()->constrained();
-            $table->foreignId('materijals_id')->constrained();
+            $table->foreignId('materijals_id')->nullable()->constrained();
             $table->foreignId('images_id')->nullable()->constrained()->onDelete('SET NULL');
             $table->foreignId('kategorijas_id')->constrained();
             $table->foreignId('proizvods_id')->nullable()->constrained()->onDelete('SET NULL');

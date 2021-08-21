@@ -13,7 +13,7 @@
             </div>
             <div id="dodajFoma" class="hidden bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 mt-8">
                   
-                        <form action="{{ route('proizvodi') }}" method="post" enctype="multipart/form-data">
+                        <form name="proizvodfrm" onsubmit="return validateProizvodForm('proizvodfrm')" action="{{ route('proizvodi') }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">
@@ -22,12 +22,29 @@
                                     </div>
                               </div>
                          
-                              <x-input id="tekst" label="tekst" value="{{ old('tekst')}}" class="mt-5 mx-7"></x-input>
+                              <x-input id="tekst" label="tekst" value="{{ old('tekst')}}" class="mt-5 mx-7">
+                                    @error("tekst")
+                                          <div for="tekst" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                          {{$message}}
+                                          </div>
+                                    @enderror
+                                    <div id="errortekst" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              
+                                    </div>
+                              </x-input>
 
                                <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
                                     <div class=" w-3/5">
                                           <x-input id="kategorija" label="kategorija" value="{{ old('kategorija')}}"></x-input>
                                           <x-input class="hidden" id="kategorija_id" label="kategorija_id" value="{{ old('kategorija_id')}}"></x-input>
+                                          @error("kategorija_id")
+                                                <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errorkategorija" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
                                     </div>
 
                                     <div class="w-1/4 ml-4">
@@ -39,14 +56,40 @@
                               </div>
                               
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-                                    <x-input id="visina" label="Visina" value="{{ old('visina')}}"></x-input>
-                                    <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}"></x-input>
+                                    <x-input id="visina" label="Visina" value="{{ old('visina')}}">
+                                           @error("visina")
+                                                <div for="visina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errorvisina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
+                                    </x-input>
+                                    <x-input id="sirina" label="Sirina" value="{{ old('sirina')}}">
+                                           @error("sirina")
+                                                <div for="sirina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errorsirina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
+                                    </x-input>
                               </div>
                               
                               <div  id="divOblik" class="hidden flex-row justify-start items-center w-full  mt-5 mx-7">
                                     <div class=" w-3/5 ">
                                           <x-input id="oblik" label="Oblik" value="{{ old('oblik')}}"></x-input>
                                           <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{ old('oblik_id')}}"></x-input>
+                                          @error("oblik_id")
+                                                <div for="oblik_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="erroroblik" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
                                     </div>
 
                                     <div class="w-1/4 ml-4 ">
@@ -62,6 +105,14 @@
                                     <div class=" w-3/5">
                                           <x-input id="font" label="Font" value="{{ old('font')}}"></x-input>
                                           <x-input class="hidden" id="font_id" label="font_id" value="{{ old('font_id')}}"></x-input>
+                                          @error("font_id")
+                                                <div for="font_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errorfont" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
                                     </div>
 
                                     <div class="w-1/4 ml-4">
@@ -76,6 +127,14 @@
                                     <div class="w-3/5">
                                           <x-input id="materijal" label="Materijal" value="{{ old('materijal')}}"></x-input>
                                           <x-input class="hidden" id="materijal_id" label="materijal_id" value="{{ old('materijal_id')}}"></x-input>
+                                          @error("materijal_id")
+                                                <div for="materijal_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errormaterijal" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
                                     </div>
 
                                     <div class="w-1/4 ml-4">
@@ -87,14 +146,41 @@
                               </div>
 
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
-                                    <x-input id="popust" label="Popust" value="{{ old('popust')}}"></x-input>
-                                     <x-input  id="cijena" label="cijena" value="{{ old('cijena')}}"></x-input>
+                                    <x-input id="popust" label="Popust" value="{{ old('popust')}}">
+                                          @error("popust")
+                                                <div for="popust" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                           @enderror
+                                          <div id="errorpopust" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
+                                    </x-input>
+                                     <x-input  id="cijena" label="cijena" value="{{ old('cijena')}}">
+                                          @error("cijena")
+                                                <div for="cijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                {{$message}}
+                                                </div>
+                                          @enderror
+                                          <div id="errorcijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    
+                                          </div>
+                                     </x-input>
                               </div>
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8  mt-5   mx-7">
                                     <x-input type="checkbox" id="aktivan[]" label="aktivan" value="{{ old('aktivan[]')}}"></x-input>
                                      <x-input type="checkbox" id="novo[]" label="novo" value="{{ old('novo')}}"></x-input>
                               </div>
-                             <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7"></x-input>
+                             <x-input type="file" id="file" label="slika" value="{{ old('file')}}" class="mt-5 mx-7">
+                                    @error("file")
+                                          <div for="file" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                          {{$message}}
+                                          </div>
+                                     @enderror
+                                    <div id="errorfile" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              
+                                    </div>
+                             </x-input>
 
 
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -246,4 +332,7 @@
       }
       ToggleProizvod()
 </script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

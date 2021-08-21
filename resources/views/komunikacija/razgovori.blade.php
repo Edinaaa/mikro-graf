@@ -53,12 +53,16 @@
                     </div>
                 </div>
                 <div class="absolute bottom-0  flex  flex-col items-end w-full">
+                
                     <div class="w-full">
-                    <form action="{{ route('poruka') }}"  method="post" enctype="multipart/form-data">
+                    <form name="porukafrm" onsubmit="return validatePorukaForm('porukafrm')" action="{{ route('poruka') }}"  method="post" enctype="multipart/form-data">
                         @csrf
+                        <div id="errorsadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                                </div>
                         <div class="  w-full flex flex-row justify-between items-center bg-white 
                             border-2 border-solid border-primary-200 hover:border-primary-300">
-                            <x-input  id="posiljaoc_id" label="" value="auth()->id()" class="hidden"></x-input>
+                            <x-input  id="posiljaoc_id" label="" value="{{auth()->id()}}" class="hidden"></x-input>
                             <x-input  id="razgovor_id" label="" value="{{$odabraniRazgovor->id}}" class="hidden"></x-input>
 
                                 <textarea id="sadrzaj" class="px-2 pt-3 w-11/12 bg-primary-50 border-none resize-none focus:outline-none"
@@ -156,4 +160,7 @@
           }
      }
 </script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

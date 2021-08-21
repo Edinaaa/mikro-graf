@@ -12,14 +12,14 @@
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Posaljite poruku</h1>
                 </div>
             </div>
-            <form action="{{ route('razgovor') }}" method="post" enctype="multipart/form-data">
+            <form name="porukefrm" onsubmit="return validatePorukeForm('porukefrm')" action="{{ route('razgovor') }}" method="post" enctype="multipart/form-data">
                  @csrf
               
                 <div class="grid grid-cols-1 mt-5 mx-7">
                     <label for="primaoc_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Primaoc</label>
                     <select name="primaoc_id" id="primaoc_id" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    
-                        <option value="0" selected>odaberite</option>
+                       
+                        <option disabled="disabled">Odaberite</option>
 
                         @if($primaoci->count())
                             @foreach ($primaoci as $primaoc)
@@ -28,14 +28,39 @@
                             @endforeach
                         @endif
                     </select> 
+                    @error("primaoc_id")
+                        <div for="primaoc_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="errorprimaoc_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
               </div>
             
-                <x-input id="tema" label="Tema" value="" class="mt-5 mx-7"></x-input>
+                <x-input id="tema" label="Tema" value="" class="mt-5 mx-7">
+                    @error("tema")
+                        <div for="tema" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="errortema" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
+                </x-input>
 
                 <div class="grid grid-cols-1 mt-5 mx-7">
                     <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadrzaj</label>
                     <textarea id="sadrzaj" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
                     name="sadrzaj" rows="4" cols="50"></textarea>
+                    @error("sadrzaj")
+                        <div for="sadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="errorsadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
                 </div>
 
                 <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -44,4 +69,7 @@
             </form>
         </div>
     </div>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

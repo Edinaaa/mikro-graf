@@ -18,7 +18,7 @@ use App\Http\Controllers\StanjeController;
 use App\Http\Controllers\StavkeController;
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CaptchaServiceController;
+use App\Http\Controllers\VerifikacijaController;
 use App\Http\Controllers\KontaktController;
 
 
@@ -141,7 +141,7 @@ Route::get('/stanje/{stanje}',[StanjeController::class, 'show'])->name('stanje.s
 Route::post('/stanje/{id}',[StanjeController::class, 'update'])->name('stanje.update');
 
 Route::post('/telefon-verification', [VerifikacijaController::class, 'TelefonVerifikacija'])->name('TelefonVerifikacija');
-Route::get('/telefon-form', [Verifikacijaontroller::class, 'telefonForm'])->name('telefonForm');
+Route::get('/telefon-form', [VerifikacijaController::class, 'telefonForm'])->name('telefonForm');
 Route::get('/contact-form', [VerifikacijaController::class, 'contactForm'])->name('contactForm');
 Route::post('/contact-captcha-verification', [VerifikacijaController::class, 'contactCaptchaVerifikacija'])->name('contactCaptchaVerification');
 Route::get('/reload-captcha', [VerifikacijaController::class, 'reloadCaptcha']);

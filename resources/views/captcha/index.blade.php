@@ -6,7 +6,7 @@
         
             <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
             
-                <form action="{{ route('contactCaptchaVerification') }}" method="post" >
+                <form name="KontaktPadacifrm" onsubmit="return validateKontaktPadaciForm('KontaktPadacifrm')"  action="{{ route('contactCaptchaVerification') }}" method="post" >
                         <!-- Add CSRF Token -->
                         @csrf
                         <div class="flex justify-center pt-4">
@@ -21,6 +21,9 @@
                                     {{$message}}
                                 </div>
                                 @enderror
+                                <div id="errortelefon" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                                </div>
                             </x-input>
                             <x-input type="email" id="email" label="email" value="{{ old('email')}}">
                                 @error("email")
@@ -28,6 +31,9 @@
                                     {{$message}}
                                 </div>
                                 @enderror
+                                <div id="erroremail" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                             </x-input>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
@@ -51,6 +57,9 @@
                                                 @endif
                                             </div>
                                     @enderror
+                                    <div id="errorcaptcha" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
                                 </x-input>
                             
                         </div>
@@ -90,4 +99,7 @@
         });
     } );
 </script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

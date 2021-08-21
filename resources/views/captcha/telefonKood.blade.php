@@ -6,7 +6,7 @@
      
         <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
         
-              <form action="{{ route('TelefonVerifikacija') }}" method="post" >
+              <form name="telefonfrm" onsubmit="return validateTelefonKoodForm('telefonfrm')" action="{{ route('TelefonVerifikacija') }}" method="post" >
                     <!-- Add CSRF Token -->
                     @csrf
                     <div class="flex justify-center pt-4">
@@ -24,6 +24,9 @@
                 </div>
            
                 @enderror
+                <div id="errorverifikacioni_code" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                </div>
             </x-input>
 
        
@@ -39,8 +42,8 @@
    
                
 </div>
-<script type="text/javascript">
 
-  
-</script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

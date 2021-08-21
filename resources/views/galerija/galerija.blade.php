@@ -24,7 +24,7 @@
                               @enderror
                               <div id="errornaziv" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                              
-                             </div>
+                              </div>
                               </x-input>
                               <x-input type="file" id="file"  label="slika" value="{{ old('file')}}" class="mt-5 mx-7">
                               @error("file")

@@ -10,7 +10,7 @@
         <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Login</h1>
       </div>
     </div>
-    <form method="POST" action="{{ route('login') }}">
+    <form name="loginfrm" onsubmit="return validateLoginForm('loginfrm')" method="POST" action="{{ route('login') }}">
           @csrf
         <x-input id="email" type="email" label="Email" value="" class="mt-5 mx-7">
         @error("email")
@@ -18,6 +18,9 @@
         {{$message}}
         </div>
         @enderror
+        <div id="erroremail" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+                             </div>
         </x-input>
         <x-input id="password" type="password" label="Lozinka" value="" class="mt-5 mx-7">
         @error("password")
@@ -25,6 +28,9 @@
         {{$message}}
         </div>
         @enderror
+        <div id="errorpassword" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+        </div>
         </x-input>
 
         <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -44,4 +50,6 @@
 
 </script>
 @endsection
-
+@section('footer-scripts')
+      @include('scripts.formValidacija')
+@endsection

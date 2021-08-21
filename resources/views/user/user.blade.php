@@ -11,48 +11,68 @@
         <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Postavke korisnickog racuna</h1>
       </div>
     </div>
-    <form method="POST" action="{{ route('user.update',$user->id) }}">
+    <form name="userfrm" onsubmit="return validateUserForm('userfrm')"  method="POST" action="{{ route('user.update',$user->id) }}">
      @csrf
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-          <x-input id="name"  label="Ime"  value="{{ $user->name}}" >       
-       @error("name")
-        <div for="name" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-        {{$message}}
-        </div>
-        @enderror
-          </x-input>
-          <x-input id="lastname"  label="Prezime" value="{{  $user->lastname}}" >
+        <x-input id="name"  label="Ime"  value="{{ $user->name}}" >       
+          @error("name")
+            <div for="name" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+            {{$message}}
+            </div>
+          @enderror
+          <div id="errorname" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+          </div>
+        </x-input>
+        <x-input id="lastname"  label="Prezime" value="{{  $user->lastname}}" >
           @error("lastname")
-        <div for="lastname" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-        {{$message}}
-        </div>
-        @enderror
-          </x-input>
+            <div for="lastname" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+            {{$message}}
+            </div>
+          @enderror
+          <div id="errorlastname" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+          </div>
+        </x-input>
       </div>
       <x-input id="telefon"  label="Telefon" value="{{  $user->telefon}}" class="mt-5 mx-7">
-      @error("telefon")
+        @error("telefon")
         <div for="telefon" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
         {{$message}}
         </div>
         @enderror
+        <div id="errortelefon" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+        </div>
       </x-input>
 
       <x-input id="email" type="email" label="Email" value="{{  $user->email}}" class="mt-5 mx-7">
-      @error("email")
+        @error("email")
         <div for="email" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
         {{$message}}
         </div>
         @enderror
+        <div id="erroremail" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+        </div>
       </x-input>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-      <x-input id="password" type="password" label="Lozinka" value="" ></x-input>
-      <x-input id="password_confirmation" type="password" label="Lozinka potvrda" value="" ></x-input>
-      @error("password")
+        <x-input id="password" type="password" label="Lozinka" value="" >
+          <div id="errorpassword" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              
+          </div>
+        </x-input>
+        <x-input id="password_confirmation" type="password" label="Lozinka potvrda" value="" ></x-input>
+        @error("password")
         <div for="password" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
         {{$message}}
         </div>
         @enderror
+        <div id="errorpassword_confirmation" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+        </div>
       </div>
    
       <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -62,9 +82,8 @@
   </div>
 </div>
 
-<script>
- 
- 
 
-</script>
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

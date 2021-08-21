@@ -16,7 +16,7 @@ class NarudzbaPodaci
    public $fonts_id=null;
    public $materijals_id;
    public $images_id;
-   public $artikals_id;
+   public $kategorijas_id;
 
    public function __construct($oldNarudzbaPodaci){
        if($oldNarudzbaPodaci){
@@ -31,14 +31,14 @@ class NarudzbaPodaci
            $this->fonts_id=$oldNarudzbaPodaci->fonts_id;
            $this->materijals_id=$oldNarudzbaPodaci->materijals_id;
            $this->images_id=$oldNarudzbaPodaci->images_id;
-           $this->artikals_id=$oldNarudzbaPodaci->artikals_id;
+           $this->kategorijas_id=$oldNarudzbaPodaci->kategorijas_id;
 
 
        }
    }
    public function add($tekst,$visina,$sirina,
     $opis,$obliks_id,$fonts_id,
-      $materijals_id,$file,$artikals_id){
+      $materijals_id,$file,$kategorijas_id){
         
     $this->tekst=$tekst;
     $this->visina=$visina;
@@ -48,7 +48,7 @@ class NarudzbaPodaci
     $this->fonts_id=$fonts_id;
     $this->materijals_id=$materijals_id;
     $this->file=$file;
-    $this->artikals_id=$artikals_id;
+    $this->kategorijas_id=$kategorijas_id;
    }
    public function edit($e,$t,$tv){
         

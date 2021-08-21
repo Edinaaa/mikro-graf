@@ -18,8 +18,8 @@ class CreateMaterijalsTable extends Migration
             $table->string('naziv',30)->charset('utf8mb4');
             $table->foreignId('kreirao_id')->constrained('users');
             $table->foreignId('images_id')->constrained();
-            $table->float('visina', 4, 2);
-            $table->float('sirina', 4, 2); 
+            $table->float('visina', 6, 2);
+            $table->float('sirina', 6, 2); 
             $table->boolean('aktivan'); 
             $table->timestamps();
         });

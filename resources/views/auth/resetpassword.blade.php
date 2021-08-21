@@ -10,7 +10,7 @@
         <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Zaboravljena lozinka</h1>
       </div>
     </div>
-    <form method="POST" action="{{ route('resetpassword') }}">
+    <form name="resetpassfrm" onsubmit="return validateResetPassForm('resetpassfrm')" method="POST" action="{{ route('resetpassword') }}">
        @csrf
     <x-input id="email" type="email" label="Email" value="" class="mt-5 mx-7">
     @error("email")
@@ -18,6 +18,9 @@
     {{$message}}
     </div>
     @enderror
+    <div id="erroremail" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+      </div>
     </x-input>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
       <div>
@@ -39,6 +42,8 @@
                 @endif
             </div>
           @enderror
+          <div id="errorcaptcha" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+          </div>
       </x-input>
                             
     </div>
@@ -66,4 +71,6 @@
     } );
 </script>
 @endsection
-
+@section('footer-scripts')
+      @include('scripts.formValidacija')
+@endsection

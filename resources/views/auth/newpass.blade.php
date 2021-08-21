@@ -10,19 +10,26 @@
         <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Nova lozinka</h1>
       </div>
     </div>
-    <form method="POST" action="{{ route('novalozinka') }}">
+    <form name="newpassfrm" onsubmit="return validateNewPassForm('newpassfrm')"  method="POST" action="{{ route('novalozinka') }}">
        @csrf
       <x-input id="email" type="email" label="email" value="{{$ResetPass->email}}"  class="hidden"></x-input>
       <x-input id="ResetPassId" label="ResetPassId" value="{{$ResetPass->id}}" class="hidden"></x-input>
 
        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-      <x-input id="password" type="password" label="Lozinka" value="" ></x-input>
+      <x-input id="password" type="password" label="Lozinka" value="" >
+      <div id="errorpassword" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+      </div>
+      </x-input>
       <x-input id="password_confirmation" type="password" label="Lozinka potvrda" value="" ></x-input>
       @error("password")
         <div for="password" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
         {{$message}}
         </div>
         @enderror
+        <div id="password_confirmation" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                             
+        </div>
       </div>
    
     
@@ -50,4 +57,6 @@
     } );
 </script>
 @endsection
-
+@section('footer-scripts')
+      @include('scripts.formValidacija')
+@endsection

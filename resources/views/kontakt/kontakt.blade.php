@@ -39,7 +39,7 @@
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Posaljite poruku</h1>
                 </div>
             </div>
-            <form action="{{route('razgovor')}}" method="post">
+            <form name="Kontaktporukafrm" onsubmit="return validateKontaktPorukaForm('Kontaktporukafrm')"  action="{{route('razgovor')}}" method="post">
                  @csrf
 
                  <div class="grid grid-cols-1 mt-5 mx-7">
@@ -57,14 +57,40 @@
                     </select> 
               </div>
               @guest
-                 <x-input type="email" id="email" name="email" label="Email" value="" class="mt-5 mx-7"></x-input>
+                 <x-input type="email" id="email" name="email" label="Email" value=""  class="mt-5 mx-7">
+                    @error("email")
+                        <div for="email" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="erroremail" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
+                 </x-input>
               @endguest
-                <x-input id="tema" label="Naslov" name="tema" value="" class="mt-5 mx-7"></x-input>
+                <x-input id="tema" label="Naslov" name="tema" value="" class="mt-5 mx-7">
+                    @error("tema")
+                        <div for="tema" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="errortema" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
+                </x-input>
 
                 <div class="grid grid-cols-1 mt-5 mx-7">
                     <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadrzaj</label>
                     <textarea id="sadrzaj" name="sadrzaj" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
                     name="sadrzaj" rows="4" cols="50"></textarea>
+                    @error("sadrzaj")
+                        <div for="sadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+                    @enderror
+                    <div id="errorsadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                
+                    </div>
                 </div>
 
                 <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -107,4 +133,7 @@
     
 <div>
 
+@endsection
+@section('footer-scripts')
+      @include('scripts.formValidacija')
 @endsection

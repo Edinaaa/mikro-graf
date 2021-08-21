@@ -164,6 +164,7 @@ class NarudzbaController extends Controller
           
           // dd($request);
         $oblik_id=$request->get('oblik_id')? $request->get('oblik_id'):null;
+        $opis=$request->get('opis')? $request->get('opis'):"";
         $font_id=$request->get('font_id')? $request->get('font_id'):null;
         $materijal_id=$request->get('materijal_id')? $request->get('materijal_id'):null;
         $stanje=Stanje::where('naziv','=','Naruceno')->first();
@@ -256,7 +257,7 @@ class NarudzbaController extends Controller
                      'tekst'=>$request->get('tekst'),
                      'visina'=>$request->get('visina'),
                      'sirina'=>$request->get('sirina'),
-                     'opis'=>$request->get('opis'),
+                     'opis'=>$opis,
                      'cijena'=>0,
                      'kolicina'=>1,
                      'proizvods_id'=>null,
@@ -310,11 +311,10 @@ class NarudzbaController extends Controller
                  $images_id=$imagedb? $imagedb->id:null;
                
                 $oldNarudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
-                
                 $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
                 
                 $narudzbaPodaci->add($request->get('tekst'),$request->get('visina'),
-                $request->get('sirina'),$request->get('opis'),$oblik_id,
+                $request->get('sirina'),$opis,$oblik_id,
                 $font_id,$materijal_id, $images_id, $request->get('kategorija_id'));
                 
                 $request->session()->put('narudzbaPodaci',$narudzbaPodaci);

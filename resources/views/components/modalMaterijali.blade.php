@@ -1,4 +1,4 @@
-@props(['obj'=>'$oblici','ams'=>'$artikal_materijal', 'idartikal'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
+@props(['obj'=>'$oblici','ams'=>'$kategorija_materijals', 'idkategorija'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -68,7 +68,7 @@
     var bo=document.getElementById(idBO);
     var mp=document.getElementById(idMP);
     var m=document.getElementById(idM);
-    artikal('{{$ams}}','{{$obj}}', '{{$idartikal}}')
+    artikal('{{$ams}}','{{$obj}}', '{{$idkategorija}}')
     m.classList.add('block');
     m.classList.remove('hidden');
 
@@ -138,10 +138,10 @@ function artikal(ams,materijali,id){
   materijali= JSON.parse(materijali.replace(/&quot;/g,'"'));
   ams= JSON.parse(ams.replace(/&quot;/g,'"'));
 
-   // alert(ams[0].artikals_id);
+    //alert(ams[0].kategorijas_id);
    
    var a=document.getElementById(id).value; 
-   //alert(a);
+  // alert(a);
  
    for(var i=0;i<materijali.length;i++){
       //prikazuje samo materijale za odredjeni artikal, 
@@ -151,10 +151,10 @@ function artikal(ams,materijali,id){
       var dodaj=false;
 
 
-      if(a){//ako a ima vrijednost,ako je selektovan artikal
+      if(a){//ako a ima vrijednost,ako je selektovan kateogrija
        
         for(var j=0;j<ams.length;j++){
-          if(ams[j].artikals_id==a && materijali[i].id==ams[j].materijals_id){
+          if(ams[j].kateogrijas_id==a && materijali[i].id==ams[j].materijals_id){
               dodaj=true;
           } 
         }
