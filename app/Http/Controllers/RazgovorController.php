@@ -31,6 +31,8 @@ class RazgovorController extends Controller
         
         return view('komunikacija.poruke',['primaoci'=>$primaoci]);
         }
+        $request->session()->flash('alert-info','Registrujte se da bi imali pregled poruka.');
+
         return view('auth.register');
 
     }
@@ -56,6 +58,8 @@ class RazgovorController extends Controller
 
         return view('komunikacija.razgovori',['razgovori'=>$razgovori,'odabraniRazgovor'=>$odabraniRazgovor]);
         }
+        $request->session()->flash('alert-warning','Registrujte se da bi imali pregled poruka.');
+
         return view('auth.register');
 
     }
@@ -67,8 +71,8 @@ class RazgovorController extends Controller
 
         // Validate the inputs
         $request->validate([
-            'tema'=>'required',
-            'sadrzaj'=>'required',
+            'tema'=>'required|max:100',
+            'sadrzaj'=>'required|max:200',
 
         ]);
 
@@ -97,7 +101,8 @@ class RazgovorController extends Controller
 
         else{
             $request->validate([
-                'email'=>'required|email|max:255',
+                'email'=>'required|email|max:191',
+                
     
             ]);
            

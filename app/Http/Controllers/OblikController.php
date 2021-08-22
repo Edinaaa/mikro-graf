@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Image;
 use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OblikController extends Controller
 {
@@ -27,45 +28,53 @@ class OblikController extends Controller
             'file' => 'image|mimes:jpeg,bmp,png' 
 
         ]);
-        $oblik=Oblik::find($id);
-        $imagedb=null;
-        if ($request->hasFile('file')) {
-            $image = $request->file('file');
-             $input['imagename'] = time().'.'.$image->extension();
-            $filePath = public_path('/images');
-            $img = Image::make($image->path());
-            $img->resize(400, 400, function ($const) {
-                $const->aspectRatio();
-                $const->upsize();
-            })->save($filePath.'/'.$input['imagename']);
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                $oblik=Oblik::find($id);
+                $imagedb=null;
+                if ($request->hasFile('file')) {
+                    $image = $request->file('file');
+                    $input['imagename'] = time().'.'.$image->extension();
+                    $filePath = public_path('/images');
+                    $img = Image::make($image->path());
+                    $img->resize(400, 400, function ($const) {
+                        $const->aspectRatio();
+                        $const->upsize();
+                    })->save($filePath.'/'.$input['imagename']);
 
-            $imagedb= Images::create([
-                "name" => $input['imagename'],
-                "file_path" =>  $filePath]);
-              
-       }
+                    $imagedb= Images::create([
+                        "name" => $input['imagename'],
+                        "file_path" =>  $filePath]);
+                    
+                }
 
-           $aktivan=false;
-           if($request->has('aktivan')){
-               $aktivan=true;
-           }
-           $oblik->naziv=$request->get('naziv');
-           $oblik->aktivan=$aktivan;
-           $oblik->save();
-           if($imagedb!=null){
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                $oblik->naziv=$request->get('naziv');
+                $oblik->aktivan=$aktivan;
+                $oblik->save();
+                if($imagedb!=null){
 
 
-           $image=Images::get()->find($oblik->images_id);
-           $oblik->images_id =$imagedb->id;
+                $image=Images::get()->find($oblik->images_id);
+                $oblik->images_id =$imagedb->id;
 
-           $oblik->save();
-           $filename=$image->file_path.'/'.$image->name;
-           File::delete($filename);
-           $image->delete();
-           }
-        
-    
-           return redirect()->route('oblik');
+                $oblik->save();
+                $filename=$image->file_path.'/'.$image->name;
+                File::delete($filename);
+                $image->delete();
+                }
+                
+                $request->session()->flash('alert-success', 'Uspješno izmjenjen oblik.');
+            
+                return redirect()->route('oblik');
+            }
+        } 
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
+        return redirect()->route('oblik');
+
     }
     public function store(Request $request)
     {
@@ -75,50 +84,61 @@ class OblikController extends Controller
 
         ]);
 
-        if ($request->hasFile('file')) {
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                if ($request->hasFile('file')) {
 
+                    
+                    $image = $request->file('file');
+                    $input['imagename'] = time().'.'.$image->extension();
             
-            $image = $request->file('file');
-             $input['imagename'] = time().'.'.$image->extension();
-     
-            $filePath = public_path('/images');
+                    $filePath = public_path('/images');
 
 
-            $img = Image::make($image->path());
-            $img->resize(400, 400, function ($const) {
-                $const->aspectRatio();
-                $const->upsize();
-            })->save($filePath.'/'.$input['imagename']);
+                    $img = Image::make($image->path());
+                    $img->resize(400, 400, function ($const) {
+                        $const->aspectRatio();
+                        $const->upsize();
+                    })->save($filePath.'/'.$input['imagename']);
 
-            Images::create([
-                "name" => $input['imagename'],
-                "file_path" =>  $filePath]);
-     
-            $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
-       
-            $aktivan=false;
-            if($request->has('aktivan')){
-                $aktivan=true;
+                    Images::create([
+                        "name" => $input['imagename'],
+                        "file_path" =>  $filePath]);
+            
+                    $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+            
+                    $aktivan=false;
+                    if($request->has('aktivan')){
+                        $aktivan=true;
+                    }
+                    Oblik::create([
+                            "naziv" =>$request->get('naziv'),
+                            "images_id" => $imagedb->id,
+                            "aktivan"=>$aktivan,
+                            "kreirao_id" =>auth()->id()]); 
+                }
+                
+                $request->session()->flash('alert-success', 'Uspješno dodan oblik.');
+            
+                return back();
             }
-            Oblik::create([
-                    "naziv" =>$request->get('naziv'),
-                    "images_id" => $imagedb->id,
-                    "aktivan"=>$aktivan,
-                    "kreirao_id" =>auth()->id()]); 
-        }
-        
-        $request->session()->flash('alert-success', 'Uspjesno dodan oblik.');
-    
+        } 
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
         return back();
+
     }
     public function destroy(Oblik $oblik){
-        
-          $image=Images::get()->find($oblik->images_id);
-          $oblik->delete();
-          $filename=$image->file_path.'/'.$image->name;
-          File::delete($filename);
-          $image->delete();   
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                $image=Images::get()->find($oblik->images_id);
+                $oblik->delete();
+                $filename=$image->file_path.'/'.$image->name;
+                File::delete($filename);
+                $image->delete();   
+            }
+        }
 
         return back();
+
     }
 }

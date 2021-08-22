@@ -24,11 +24,21 @@ class RegisterController extends Controller
 
        // $this->validate();u baznom kontroleru ima validate metoda
        $this->validate($request,[
-        'name'=> 'required|max:255' ,// ili niz ['reuired', 'max']
-        'lastname'=> 'required|max:255' ,
-        'telefon'=> 'required|max:255' ,
-        'email'=> 'required|email|max:255' ,
-        'password'=> 'required|confirmed' ,///traziti ce  _confirmation, pa je bitno kako se imanuje na formi
+        'name'=> 'required|max:15' ,// ili niz ['reuired', 'max']
+        'lastname'=> 'required|max:20' ,
+        'telefon'=> 'required|max:15' ,
+        'email'=> 'required|email|max:191' ,
+        'password'=>[
+            'required',
+            'string',
+            'min:8',             // must be at least 10 characters in length
+            'regex:/[a-z]/',      // must contain at least one lowercase letter
+            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+            'regex:/[0-9]/',      // must contain at least one digit
+            'regex:/[@$!%*#?&]/', // must contain a special character
+            'max:100',
+            'confirmed'//traziti ce  _confirmation, pa je bitno kako se imanuje na formi
+        ],
        ]);
         
         $user= User::create([

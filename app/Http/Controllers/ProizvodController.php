@@ -45,7 +45,6 @@ class ProizvodController extends Controller
         }
         return view('proizvodi.proizvodi',['proizvodi'=>$proizvodi,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'kategorije'=>$kategorije]);
     }
-
     public function show(Proizvod $proizvod){
        $oblici =Oblik::latest()->with('image')->paginate(6);
        $kategorije =Kategorija::latest()->paginate(10);
@@ -53,20 +52,14 @@ class ProizvodController extends Controller
        $materijali =Materijal::latest()->with('image')->paginate(6);
         return view('proizvodi.show',['proizvod'=>$proizvod,'oblici'=>$oblici,'fontovi'=>$fontovi,'materijali'=>$materijali,'kategorije'=>$kategorije]);
     }
-
-   
-
     public function update(Request $request, $id)
     {
-      
-
         $proizvod=Proizvod::find($id);
         $aktivan=false;
         if($request->has('aktivan')){
             $aktivan=true;
         }
        
-
         $novi=false;
         $popust=0;
         if($aktivan)
@@ -80,9 +73,7 @@ class ProizvodController extends Controller
                 $popust=$request->get('popust')?$request->get('popust'):0;
             }
        }
-        if($proizvod==null){
-            return back();
-        }
+        
         $imagedb= null;
         if ($request->hasFile('file')) {
 
@@ -103,7 +94,6 @@ class ProizvodController extends Controller
        
             $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
         }
-       
 
         if (Auth::check() ) {
                
@@ -132,13 +122,15 @@ class ProizvodController extends Controller
 
                 }
                 $request->session()->flash('alert-success', 'Uspjesno izmjenjen proizvod.');
+                return redirect()->route('proizvodi');
+            
             }
         
         }
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
     
         return redirect()->route('proizvodi');
     }
-
     public function store(Request $request)
     {
         $aktivan=false;
@@ -149,23 +141,29 @@ class ProizvodController extends Controller
         if($request->has('novo')){
             $novi=true;
         }
+        $oblik_id=null;
+        if($request->get('oblik_id'))
+        {
+             $request->validate(['oblik_id'=>'required|integer']);
+             $oblik_id=$request->get('oblik_id');
+        } 
         $popust=0;//ako je novi proizvod nema popusta, i obratno ako ima popust nije novi
         if(!$novi){
-            $popust=$request->get('popust')?$request->get('popust'):0;
+            $request->validate(['popust'=>'required|integer']);
+            $popust=$request->get('popust');
         }
         // Validate the inputs
         $request->validate([
-            'tekst'=>'required',
-            'visina'=>'required',
-            'sirina'=>'required',
-            'cijena'=>'required',
-            'font_id'=>'required',
-            'kategorija_id'=>'required',
-            'materijal_id'=>'required',
-            'file' => 'required|image|mimes:jpeg,bmp,png' 
-
+            'tekst'=>'required|max:200',
+            "visina"=>'required|between:0,9999.99',
+            "sirina"=>'required|between:0,9999.99',
+            'file' => 'image|mimes:jpeg,bmp,png' ,
+            'cijena'=>'required|between:0,9999.99',
+            'font_id'=>'required|integer',
+            'kategorija_id'=>'required|integer',
+            'materijal_id'=>'required|integer',
         ]);
-
+        $imagedb=null;
         if ($request->hasFile('file')) {
 
             
@@ -181,13 +179,14 @@ class ProizvodController extends Controller
                 $const->upsize();
             })->save($filePath.'/'.$input['imagename']);
 
-            Images::create([
+            $imagedb=Images::create([
                 "name" => $input['imagename'],
                 "file_path" =>  $filePath]);
-       
-            $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
-            if (Auth::check() ) {
-               
+        }
+        $images_id=$imagedb? $imagedb->id:null;
+          
+        if (Auth::check() ) {
+            if(auth()->user()->hasRole('admin')){
                 Proizvod::create([
                     'tekst'=>$request->get('tekst'),
                     'visina'=>$request->get('visina'),
@@ -195,22 +194,21 @@ class ProizvodController extends Controller
                     'cijena'=>$request->get('cijena'),
                     'popust'=>$popust,
                     'novo'=>$novi,
-                    'obliks_id'=>$request->get('oblik_id')?$request->get('oblik_id'):null,
+                    'obliks_id'=>$oblik_id,
                     'kategorijas_id'=>$request->get('kategorija_id'),
                     'aktivan'=>$aktivan,
                     'fonts_id'=>$request->get('font_id'),
                     'materijals_id'=>$request->get('materijal_id'),
                     "images_id" => $imagedb->id,
-                    "kreirao_id" =>auth()->id()]);
-                
-                    $request->session()->flash('alert-success', 'Uspjesno dodan proizvod.');
-            }
-        
+                    "kreirao_id" =>auth()->id()
+                ]);
             
-           
+                $request->session()->flash('alert-success', 'Uspjesno dodan proizvod.');
+                return back();
+            }
+        }  
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
         
-        }
-    
         return back();
     }
     public function destroy(Proizvod $proizvod){
@@ -228,7 +226,7 @@ class ProizvodController extends Controller
          //unlink($filename);
           $image->delete();   
 
-return redirect()->route('proizvodi');
+        return redirect()->route('proizvodi');
 
     }
 }

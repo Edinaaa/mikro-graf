@@ -8,6 +8,8 @@ use App\Http\Requests;
 use Image;
 use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class FontController extends Controller
 {
@@ -25,46 +27,53 @@ class FontController extends Controller
             'file' => 'image|mimes:jpeg,bmp,png' 
 
         ]);
-         $font=Font::find($id);
-         $imagedb=null;
-         if ($request->hasFile('file')) {
-             $image = $request->file('file');
-              $input['imagename'] = time().'.'.$image->extension();
-             $filePath = public_path('/images');
-             $img = Image::make($image->path());
-             $img->resize(400, 400, function ($const) {
-                 $const->aspectRatio();
-                 $const->upsize();
-             })->save($filePath.'/'.$input['imagename']);
- 
-             $imagedb= Images::create([
-                 "name" => $input['imagename'],
-                 "file_path" =>  $filePath]);
-               
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+            $font=Font::find($id);
+            $imagedb=null;
+                if ($request->hasFile('file')) {
+                    $image = $request->file('file');
+                    $input['imagename'] = time().'.'.$image->extension();
+                    $filePath = public_path('/images');
+                    $img = Image::make($image->path());
+                    $img->resize(400, 400, function ($const) {
+                        $const->aspectRatio();
+                        $const->upsize();
+                    })->save($filePath.'/'.$input['imagename']);
+        
+                    $imagedb= Images::create([
+                        "name" => $input['imagename'],
+                        "file_path" =>  $filePath]);
+                    
+                }
+
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                $font->naziv=$request->get('naziv');
+                $font->aktivan=$aktivan;
+                $font->save();
+                if($imagedb!=null){
+
+
+                    $image=Images::get()->find($font->images_id);
+                    $font->images_id =$imagedb->id;
+
+                    $font->save();
+                    $filename=$image->file_path.'/'.$image->name;
+                    File::delete($filename);
+                    $image->delete();
+                }
+            
+                $request->session()->flash('alert-success', 'Uspjesno izmjenjen font.');
+        
+                return redirect()->route('font');
+            }
         }
-
-            $aktivan=false;
-            if($request->has('aktivan')){
-                $aktivan=true;
-            }
-            $font->naziv=$request->get('naziv');
-            $font->aktivan=$aktivan;
-            $font->save();
-            if($imagedb!=null){
-
-
-            $image=Images::get()->find($font->images_id);
-            $font->images_id =$imagedb->id;
-
-            $font->save();
-            $filename=$image->file_path.'/'.$image->name;
-            File::delete($filename);
-            $image->delete();
-            }
-         
-            $request->session()->flash('alert-success', 'Uspjesno izmjenjen font.');
-     
-            return redirect()->route('font');
+        $request->session()->flash('alert-warning', 'Za to akciju nemate privilegije.');
+        
+        return redirect()->route('font');
     }
 
     public function store(Request $request){
@@ -73,37 +82,43 @@ class FontController extends Controller
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                if ($request->hasFile('file')) {
 
-        if ($request->hasFile('file')) {
-
+                    
+                    $image = $request->file('file');
+                    $input['imagename'] = time().'.'.$image->extension();
             
-            $image = $request->file('file');
-             $input['imagename'] = time().'.'.$image->extension();
-     
-            $filePath = public_path('/images');
+                    $filePath = public_path('/images');
 
 
-            $img = Image::make($image->path());
-            $img->resize(400, 400, function ($const) {
-                $const->aspectRatio();
-                $const->upsize();
-            })->save($filePath.'/'.$input['imagename']);
+                    $img = Image::make($image->path());
+                    $img->resize(400, 400, function ($const) {
+                        $const->aspectRatio();
+                        $const->upsize();
+                    })->save($filePath.'/'.$input['imagename']);
 
-            $imagedb= Images::create([
-                "name" => $input['imagename'],
-                "file_path" =>  $filePath]);
-                $aktivan=false;
-                if($request->has('aktivan')){
-                    $aktivan=true;
+                    $imagedb= Images::create([
+                        "name" => $input['imagename'],
+                        "file_path" =>  $filePath]);
+                        $aktivan=false;
+                        if($request->has('aktivan')){
+                            $aktivan=true;
+                        }
+                    Font::create([
+                            "naziv" =>$request->get('naziv'),
+                            "images_id" => $imagedb->id,
+                            "aktivan"=>$aktivan,
+                            "kreirao_id" =>auth()->id()]);
                 }
-            Font::create([
-                    "naziv" =>$request->get('naziv'),
-                    "images_id" => $imagedb->id,
-                    "aktivan"=>$aktivan,
-                    "kreirao_id" =>auth()->id()]);
+                $request->session()->flash('alert-success', 'Uspjesno dodan font.');
+                return back();
+            }
+           
         }
-        $request->session()->flash('alert-success', 'Uspjesno dodan font.');
-    
+
+        $request->session()->flash('alert-warning', 'Za to akciju nemate privilegije.');
         return back();
     }
    

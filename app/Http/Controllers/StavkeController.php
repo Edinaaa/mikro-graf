@@ -31,6 +31,8 @@ class StavkeController extends Controller
                    $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->paginate(6);
                 }
                 else{
+                  $request->session()->flash('alert-info','Registrujte se da bi imali pregled narudžbi.');
+
                    return view('auth.register');
 
                 }
@@ -39,6 +41,7 @@ class StavkeController extends Controller
 
             return view('stavke.stavke',['stavke'=>$stavke,'narudzba'=>$narudzba, 'stanja'=>$stanja]);
         }
+        $request->session()->flash('alert-info','Registrujte se da bi imali pregled narudžbi.');
         
        return view('auth.register');
 

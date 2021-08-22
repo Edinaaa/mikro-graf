@@ -22,20 +22,25 @@ class StanjeController extends Controller
             "naziv"=>'required|max:30',
 
         ]);
-        $stanje=Stanje::find($id);
+        if(Auth::check())
+        {
+            if(auth()->user()->hasRole('admin')){
+                $stanje=Stanje::find($id);
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                $stanje->naziv=$request->get('naziv');
+                $stanje->aktivan=$aktivan;
+                $stanje->save();
+                
+                $request->session()->flash('alert-success', 'Uspješno izmjenjeno stanje.');
+                return redirect()->route('stanje');
+            }
+        }
+        $request->session()->flash('alert-warning','Za ovu akciju nemate privilegije.');
+        return redirect()->route('stanje');
      
-
-           $aktivan=false;
-           if($request->has('aktivan')){
-               $aktivan=true;
-           }
-           $stanje->naziv=$request->get('naziv');
-           $stanje->aktivan=$aktivan;
-           $stanje->save();
-           
-           $request->session()->flash('alert-success', 'Uspjesno izmjenjeno stanje.');
-    
-           return redirect()->route('stanje');
     }
     public function store(Request $request)
     {
@@ -43,18 +48,26 @@ class StanjeController extends Controller
             "naziv"=>'required|max:30',
 
         ]);
-        $aktivan=false;
-        if($request->has('aktivan')){
-            $aktivan=true;
-        }
+        if(Auth::check())
+        {
+            if(auth()->user()->hasRole('admin')){
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                
+                stanje::create([
+                        "naziv" =>$request->get('naziv'),
+                        "aktivan"=>$aktivan,
+                        "kreirao_id" =>auth()->id()]);
         
-            stanje::create([
-                    "naziv" =>$request->get('naziv'),
-                    "aktivan"=>$aktivan,
-                    "kreirao_id" =>auth()->id()]);
-    
-    $request->session()->flash('alert-success', 'Uspjesno dodano stanje.');
+                $request->session()->flash('alert-success', 'Uspješno dodano stanje.');
+                return back();
+            }
+        }
+        $request->session()->flash('alert-warning','Za ovu akciju nemate privilegije.');
         return back();
+
     }
     public function destroy(Stanje $stanje){
         

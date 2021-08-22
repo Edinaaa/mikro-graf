@@ -48,8 +48,17 @@ class LoginController extends Controller
 
         $this->validate($request,[
             
-            'email'=> 'required|email' ,
-            'password'=> 'required' ,
+            'email'=> 'required|email|max:191' ,
+            'password'=> [
+                'required',
+                'string',
+                'min:8',             // must be at least 10 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+                'max:100', 
+            ],
            ]);
      
         if( !auth()->attempt($request->only('email','password'), $request->remember))

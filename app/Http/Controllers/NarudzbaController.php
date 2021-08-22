@@ -45,8 +45,8 @@ class NarudzbaController extends Controller
 //pregled narudzbi sa stavkama
      public function Pregled(){
 
-         if(Auth::check())
-         {
+        if(Auth::check())
+        {
             
              if(auth()->user()->hasRole('admin')){
                 $stavke =Stavke::latest()->with(['kategorija'])->get();
@@ -62,16 +62,17 @@ class NarudzbaController extends Controller
                     ->where('users.id','=',auth()->id())
                     ->select('kategorijas.naziv as naziv','stavkes.narudzbas_id','stavkes.kolicina as kolicina')
                     ->get();
-             $narudzbe =Narudzba::latest()->where('narucilac_id','=',auth()->id())->with(['stanje'])->paginate(10);
+                $narudzbe =Narudzba::latest()->where('narucilac_id','=',auth()->id())->with(['stanje'])->paginate(10);
  
              }
  
              return view('narudzba.narudzbe',['narudzbe'=>$narudzbe,'stavke'=>$stavke]);
-         }
-         else{
+        }
+        else{
+            $request->session()->flash('alert-info', 'Registrujte se da bi imali pregled svojih narudžbi.');
              return view('auth.register');
  
-         }
+        }
      }
    
      public function NarudzbaGost(Request $request ){
@@ -162,11 +163,31 @@ class NarudzbaController extends Controller
      public function store(Request $request){
  
           
-          // dd($request);
-        $oblik_id=$request->get('oblik_id')? $request->get('oblik_id'):null;
-        $opis=$request->get('opis')? $request->get('opis'):"";
-        $font_id=$request->get('font_id')? $request->get('font_id'):null;
-        $materijal_id=$request->get('materijal_id')? $request->get('materijal_id'):null;
+        $oblik_id=null;
+        $opis="";
+        $font_id=null;
+        $materijal_id=null;
+        if($request->get('oblik_id'))
+        {
+             $request->validate(['oblik_id'=>'required|integer']);
+             $oblik_id=$request->get('oblik_id');
+        } 
+        if($request->get('opis'))
+        {
+             $request->validate(['opis'=>'required|max:200']);
+             $opis=$request->get('opis');
+        } 
+        if($request->get('font_id'))
+        {
+             $request->validate(['font_id'=>'required|integer']);
+             $font_id=$request->get('font_id');
+
+        } 
+        if($request->get('materijal_id'))
+        {
+             $request->validate(['materijal_id'=>'required|integer']);
+             $materijal_id=$request->get('materijal_id');
+        } 
         $stanje=Stanje::where('naziv','=','Naruceno')->first();
             if($stanje==null){
                 $users = DB::table('users')
@@ -207,7 +228,7 @@ class NarudzbaController extends Controller
                                 'proizvods_id'=>$korpa['item']->id,
                                 'narudzbas_id'=>$narudzba->id,
                                 'images_id'=>$korpa['item']->images_id?$korpa['item']->images_id:null,
-                                'materijals_id'=>$korpa['item']->materijals_id,
+                                'materijals_id'=>$korpa['item']->materijals_id?$korpa['item']->materijals_id:null,
                                ]);
                        
                     }
@@ -217,10 +238,11 @@ class NarudzbaController extends Controller
                 }
                 else{
                     $request->validate([
-                        'tekst'=>'required',
-                        'visina'=>'required',
-                        'sirina'=>'required',
-                        'kategorija_id'=>'required',
+                        'tekst'=>'required|max:200',
+                        "visina"=>'required|between:0,9999.99',
+                        "sirina"=>'required|between:0,9999.99',
+                        'kategorija_id'=>'required|integer',
+                        'file' => 'image|mimes:jpeg,bmp,png' 
        
                     ]);
                     $imagedb=null;
@@ -239,11 +261,10 @@ class NarudzbaController extends Controller
                            $const->upsize();
                        })->save($filePath.'/'.$input['imagename']);
            
-                       Images::create([
+                       $imagedb=Images::create([
                            "name" => $input['imagename'],
                            "file_path" =>  $filePath]);
                   
-                       $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
                    }
                     $images_id=$imagedb? $imagedb->id:null;
 
@@ -252,7 +273,7 @@ class NarudzbaController extends Controller
                         'cijena'=>0,
                         'stanjes_id'=>$stanje->id
                     ]);
- 
+  
                  $stavke=Stavke::create([
                      'tekst'=>$request->get('tekst'),
                      'visina'=>$request->get('visina'),
@@ -279,10 +300,11 @@ class NarudzbaController extends Controller
             else{
 
                 $request->validate([
-                    'tekst'=>'required',
-                    'visina'=>'required',
-                    'sirina'=>'required',
-                    'kategorija_id'=>'required',
+                    'tekst'=>'required|max:200',
+                    "visina"=>'required|between:0,9999.99',
+                    "sirina"=>'required|between:0,9999.99',
+                    'kategorija_id'=>'required|integer',
+                    'file' => 'image|mimes:jpeg,bmp,png' 
    
                 ]);
 
@@ -324,9 +346,13 @@ class NarudzbaController extends Controller
      }
     public function update(Request $request, $id){
  
-        // Validate the inputs provjeravati cu da li su null ako nisu update
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
+                $request->validate([
+                    "cijena"=>'between:0,9999.99',
+                    'stanjes_id'=>'integer'
+   
+                ]);
                 $narudzba=Narudzba::with('user')->find($id);
                 if(isset($narudzba)){
                     if($request->get('cijena')!=null )
@@ -353,17 +379,41 @@ class NarudzbaController extends Controller
                    
                 }
                 if($request->has('sms')){
-                if($narudzba->telefon!=null){
+                    if($narudzba->telefon!=null){
+                            try {
+
+                                $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+                                $client = new \Nexmo\Client($basic);
+                
+                                $receiverNumber =$narudzba->telefon;
+                
+                                $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+
+                            
+                                dd($message);
+                                $message = $client->message()->send([
+                                    'to' => $receiverNumber,
+                                    'from' => 'mikro-graf',
+                                    'text' => $message
+                
+                                ]);
+                
+                            }
+                            catch (Exception $e) {
+                                $request->session()->flash('alert-warning',$e->getMessage());
+                                }
+                            
+                    }
+                    if($narudzba->narucilac_id!=null){
                         try {
 
                             $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
                             $client = new \Nexmo\Client($basic);
             
-                            $receiverNumber =$narudzba->telefon;
+                            $receiverNumber =$narudzba->user->telefon;
             
                             $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
-
-                          
+                        
                             dd($message);
                             $message = $client->message()->send([
                                 'to' => $receiverNumber,
@@ -375,46 +425,32 @@ class NarudzbaController extends Controller
                         }
                         catch (Exception $e) {
                             $request->session()->flash('alert-warning',$e->getMessage());
-                            }
-                        
-                }
-                if($narudzba->narucilac_id!=null){
-                    try {
-
-                        $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
-                        $client = new \Nexmo\Client($basic);
-        
-                        $receiverNumber =$narudzba->user->telefon;
-        
-                        $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
-                      
-                        dd($message);
-                        $message = $client->message()->send([
-                            'to' => $receiverNumber,
-                            'from' => 'mikro-graf',
-                            'text' => $message
-        
-                        ]);
-        
+                            
+                        }
                     }
-                    catch (Exception $e) {
-                        $request->session()->flash('alert-warning',$e->getMessage());
-                        
-                    }
-                  }
                   
                 }
-                  
+                $request->session()->flash('alert-success','Uspješno izmjenjena narudžba.');
+                return redirect()->route('narudzba.narudzbe');
                 
             }
         }
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
      
         return redirect()->route('narudzba.narudzbe');
     }
 
  
     public function show(Narudzba $narudzba){
-        $stanja=Stanje::get();
-        return view('narudzba.narudzbaUpdate',['narudzba'=>$narudzba,'stanja'=>$stanja]);
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                $stanja=Stanje::get();
+                return view('narudzba.narudzbaUpdate',['narudzba'=>$narudzba,'stanja'=>$stanja]);
+            }
+        } 
+        $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
+
+        return back();
+
     }
 }

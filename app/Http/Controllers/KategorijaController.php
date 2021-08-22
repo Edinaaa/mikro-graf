@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 use App\Models\Kategorija;
 use App\Models\Materijal;
 use App\Models\Kategorija_materijals;
-use Illuminate\Support\Facades\DB;
+use App\Models\SelektovaniMaterijali;
 
 
 use App\Http\Requests;
 use Session;
-use App\Models\SelektovaniMaterijali;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 
 class KategorijaController extends Controller
 {
@@ -33,85 +36,93 @@ class KategorijaController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $kategorija=Kategorija::find($id);
      
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:100',
 
         ]);
-           $aktivan=false;
-           if($request->has('aktivan')){
-               $aktivan=true;
-           }
-           $kategorija->naziv=$request->get('naziv');
-           $kategorija->aktivan=$aktivan;
-           $kategorija->save();
-           $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                $kategorija=Kategorija::find($id);
 
-        $kategorija_materijal=Kategorija_materijals::where('kategorijas_id','=',$id)->get();
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                $kategorija->naziv=$request->get('naziv');
+                $kategorija->aktivan=$aktivan;
+                $kategorija->save();
+                $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
 
-           foreach($ms as $id)
-           {
-             $nijepronadjen=true;
+                $kategorija_materijal=Kategorija_materijals::where('kategorijas_id','=',$id)->get();
 
-               foreach ($kategorija_materijal as $am){
+                foreach($ms as $id)
+                {
+                    $nijepronadjen=true;
 
-                    if($id==$am->materijals_id)
-                    {
-                        $nijepronadjen=false;
-                       
+                    foreach ($kategorija_materijal as $am){
+
+                            if($id==$am->materijals_id)
+                            {
+                                $nijepronadjen=false;
+                            
+                            }
                     }
-               }
-               
-               if($nijepronadjen && $id!=""){
-                Kategorija_materijals::create([
-                    'kategorijas_id'=>$kategorija->id,
-                    'materijals_id'=>$id]);}
-           }
-           foreach($kategorija_materijal as $am)
-           {
-           $pronadjen=false;
+                    
+                    if($nijepronadjen && $id!=""){
+                        Kategorija_materijals::create([
+                            'kategorijas_id'=>$kategorija->id,
+                            'materijals_id'=>$id]);}
+                }
+                foreach($kategorija_materijal as $am)
+                {
+                        $pronadjen=false;
 
-               foreach ($ms as $id){
+                    foreach ($ms as $id){
 
-                if($id==$am->materijals_id)
-                    {
-                        $pronadjen=true;
-                        break;
+                        if($id==$am->materijals_id)
+                            {
+                                $pronadjen=true;
+                                break;
+                            }
                     }
-               }
-               if(!$pronadjen){
-
-                $artiaklamaterijal=$am;
-                    $artiaklamaterijal->delete();
-
-               }
+                    if(!$pronadjen){
+                            $artiaklamaterijal=$am;
+                            $artiaklamaterijal->delete();
+                    }
+                }
             
-           }
-        
-           $request->session()->flash('alert-success', 'Uspjesno izmjenjena kategorija.');
-    
-           return redirect()->route('kategorija');
+                $request->session()->flash('alert-success', 'Uspješno izmjenjena kategorija.');
+            
+                return redirect()->route('kategorija');
+            }
+        }  
+        $request->session()->flash('alert-warning', 'Za to akciju nemate privilegije.');
+
+        return redirect()->route('kategorija');
+
     }
     public function store(Request $request)
     {
         $request->validate([
-            "naziv"=>'required',
+            "naziv"=>'required|max:100',
 
         ]);
 
-       
-        $aktivan=false;
-        if($request->has('aktivan')){
-            $aktivan=true;
-        }
-        
-           $kategorija= Kategorija::create([
+        if(Auth::check()){
+            if(auth()->user()->hasRole('admin')){
+                $aktivan=false;
+                if($request->has('aktivan')){
+                    $aktivan=true;
+                }
+                
+                $kategorija= Kategorija::create([
                     "naziv" =>$request->get('naziv'),
                     "aktivan"=>$aktivan,
-                    "kreirao_id" =>auth()->id()]);
+                    "kreirao_id" =>auth()->id()
+                ]);
 
-                     $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
+                $ms= preg_split("/[,]/",$request->get('selecMaterijali'));
                 foreach($ms as $id)
                 {
                     if($id!=""){
@@ -119,13 +130,18 @@ class KategorijaController extends Controller
                             'kategorijas_id'=>$kategorija->id,
                             'materijals_id'=>$id]);
                     }
-                    
-
+                
                 }
 
-            $request->session()->flash('alert-success', 'Uspjesno dodana kategorija.');
-    
+                $request->session()->flash('alert-success', 'Uspješno dodana kategorija.');
+            
+                return back();
+            }
+        }  
+        $request->session()->flash('alert-warning', 'Za to akciju nemate privilegije.');
+
         return back();
+
     }
  
 }
