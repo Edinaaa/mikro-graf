@@ -36,13 +36,13 @@ class PorukaController extends Controller
             if($r->email!=null && auth()->user()->hasRole('admin'))
             {
 
-                Mail::send('emails.odgovor', ['razgovor' => $r, 'poruka' => $poruka], function ($message) use ($poruka, $r)
+            /*    Mail::send('emails.odgovor', ['razgovor' => $r, 'poruka' => $poruka], function ($message) use ($poruka, $r)
                 {
                     $message->from('no-reply@mikro-graf.com');
                     $message->to($r->email);
                     $message->subject($r->tema);
-                });
-               // Mail::to($r->email)->send(new Odgovor($r,$poruka,$r->tema));
+                });*/
+                #Mail::to($r->email)->send(new Odgovor($r,$poruka,$r->tema));
                 
             }
         }

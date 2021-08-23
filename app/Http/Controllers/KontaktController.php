@@ -11,14 +11,16 @@ class KontaktController extends Controller
     {
        
       
-                $primaoci = DB::table('users')
-                    ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
-                    ->join('roles', 'users_roles.role_id', '=', 'roles.id')
-                    ->where('roles.name','=','admin')
-                    ->select('users.id','users.name','users.lastname','users.email','users.telefon')
-                    ->get();
-        
-        return view("kontakt.kontakt",['primaoci'=>$primaoci]);
+        $admin = DB::table('users')
+            ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+            ->join('roles', 'users_roles.role_id', '=', 'roles.id')
+            ->where('roles.name','=','admin')
+            ->select('users.email','users.telefon')
+            ->first();
+        $email=$admin->email;
+        $telefon=$admin->telefon;
+
+        return view("kontakt.kontakt",['email'=>$email,'telefon'=>$telefon]);
     
     }
 }

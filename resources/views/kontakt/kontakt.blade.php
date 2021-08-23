@@ -42,20 +42,7 @@
             <form name="Kontaktporukafrm" onsubmit="return validateKontaktPorukaForm('Kontaktporukafrm')"  action="{{route('razgovor')}}" method="post">
                  @csrf
 
-                 <div class="grid grid-cols-1 mt-5 mx-7">
-                    <label for="primaoc_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Primaoc</label>
-                    <select name="primaoc_id" id="primaoc_id" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    
-                        <option value="0" selected>odaberite</option>
-
-                        @if($primaoci->count())
-                            @foreach ($primaoci as $primaoc)
-                                
-                            <option value="{{$primaoc->id}}">{{$primaoc->name}} {{$primaoc->lastname}}</option>
-                            @endforeach
-                        @endif
-                    </select> 
-              </div>
+                
               @guest
                  <x-input type="email" id="email" name="email" label="Email" value=""  class="mt-5 mx-7">
                     @error("email")
@@ -111,7 +98,7 @@
             <div class="flex items-center justify-center p-10 text-gray-600">
                 <ul> 
                     <li class="flex flex-row items-center">
-                    Email: <a class="flex flex-row items-center pl-2"  href="mailto:{{$primaoci[0]->email}}" > {{$primaoci[0]->email}} 
+                    Email: <a class="flex flex-row items-center pl-2"  href="mailto:{{$email}}" > {{$email}} 
                        </a> 
                     </li>
                     <li class="flex flex-row items-center">
@@ -119,7 +106,7 @@
                        </a> 
                     </li>
                     <li class="flex flex-row items-center">
-                    Telefon: {{$primaoci[0]->telefon}} 
+                    Telefon: {{$telefon}} 
                 
                 </li>
                 </ul>

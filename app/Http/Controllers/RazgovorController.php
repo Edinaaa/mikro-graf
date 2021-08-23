@@ -15,19 +15,13 @@ class RazgovorController extends Controller
     {
        
         if(Auth::check())
-        {
+        { 
+            $primaoci=null;
             if(auth()->user()->hasRole('admin')){
                 $primaoci=User::where('id','<>',auth()->id())->get();
 
             }
-            else{
-                $primaoci = DB::table('users')
-                    ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
-                    ->join('roles', 'users_roles.role_id', '=', 'roles.id')
-                    ->where('roles.name','=','admin')
-                    ->select('users.id','users.name','users.lastname')
-                    ->get();
-            }
+            
         
         return view('komunikacija.poruke',['primaoci'=>$primaoci]);
         }
@@ -78,24 +72,44 @@ class RazgovorController extends Controller
 
         
         if (Auth::check() ) {
-            $request->validate([
-               
-                'primaoc_id'=>'required',
-    
-            ]);
-            Razgovor::create([
-                'tema'=>$request->get('tema'),
-                'primaoc_id'=> $request->get('primaoc_id'),
-                'posiljaoc_id'=>auth()->id()]);
+            if(auth()->user()->hasRole('admin')){
+                $request->validate([
+                
+                    'primaoc_id'=>'required',
+        
+                ]);
+                $r=Razgovor::create([
+                    'tema'=>$request->get('tema'),
+                    'primaoc_id'=> $request->get('primaoc_id'),
+                    'posiljaoc_id'=>auth()->id()]);
 
-            $r=Razgovor::where('tema','=',$request->get('tema'))->
-            where('posiljaoc_id','=',auth()->id())->latest()->first();
-
-            Poruka::create([
+                
+                Poruka::create([
                 'sadrzaj'=>$request->get('sadrzaj'),
                 'razgovor_id'=>$r->id,
                 'posiljaoc_id'=>auth()->id()]);
                 return redirect()->route('razgovor', ['id' => $r->id]);
+            }
+            else{
+
+                $users = DB::table('users')
+                ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+                ->join('roles', 'users_roles.role_id', '=', 'roles.id')
+                ->where('roles.name','=','admin')
+                ->select('users.id')
+                ->get();
+                $r=Razgovor::create([
+                    'tema'=>$request->get('tema'),
+                    'primaoc_id'=> $users[0]->id,
+                    'posiljaoc_id'=>auth()->id()]);
+
+                
+                Poruka::create([
+                'sadrzaj'=>$request->get('sadrzaj'),
+                'razgovor_id'=>$r->id,
+                'posiljaoc_id'=>auth()->id()]);
+                return redirect()->route('razgovor', ['id' => $r->id]);
+            }
 
         }
 

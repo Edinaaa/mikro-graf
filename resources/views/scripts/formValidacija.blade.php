@@ -255,15 +255,17 @@
 
         var primaoc_id = forma["primaoc_id"];
         var errorprimaoc_id=document.getElementById("errorprimaoc_id");
+        var primaoc=true;
+        if(primaoc_id!= null){
+            primaoc=IntVrijednost(primaoc_id,errorprimaoc,'Odaberite primaoca iz liste.');
+        }
         var tema = forma["tema"];
         var errortema=document.getElementById("errortema");
 
         var sadrzaj = forma["sadrzaj"];
         var errorsadrzaj=document.getElementById("errorsadrzaj");
        
-        if(ObaveznoPolje(primaoc_id,errorprimaoc_id) &&
-        IntVrijednost(primaoc_id,errorprimaoc_id,'Odaberite primaoca iz liste.') &&
-        ObaveznoPolje(tema,errortema) &&
+        if(ObaveznoPolje(tema,errortema) &&
         MaxLenght(tema,errortema,100) &&
         ObaveznoPolje(sadrzaj,errorsadrzaj) &&
         MaxLenght(sadrzaj,errorsadrzaj,200)){
