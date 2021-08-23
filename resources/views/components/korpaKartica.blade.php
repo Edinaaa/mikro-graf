@@ -16,7 +16,7 @@
                   @isset($narudzba->font)
                   font {{$narudzba->font->naziv}},
                   @endisset
-                  dimenzije visina {{$narudzba->visina}}cm i sirina {{$narudzba->sirina}}cm, 
+                  dimenzije visina {{$narudzba->visina}}cm i širina {{$narudzba->sirina}}cm, 
                   @isset($narudzba->oblik)
                   oblik {{$narudzba->oblik->naziv}}, 
                   @endisset
@@ -33,12 +33,12 @@
             </div>
             
             <div class="flex  justify-between flex-col sx:flex-row sm:flex-row  lg:flex-col xl:flex-row  mt-5">
-               <p class="">Naruceno   {{$narudzba->created_at->diffForHumans()}}</p>
+               <p class="">Naručeno   {{$narudzba->created_at->diffForHumans()}}</p>
                <p class="text-primary-600 font-semibold text-lg">Cijena 
                @if ($narudzba->cijena!='0')
                {{$narudzba->cijena}} KM
                @else
-               nije odredena.
+               nije određena.
                @endif
             
               </p>

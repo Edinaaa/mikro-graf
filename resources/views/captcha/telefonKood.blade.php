@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     
-                    <label  class=" my-5  mx-7  text-xs text-gray-500 text-light font-semibold">Ukoliko ste unijeli ispravne podatke, dobiti cete poruku sa koodom na vas broj mobitela.</label>
+                    <label  class=" my-5  mx-7  text-xs text-gray-500 text-light font-semibold">Ukoliko ste unijeli ispravne podatke, dobiti ćete poruku sa koodom na vaš broj mobitela.</label>
           
             <x-input id="verifikacioni_code" label="Unesite kood" class=" my-5  mx-7" value="{{ old('verifikacioni_code')}}">
                 @error("verifikacioni_code")
@@ -32,7 +32,7 @@
        
                     
                     <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                        <button type="submit"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Zavrsi</button>
+                        <button type="submit"  class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Završi</button>
                     </div>
               </form>         
         </div>

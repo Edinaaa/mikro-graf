@@ -37,7 +37,7 @@
                                           
                                           </div>
                                     </x-input>
-                                    <x-input id="sirina" label="Sirina u cm" value="{{ old('sirina')}}">
+                                    <x-input id="sirina" label="Širina u cm" value="{{ old('sirina')}}">
                                     @error("sirina")
                                     <div for="sirina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                                     {{$message}}

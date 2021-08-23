@@ -14,7 +14,7 @@
                               
             {{$narudzbe->links()}}<!--paging koristeci tailwind-->
       @else
-            <p>Nema narudzbi.</p>
+            <p>Nema narudžbi.</p>
       @endif
 
     </div>

@@ -66,7 +66,7 @@
                             <x-input  id="razgovor_id" label="" value="{{$odabraniRazgovor->id}}" class="hidden"></x-input>
 
                                 <textarea id="sadrzaj" class="px-2 pt-3 w-11/12 bg-primary-50 border-none resize-none focus:outline-none"
-                                name="sadrzaj" rows="1" placeholder="poruka" ></textarea>
+                                name="sadržaj" rows="1" placeholder="poruka" ></textarea>
 
                                 <button type="submit" class='flex justify-center items-center bg-primary-300 hover:bg-primary-500  shadow-xl 
                                 m-2 h-11  w-11  rounded-full focus:outline-none '>

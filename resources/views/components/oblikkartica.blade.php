@@ -25,7 +25,7 @@
       @if ($oblik->visina)
             <p class=" text-base sx:text-xl   ">
             Dimenzije: v{{$oblik->visina}}cm
-            s{{$oblik->sirina}}cm
+            š{{$oblik->sirina}}cm
             </p>
       @endif
 

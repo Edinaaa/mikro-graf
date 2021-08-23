@@ -16,7 +16,7 @@
             </div>
         </div>
         <div id="navigacija" class=" px-5 pt-2 pb-4 hidden sm:flex sm:p-0">
-        <a href="{{route('home')}}" class="flex flex-col items-start sm:items-center justify-start text-white font-semibold rounded hover:bg-gray-800 mt-2  py-1 px-5">Pocetna</a>
+        <a href="{{route('home')}}" class="flex flex-col items-start sm:items-center justify-start text-white font-semibold rounded hover:bg-gray-800 mt-2  py-1 px-5">Početna</a>
 
             <div  class="relative flex flex-col items-start sm:items-center justify-start  bg-gray-900   hover:bg-gray-800 sm:px-5  ">
   
@@ -32,10 +32,10 @@
                     <a href="{{route('proizvodi')}}"class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Proizvodi</a>
                     <a href="{{route('galerija')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Galerija</a>
                      @auth
-                      <a href="{{route('narudzba.narudzbe')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudzbe</a>
+                      <a href="{{route('narudzba.narudzbe')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0">Narudžbe</a>
                      
                      @endauth
-                    <a href="{{route('narudzba')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0"><nobr>Nova narudzba</nobr></a>
+                    <a href="{{route('narudzba')}}" class="mt-2 px-2 py-1 text-white font-semibold rounded  hover:bg-gray-900 sm:hover:bg-gray-800 sm:mt-0"><nobr>Nova narudžba</nobr></a>
                 </div>
             </div> 
             

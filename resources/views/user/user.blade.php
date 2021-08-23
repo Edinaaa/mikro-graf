@@ -8,7 +8,7 @@
 
     <div class="flex justify-center pt-4">
       <div class="flex">
-        <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Postavke korisnickog racuna</h1>
+        <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Postavke korisničkog računa</h1>
       </div>
     </div>
     <form name="userfrm" onsubmit="return validateUserForm('userfrm')"  method="POST" action="{{ route('user.update',$user->id) }}">

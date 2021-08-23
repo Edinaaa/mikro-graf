@@ -26,7 +26,7 @@
 
    <div class=" w-full absolute bottom-0 bg-white bg-opacity-95 shadow-md rounded-l-md flex flex-col  p-4 ">
    <h3 class="text-xl font-bold pb-2">{{$proizvod->kategorija->naziv}}</h3>
-         <p class="truncate text-gray-500 text-sm">Tekst {{$proizvod->tekst}}, visina {{$proizvod->visina}} cm, sirina {{$proizvod->sirina}} cm, font {{$proizvod->font->naziv}},
+         <p class="truncate text-gray-500 text-sm">Tekst {{$proizvod->tekst}}, visina {{$proizvod->visina}} cm, širina {{$proizvod->sirina}} cm, font {{$proizvod->font->naziv}},
       materijal {{$proizvod->materijal->naziv}}
       @isset($proizvod->oblik)
          , oblik {{$proizvod->oblik->naziv}}

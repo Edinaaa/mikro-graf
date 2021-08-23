@@ -36,7 +36,7 @@
 
             <div class="flex justify-center pt-4">
                 <div class="flex">
-                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Posaljite poruku</h1>
+                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Pošaljite poruku</h1>
                 </div>
             </div>
             <form name="Kontaktporukafrm" onsubmit="return validateKontaktPorukaForm('Kontaktporukafrm')"  action="{{route('razgovor')}}" method="post">
@@ -67,9 +67,9 @@
                 </x-input>
 
                 <div class="grid grid-cols-1 mt-5 mx-7">
-                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadrzaj</label>
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Sadržaj</label>
                     <textarea id="sadrzaj" name="sadrzaj" class=" rounded-lg p-2 border-2 border-solid border-primary-300"
-                    name="sadrzaj" rows="4" cols="50"></textarea>
+                    name="sadržaj" rows="4" cols="50"></textarea>
                     @error("sadrzaj")
                         <div for="sadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                         {{$message}}
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Posalji</button>
+                    <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Pošalji</button>
                 </div>
             </form>
         </div>

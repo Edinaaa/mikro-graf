@@ -9,7 +9,7 @@
       <div class="py-4 w-full flex flex-col md:flex-row justify-around items-start md:items-center">
         @isset($narudzba)
           @isset($narudzba->cijena)
-              <p class="px-4  text-lg text-primary-600"> Cijena narudzbe: {{$narudzba->cijena}} KM</p>  
+              <p class="px-4  text-lg text-primary-600"> Cijena narudžbe: {{$narudzba->cijena}} KM</p>  
           @endisset
         <div  class='flex flex-row h-auto items-center justify-center '>
                   <p class="px-4  text-lg text-gray-800"> Stanje: {{$narudzba->stanje->naziv}}</p>  

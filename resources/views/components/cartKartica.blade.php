@@ -16,7 +16,7 @@
                   @isset($stavka['item']->font)
                   font {{$stavka['item']->font->naziv}},
                   @endisset
-                  dimenzije visina {{$stavka['item']->visina}} i sirina {{$stavka['item']->sirina}}, 
+                  dimenzije visina {{$stavka['item']->visina}} i širina {{$stavka['item']->sirina}}, 
                   @isset($stavka['item']->oblik)
                   oblik {{$stavka['item']->oblik->naziv}}, 
                   @endisset
@@ -34,7 +34,7 @@
             </div>
             
             <div class="flex  justify-between flex-col sx:flex-row sm:flex-row  lg:flex-col xl:flex-row  mt-5">
-               <p class="">Kolicina  {{$stavka['qty']}}</p>
+               <p class="">Količina  {{$stavka['qty']}}</p>
                <p class="text-primary-600 font-semibold text-lg">
                Cijena {{$stavka['price']}} KM
               </p>

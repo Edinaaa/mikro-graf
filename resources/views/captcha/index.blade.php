@@ -11,7 +11,7 @@
                         @csrf
                         <div class="flex justify-center pt-4">
                             <div class="flex">
-                                <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Unesite vase kontakt podatke</h1>
+                                <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Unesite vaše kontakt podatke</h1>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5  mx-7">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
                                 <div>
-                                    <label  class="  text-xs text-gray-500 text-light font-semibold">Sadrzaj sa slike prepisite u captcha rubriku.</label>
+                                    <label  class="  text-xs text-gray-500 text-light font-semibold">Sadržaj sa slike prepišite u captcha rubriku.</label>
 
                                     <div  class="flex  flex-row justify-start items-center">
                                         <span id="span">{!! captcha_img() !!}</span>
@@ -51,7 +51,7 @@
                                     @error("captcha")
                                             <div for="captcha" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                                                 @if($message=="validation.captcha")
-                                                    <p id="validacija">Netacan unos.</p>
+                                                    <p id="validacija">Netačan unos.</p>
                                                 @else
                                                 {{$message}}
                                                 @endif

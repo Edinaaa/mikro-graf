@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href= "{{asset('css/app.css')}}">
       
-<title>narudzba</title>
+<title>narudžba</title>
     </head>
 <body style="padding:10px;">
 
@@ -24,7 +24,7 @@
         @endforeach
 
 <p> {{$poruka->sadrzaj}}</p>
-<h6> Lp, hvala na javljanju, Mikro-grag.</h6>
+<h6> Lp, hvala na javljanju, Mikro-graf.</h6>
   
 </body>
 </html>

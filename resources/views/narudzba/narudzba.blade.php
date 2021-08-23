@@ -8,7 +8,7 @@
 
       <div class="flex justify-center pt-4">
         <div class="flex">
-          <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Narudzba</h1>
+          <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Narudžba</h1>
         </div>
       </div>
 
@@ -68,7 +68,7 @@
       
             </div>
           </x-input>
-          <x-input id="sirina" label="Sirina u cm" value="{{ old('sirina')}}">
+          <x-input id="sirina" label="Širina u cm" value="{{ old('sirina')}}">
             @error("sirina")
               <div for="sirina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
               {{$message}}
@@ -164,7 +164,7 @@
       
 
       <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-        <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruci</button>
+        <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Naruči</button>
       </div>
     </form>
   </div>

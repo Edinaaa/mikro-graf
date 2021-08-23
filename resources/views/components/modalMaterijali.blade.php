@@ -31,7 +31,7 @@
                                     border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
                                     <div class="w-2/3 text-lg pl-2 ">
                                       <p >Naziv: {{$objekat->naziv}}</p>
-                                      <p>Dimenzije: v{{$objekat->visina}}cm s{{$objekat->sirina}}cm</p>
+                                      <p>Dimenzije: v{{$objekat->visina}}cm š{{$objekat->sirina}}cm</p>
                                     </div>
                                         <div class="p-1 rounded-xl " >
                                         <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>

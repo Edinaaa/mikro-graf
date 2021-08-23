@@ -27,7 +27,7 @@
                              </div>
                               </x-input>
                               <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
-                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za kategorija</label>
+                                    <label for="materials" class="block text-sm font-medium text-gray-700">Materijali za kategoriju</label>
                                     <div class="flex-grow overflow-y-auto max-h-40">
                                           <div class="w-full   rounded-lg flex flex-col ">
                                           

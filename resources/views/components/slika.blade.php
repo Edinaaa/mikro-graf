@@ -13,7 +13,7 @@
               <form action="{{route('galerija.destroy', $slika)}}" method="post" class="mr-1">
                 @csrf                                          
                 @method('DELETE')
-                <button type="submit"  class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Brisi</button>
+                <button type="submit"  class=" focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Briši</button>
               </form>
             @endcan
             @can('update',$slika)

@@ -9,12 +9,12 @@
         <div class=" font-semibold text-gray-700 w-full flex flex-col md:flex-row justify-between items-start">
            
             @isset($narudzba->user)
-            <p class="px-2">Narucilac: {{$narudzba->user->name}} {{$narudzba->user->lastname}}</p>
+            <p class="px-2">Naručilac: {{$narudzba->user->name}} {{$narudzba->user->lastname}}</p>
             @endisset
             
             @isset($narudzba->email)
             <div class="flex flex-col">
-                <p class="px-2">Narucilac: {{$narudzba->email}}  </p>
+                <p class="px-2">Naručilac: {{$narudzba->email}}  </p>
                 
                 <p class="px-2">Telefon: {{$narudzba->telefon}}</p>
             </div>
@@ -24,7 +24,7 @@
   
         <div class="pt-2 w-full flex flex-col md:flex-row justify-between items-center">
           
-               <p class="px-2"><span class="font-semibold"> Nardzba:</span>  
+               <p class="px-2"><span class="font-semibold"> Nardžba:</span>  
                      @foreach ($stavke as $stavka)
                         @if ($stavka->narudzbas_id==$narudzba->id)
                         @if (auth()->user()->hasRole('admin'))
@@ -45,7 +45,7 @@
         <div  class="pt-4 text-gray-600 text-sm w-full flex flex-col md:flex-row justify-between items-center">
             
             <p class="px-2">Stanje: {{$narudzba->stanje->naziv}}</p>
-            <p class="px-2">Naruceno prije: {{$narudzba->created_at->diffForHumans()}}</p>
+            <p class="px-2">Naručeno prije: {{$narudzba->created_at->diffForHumans()}}</p>
         </div>
     </a>
     @endauth

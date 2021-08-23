@@ -57,7 +57,7 @@
                                     
                                           </div>
                                     </x-input>
-                                    <x-input id="sirina" label="Sirina" value="{{$proizvod->sirina}}">
+                                    <x-input id="sirina" label="Širina" value="{{$proizvod->sirina}}">
                                            @error("sirina")
                                                 <div for="sirina" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                                                 {{$message}}
