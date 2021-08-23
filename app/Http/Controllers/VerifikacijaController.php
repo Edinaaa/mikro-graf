@@ -35,11 +35,10 @@ class VerifikacijaController extends Controller
         $oldNarudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
         $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
 
-       // $telefonV='1234';//generisati random br.
        $telefonV=rand(1000,10000);
        $request->session()->flash('alert-warning', 'code: '.$telefonV);
 
-       /*
+       
             try {
 
                 $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
@@ -66,18 +65,19 @@ class VerifikacijaController extends Controller
 
     
 
-            // dd('SMS Sent Successfully.');
+              // dd('SMS Sent Successfully.');
 
                 
 
-            } catch (Exception $e) {
+            }
+            catch (Exception $e) {
 
                 $request->session()->flash('alert-warning',$e->getMessage());
 
             
 
             }
-        */
+        
         
         
         $narudzbaPodaci->edit($request->get('email'),$request->get('telefon'),$telefonV);

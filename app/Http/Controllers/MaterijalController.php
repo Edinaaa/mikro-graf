@@ -32,8 +32,8 @@ class MaterijalController extends Controller
     {
         $request->validate([
             "naziv"=>'required|max:30',
-            "visina"=>'required|between:0,9999.99',
-            "sirina"=>'required|between:0,9999.99',
+            "visina"=>'between:0,9999.99',
+            "sirina"=>'between:0,9999.99',
             'file' => 'required|image|mimes:jpeg,bmp,png' 
 
         ]);
@@ -79,8 +79,8 @@ class MaterijalController extends Controller
         $aktivan=false;
         $request->validate([
             "naziv"=>'required|max:30',
-            "visina"=>'required|between:0,9999.99',
-            "sirina"=>'required|between:0,9999.99',
+            "visina"=>'between:0,9999.99',
+            "sirina"=>'between:0,9999.99',
         ]);
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){

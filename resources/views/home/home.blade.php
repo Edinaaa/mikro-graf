@@ -60,7 +60,7 @@
 <div class="w-full flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
     
     <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
-        <p class="text-gray-900 font-semibold  text-4xl pl-3">Trebate više informacija? Jevite nam se.</p>
+        <p class="text-gray-900 font-semibold  text-4xl pl-3">Trebate više informacija? Javite nam se.</p>
         <div class='flex items-center justify-center   py-5'>
         <a href="{{route('kontakt')}}" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Javi se</a>
          </div>

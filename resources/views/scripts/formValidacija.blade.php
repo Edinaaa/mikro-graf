@@ -47,8 +47,6 @@
         var errorsirina=document.getElementById("errorsirina");
       
         if(validateForm(form) &&
-        ObaveznoPolje(sirina, errorsirina) &&
-        ObaveznoPolje(visina, errorvisina) &&
         FloatVrijednost(sirina, errorsirina) &&
         FloatVrijednost(visina, errorvisina) )
         {
@@ -66,8 +64,6 @@
         var errorsirina=document.getElementById("errorsirina");
       
         if(validateUpdateForm(form) &&
-        ObaveznoPolje(sirina, errorsirina) &&
-        ObaveznoPolje(visina, errorvisina) &&
         FloatVrijednost(sirina, errorsirina) &&
         FloatVrijednost(visina, errorvisina) )
         {
@@ -99,7 +95,7 @@
       
         if(ObaveznoPolje(naziv,errornaziv) &&
         MaxLenght(naziv,errornaziv,30) &&
-        IntVrijednost(selecMaterijali,errormaterijali,'Odaberite neke od ponuđenih materijala.'))
+        NizIntVrijednost(selecMaterijali,errormaterijali,'Odaberite neke od ponuđenih materijala.'))
         {
             return true;
         }

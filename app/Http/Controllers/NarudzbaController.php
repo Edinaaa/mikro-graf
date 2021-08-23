@@ -78,7 +78,7 @@ class NarudzbaController extends Controller
      public function NarudzbaGost(Request $request ){
  
        $narudzba=null;
-       $stanje=Stanje::where('naziv','=','Naruceno')->first();
+       $stanje=Stanje::where('naziv','=','Naručeno')->first();
        if($stanje==null){
            $users = DB::table('users')
            ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -87,7 +87,7 @@ class NarudzbaController extends Controller
            ->select('users.id')
            ->get();
            $stanje =Stanje::Create([
-               "naziv"=>"Naruceno",
+               "naziv"=>"Naručeno",
                "aktivan"=>1,
                "kreirao_id"=>$users[0]->id
            ]);
@@ -188,7 +188,7 @@ class NarudzbaController extends Controller
              $request->validate(['materijal_id'=>'required|integer']);
              $materijal_id=$request->get('materijal_id');
         } 
-        $stanje=Stanje::where('naziv','=','Naruceno')->first();
+        $stanje=Stanje::where('naziv','=','Naručeno')->first();
             if($stanje==null){
                 $users = DB::table('users')
                 ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -197,7 +197,7 @@ class NarudzbaController extends Controller
                 ->select('users.id')
                 ->get();
                 $stanje =Stanje::Create([
-                    "naziv"=>"Naruceno",
+                    "naziv"=>"Naručeno",
                     "aktivan"=>1,
                     "kreirao_id"=>$users[0]->id
                 ]);
@@ -387,7 +387,7 @@ class NarudzbaController extends Controller
                 
                                 $receiverNumber =$narudzba->telefon;
                 
-                                $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+                                $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
 
                             
                                 dd($message);
@@ -412,7 +412,7 @@ class NarudzbaController extends Controller
             
                             $receiverNumber =$narudzba->user->telefon;
             
-                            $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naruceno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+                            $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
                         
                             dd($message);
                             $message = $client->message()->send([

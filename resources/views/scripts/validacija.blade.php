@@ -55,7 +55,7 @@ function FloatVrijednost(element,error) {
     var objRegex = /^-?\d{1,4}(?:[.]\d{0,2}?)?$/;  
   
         //check for numeric characters  
-    if(!objRegex.test(element.value) || element.value<0) 
+    if((!objRegex.test(element.value) || element.value<0) &&  element.value!="") 
     {
         error.innerHTML="Možete unjeti četverocifrene vrijednosti sa 2 decimalna mjesta.";
         return false;
@@ -66,7 +66,6 @@ function FloatVrijednost(element,error) {
     }
 }  
 function IntVrijednost(element,error,message) {
-    var n=element.value.replace(',','');
     if((!Number(n)  || n<0 )&& n!="") 
     {
         error.innerHTML=message;
@@ -78,7 +77,22 @@ function IntVrijednost(element,error,message) {
 
         return true;   
     }
-}  
+} 
+function NizIntVrijednost(element,error,message) {
+    const niz=element.value.split(",");
+    for (let i = 1; i < niz.length; i++) {
+        var n=niz[i];
+        if(!Number(n)  || n<0 ){ 
+            error.innerHTML=message;
+            return false;
+        }
+        else{
+            error.innerHTML=error.innerHTML.replace(message,'');
+            return true;   
+        }
+    } 
+    return true;  
+}   
 function JednakeVrijednost(element1,element2,error,message) {
     if(element1.value!=element2.value) 
     {
