@@ -292,7 +292,7 @@
         var posiljaoc_id = forma["posiljaoc_id"];
         var razgovor_id = forma["razgovor_id"];
 
-        var sadrzaj = forma["sadrzaj"];
+        var sadrzaj = forma["sadržaj"];
         var errorsadrzaj=document.getElementById("errorsadrzaj");
        
         if(ObaveznoPolje(posiljaoc_id,errorsadrzaj,'Desila se greška pokušajte ponovo.') &&
@@ -328,11 +328,10 @@
         var errormaterijal=document.getElementById("errormaterijal");
         var oblik_id = forma["oblik_id"];
         var erroroblik=document.getElementById("erroroblik");
-        if(ObaveznoPolje(tekst,errortekst) &&
+        if(
         ObaveznoPolje(sirina,errorsirina) &&
         ObaveznoPolje(visina,errorvisina) &&
         ObaveznoPolje(file, errorfile) &&
-        ObaveznoPolje(font_id,errorfont,'Odaberite neki od ponuđenih fontova.') &&
         ObaveznoPolje(kategorija_id,errorkategorija,'Odaberite neki od ponuđenih kategorija.') &&
         ObaveznoPolje(materijal_id,errormaterijal,'Odaberite neki od ponuđenih materijala.') &&
         ObaveznoPolje(cijena,errorcijena) &&
@@ -377,10 +376,9 @@
         if(oblik_id!= null){
             oblik=IntVrijednost(oblik_id,erroroblik,'Odaberite neki od ponuđenih oblika.');
         }
-        if(ObaveznoPolje(tekst,errortekst) &&
+        if(
         ObaveznoPolje(sirina,errorsirina) &&
         ObaveznoPolje(visina,errorvisina) &&
-        ObaveznoPolje(font_id,errorfont,'Odaberite neki od ponuđenih fontova.') &&
         ObaveznoPolje(kategorija_id,errorkategorija,'Odaberite neki od ponuđenih kategorija.') &&
         ObaveznoPolje(materijal_id,errormaterijal,'Odaberite neki od ponuđenih materijala.') &&
         ObaveznoPolje(cijena,errorcijena) &&
@@ -418,7 +416,7 @@
         var errormaterijal=document.getElementById("errormaterijal");
         var oblik_id = forma["oblik_id"];
         var erroroblik=document.getElementById("erroroblik");
-        if(ObaveznoPolje(tekst,errortekst) &&
+        if(
         ObaveznoPolje(kategorija_id,errorkategorija,'Odaberite neki od ponuđenih kategorija.') &&
         ObaveznoPolje(materijal_id,errormaterijal,'Odaberite neki od ponuđenih materijala.') &&
         IntVrijednost(font_id,errorfont,'Odaberite neki od ponuđenih fontova.') &&

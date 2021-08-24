@@ -55,6 +55,15 @@ class ProizvodController extends Controller
     public function update(Request $request, $id)
     {
         $proizvod=Proizvod::find($id);
+        $request->validate([
+            'tekst'=>'max:200',
+            "visina"=>'required|between:0,9999.99',
+            "sirina"=>'required|between:0,9999.99',
+            'file' => 'image|mimes:jpeg,bmp,png' ,
+            'cijena'=>'required|between:0,9999.99',
+            'kategorija_id'=>'required|integer',
+            'materijal_id'=>'required|integer',
+        ]);
         $aktivan=false;
         if($request->has('aktivan')){
             $aktivan=true;
@@ -73,7 +82,17 @@ class ProizvodController extends Controller
                 $popust=$request->get('popust')?$request->get('popust'):0;
             }
        }
-        
+       $oblik_id=null;
+       if($request->get('oblik_id'))
+       {
+            $request->validate(['oblik_id'=>'required|integer']);
+            $oblik_id=$request->get('oblik_id');
+       } 
+       $font=null;
+        if($request->get('font_id')!=""){
+            $request->validate(['font_id'=>'integer']);
+            $font=$request->get('font_id');
+        }
         $imagedb= null;
         if ($request->hasFile('file')) {
 
@@ -98,16 +117,16 @@ class ProizvodController extends Controller
         if (Auth::check() ) {
                
             if(auth()->user()->hasRole('admin')){
-                $proizvod->tekst=$request->get('tekst');
+                $proizvod->tekst=$request->get('tekst')?$request->get('tekst'):"";
                 $proizvod->visina=$request->get('visina');
                 $proizvod->sirina=$request->get('sirina');
                 $proizvod->cijena=$request->get('cijena');
                 $proizvod->popust=$popust;
                 $proizvod->novo=$novi;
                 $proizvod->aktivan=$aktivan;
-                $proizvod->obliks_id=$request->get('oblik_id')?$request->get('oblik_id'):null;
+                $proizvod->obliks_id=$oblik_id;
                 $proizvod->kategorijas_id=$request->get('kategorija_id');
-                $proizvod->fonts_id=$request->get('font_id');
+                $proizvod->fonts_id=$font;
                 $proizvod->materijals_id=$request->get('materijal_id');
                 $proizvod->save();
 
@@ -148,18 +167,22 @@ class ProizvodController extends Controller
              $oblik_id=$request->get('oblik_id');
         } 
         $popust=0;//ako je novi proizvod nema popusta, i obratno ako ima popust nije novi
-        if(!$novi){
-            $request->validate(['popust'=>'required|integer']);
+        if(!$novi && $request->get('popust')!=""){
+            $request->validate(['popust'=>'integer']);
             $popust=$request->get('popust');
+        }
+        $font=null;
+        if($request->get('font_id')!=""){
+            $request->validate(['font_id'=>'integer']);
+            $font=$request->get('font_id');
         }
         // Validate the inputs
         $request->validate([
-            'tekst'=>'required|max:200',
+            'tekst'=>'max:200',
             "visina"=>'required|between:0,9999.99',
             "sirina"=>'required|between:0,9999.99',
-            'file' => 'image|mimes:jpeg,bmp,png' ,
+            'file' => 'required|image|mimes:jpeg,bmp,png' ,
             'cijena'=>'required|between:0,9999.99',
-            'font_id'=>'required|integer',
             'kategorija_id'=>'required|integer',
             'materijal_id'=>'required|integer',
         ]);
@@ -188,7 +211,7 @@ class ProizvodController extends Controller
         if (Auth::check() ) {
             if(auth()->user()->hasRole('admin')){
                 Proizvod::create([
-                    'tekst'=>$request->get('tekst'),
+                    'tekst'=>$request->get('tekst')?$request->get('tekst'):"",
                     'visina'=>$request->get('visina'),
                     'sirina'=>$request->get('sirina'),
                     'cijena'=>$request->get('cijena'),
@@ -197,7 +220,7 @@ class ProizvodController extends Controller
                     'obliks_id'=>$oblik_id,
                     'kategorijas_id'=>$request->get('kategorija_id'),
                     'aktivan'=>$aktivan,
-                    'fonts_id'=>$request->get('font_id'),
+                    'fonts_id'=>$font,
                     'materijals_id'=>$request->get('materijal_id'),
                     "images_id" => $imagedb->id,
                     "kreirao_id" =>auth()->id()

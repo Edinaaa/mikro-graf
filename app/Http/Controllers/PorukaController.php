@@ -18,10 +18,9 @@ class PorukaController extends Controller
         // Validate the inputs
         $request->validate([
            
-            'sadrzaj'=>'required|max:200',
-            'razgovor_id',
+            'sadržaj'=>'required|max:200',
+            'razgovor_id'=>'required|integer',
         ]);
-
         
         if (Auth::check() ) {
           
@@ -29,7 +28,7 @@ class PorukaController extends Controller
             $r=Razgovor::with('poruke')->find($request->get('razgovor_id'));
          
             $poruka= Poruka::create([
-                'sadrzaj'=>$request->get('sadrzaj'),
+                'sadrzaj'=>$request->get('sadržaj'),
                 'razgovor_id'=>$r->id,
                 'posiljaoc_id'=>auth()->id()]);
 
@@ -54,7 +53,7 @@ class PorukaController extends Controller
             ]);
             $r=Razgovor::find($request->get('razgovor_id'));
             Poruka::create([
-                'sadrzaj'=>$request->get('sadrzaj'),
+                'sadrzaj'=>$request->get('sadržaj'),
                 'email'=>$request->get('email'),
                 'razgovor_id'=>$r->id]);
                 $request->session()->flash('alert-success', 'Poruka ušpjesno poslana.');

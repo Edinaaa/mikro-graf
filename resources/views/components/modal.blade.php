@@ -25,12 +25,12 @@
                     @foreach($obj as $objekat)
                       <div
                       onClick="
-                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}','{{$idoblik}}');
+                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}','{{$idoblik}}')
                       Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')"
                        class=" flex flex-row justify-items-end items-center bg-gray-50 
                        border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
                        @if($objekat->image==null)
-                        <p class="w-full text-lg p-2 ">Naziv: {{$objekat->naziv}}   {{$objekat->id}}</p>
+                        <p class="w-full text-lg p-2 ">Naziv: {{$objekat->naziv}} </p>
                        
                         @endif
                        @isset($objekat->image)
@@ -135,15 +135,11 @@ function Odabrano(id,naziv,input,hiden,idoblik){
 
 
 }
-function ToggleNarudzba(artikal,idoblik){
-
+function ToggleNarudzba(kategorija,idoblik){
   var divOblik=document.getElementById(idoblik);
-
     if(divOblik!=null){
-
-      // divOblik.classList.add("hidden");
-
-      if(artikal!="Plocica za vrata" ){
+      
+      if(kategorija!="Pločica za vrata" ){
         divOblik.classList.add("hidden");
         divOblik.classList.remove("flex");
 

@@ -19,7 +19,7 @@ class CreateProizvodsTable extends Migration
             $table->float('visina', 6, 2);
             $table->float('sirina', 6, 2);    
             $table->foreignId('obliks_id')->nullable()->constrained();
-            $table->foreignId('fonts_id')->constrained();
+            $table->foreignId('fonts_id')->nullable()->constrained();
             $table->foreignId('materijals_id')->constrained();
             $table->float('cijena', 6, 2);
             $table->integer('popust');

@@ -26,12 +26,21 @@
 
    <div class=" w-full absolute bottom-0 bg-white bg-opacity-95 shadow-md rounded-l-md flex flex-col  p-4 ">
    <h3 class="text-xl font-bold pb-2">{{$proizvod->kategorija->naziv}}</h3>
-         <p class="truncate text-gray-500 text-sm">Tekst {{$proizvod->tekst}}, visina {{$proizvod->visina}} cm, širina {{$proizvod->sirina}} cm, font {{$proizvod->font->naziv}},
-      materijal {{$proizvod->materijal->naziv}}
-      @isset($proizvod->oblik)
-         , oblik {{$proizvod->oblik->naziv}}
-      @endisset
-      .</p>
+         <p class="truncate text-gray-500 text-sm">
+            @if ($proizvod->tekst!="")
+               natpis {{$proizvod->tekst}},
+            @endif
+            visina {{$proizvod->visina}} cm,
+            širina {{$proizvod->sirina}} cm,
+            @isset($proizvod->font)
+               font {{$proizvod->font->naziv}},
+            @endisset
+            materijal {{$proizvod->materijal->naziv}}
+            @isset($proizvod->oblik)
+               , oblik {{$proizvod->oblik->naziv}}
+            @endisset
+            .
+         </p>
          <span class="pt-2 text-primary-600 font-semibold text-right  text-lg">Cijena: 
     
          {{$proizvod->cijena}} KM</span>

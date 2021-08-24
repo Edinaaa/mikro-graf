@@ -138,41 +138,54 @@ function artikal(ams,materijali,id){
   materijali= JSON.parse(materijali.replace(/&quot;/g,'"'));
   ams= JSON.parse(ams.replace(/&quot;/g,'"'));
 
-    //alert(ams[0].kategorijas_id);
+    //alert(ams[0].id);
    
    var a=document.getElementById(id).value; 
-  // alert(a);
- 
-   for(var i=0;i<materijali.length;i++){
-      //prikazuje samo materijale za odredjeni artikal, 
-          //ako nije artikal selektovan prikazuje sve materijale
-        var objekat=document.getElementById(materijali[i].id);
-        // alert(materijali[i].id);
-      var dodaj=false;
-
-
-      if(a){//ako a ima vrijednost,ako je selektovan kateogrija
-       
-        for(var j=0;j<ams.length;j++){
-          if(ams[j].kateogrijas_id==a && materijali[i].id==ams[j].materijals_id){
+  //alert(a);
+  var m=0;
+  if(a){
+    for(var i=0;i<materijali.length;i++){
+      var objekat=document.getElementById(materijali[i].id);
+      dodaj=false;
+      for(var j=0;j<ams.length;j++){
+        if(ams[j].kategorijas_id==a && materijali[i].id==ams[j].materijals_id){
+              m++;
               dodaj=true;
-          } 
-        }
-
-        if(dodaj){
-          objekat.classList.add('flex');
-          objekat.classList.remove('hidden');
-        }
-        else{
-          objekat.classList.add('hidden');
-          objekat.classList.remove('flex');
-        }
+              
+        } 
         
       }
-      
-     
+      if(dodaj){
+        objekat.classList.add('flex');
+              objekat.classList.remove('hidden');
+      }
+      else{
+            objekat.classList.add('hidden');
+            objekat.classList.remove('flex');
+        }
+
+    }
+  }
+  else{
+    for(var i=0;i<materijali.length;i++){
+      var objekat=document.getElementById(materijali[i].id);
+        objekat.classList.add('flex');
+        objekat.classList.remove('hidden');
      
     }
+  }
+
+  if(m==0){
+
+    for(var i=0;i<materijali.length;i++){
+      var objekat=document.getElementById(materijali[i].id);
+        objekat.classList.add('flex');
+        objekat.classList.remove('hidden');
+     
+    }
+  }
+
+  
 
 
 }

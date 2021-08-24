@@ -59,7 +59,7 @@
                         @csrf
                         <div id="errorsadrzaj" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                                 
-                                </div>
+                        </div>
                         <div class="  w-full flex flex-row justify-between items-center bg-white 
                             border-2 border-solid border-primary-200 hover:border-primary-300">
                             <x-input  id="posiljaoc_id" label="" value="{{auth()->id()}}" class="hidden"></x-input>

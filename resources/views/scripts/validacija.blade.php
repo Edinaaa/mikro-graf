@@ -66,17 +66,22 @@ function FloatVrijednost(element,error) {
     }
 }  
 function IntVrijednost(element,error,message) {
-    if((!Number(n)  || n<0 )&& n!="") 
+    if(element.value!="" && element.value!=0)
     {
-        error.innerHTML=message;
-        return false;
-    }
-    else{
-    
-    error.innerHTML=error.innerHTML.replace(message,'');
+        if(!Number(element.value)  || element.value<0 ) 
+        {
+            error.innerHTML=message;
+            return false;
+        }
+        else{
+        
+        error.innerHTML=error.innerHTML.replace(message,'');
 
-        return true;   
+            return true;   
+        }
     }
+
+    return true;  
 } 
 function NizIntVrijednost(element,error,message) {
     const niz=element.value.split(",");

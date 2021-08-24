@@ -35,7 +35,7 @@
 
                                <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
                                     <div class=" w-3/5">
-                                          <x-input id="kategorija" label="kategorija" value="{{ old('kategorija')}}"></x-input>
+                                          <x-input id="kategorija" label="kategorija"  value="{{ old('kategorija')}}"></x-input>
                                           <x-input class="hidden" id="kategorija_id" label="kategorija_id" value="{{ old('kategorija_id')}}"></x-input>
                                           @error("kategorija_id")
                                                 <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
@@ -77,14 +77,13 @@
                                           </div>
                                     </x-input>
                               </div>
-                              
                               <div  id="divOblik" class="hidden flex-row justify-start items-center w-full  mt-5 mx-7">
                                     <div class=" w-3/5 ">
                                           <x-input id="oblik" label="Oblik" value="{{ old('oblik')}}"></x-input>
                                           <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{ old('oblik_id')}}"></x-input>
                                           @error("oblik_id")
                                                 <div for="oblik_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-                                                {{$message}}
+                                                      {{$message}}
                                                 </div>
                                            @enderror
                                           <div id="erroroblik" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
@@ -152,7 +151,7 @@
                                                 {{$message}}
                                                 </div>
                                            @enderror
-                                          <div id="errorpopust" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                          <div id="errorpopust" class=" flex items-center font-medium text-gerrn-500 text-xs mt-1 ml-1" >
                                     
                                           </div>
                                     </x-input>
@@ -184,10 +183,8 @@
 
 
                               <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
-                              <button onCilck="ToggleForma()" class='w-auto text-primary-600 hover:bg-primary-200 rounded-lg shadow-xl font-medium  px-4 py-2'>Odustani</button>
-                                   
+                                    <button onCilck="ToggleForma()" class='w-auto text-primary-600 hover:bg-primary-200 rounded-lg shadow-xl font-medium  px-4 py-2'>Odustani</button>
                                     <button type="submit" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Dodaj</button>
-                             
                               </div>
                         </form>
             </div>
@@ -313,24 +310,7 @@
                  
             }
       }
-      function ToggleProizvod(){
-      var nazivp=document.getElementById("nazivp");
-      var divOblik=document.getElementById("divOblik");
-            if(nazivp != null){
-              if(nazivp.value!="Plocica za vrata" ){
-                  divOblik.classList.add("hidden");
-                  divOblik.classList.remove("block");
-
-                  }
-                  else{
-                        divOblik.classList.remove("hidden");
-                        divOblik.classList.add("block");
-
-                  }     
-            }
-           
-      }
-      ToggleProizvod()
+    
 </script>
 @endsection
 @section('footer-scripts')

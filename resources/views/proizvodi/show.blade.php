@@ -96,9 +96,14 @@
 
                               <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
                                     <div class=" w-3/5">
-                                          <x-input id="font" label="Font" value="{{$proizvod->font->naziv}}"></x-input>
+                                    @if($proizvod->font)
+                                    <x-input id="font" label="Font" value="{{$proizvod->font->naziv}}"></x-input>
                                           <x-input class="hidden" id="font_id" label="font_id" value="{{$proizvod->font->id}}"></x-input>
-                                          @error("font_id")
+                                    @else
+                                    <x-input id="font" label="Font" value="{{ old('font')}}"></x-input>
+                                          <x-input class="hidden" id="font_id" label="font_id" value="{{ old('font_id')}}"></x-input>
+                                    @endif
+                                         @error("font_id")
                                                 <div for="font_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                                                 {{$message}}
                                                 </div>

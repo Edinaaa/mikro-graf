@@ -1,7 +1,7 @@
 @props(['slika'=>$slika])
 <div class=" border-gray-400 border-solid border-2 w-11/12 bg-gray-50 relative flex justify-center items-start m-2 rounded-md overflow-hidden">
 
-  <img class=" w-full "
+  <img class=" h-56"
       src="{{asset('images/'.$slika->image->name)}}"
      />
     
