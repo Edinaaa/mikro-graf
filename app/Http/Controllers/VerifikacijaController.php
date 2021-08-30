@@ -36,7 +36,7 @@ class VerifikacijaController extends Controller
         $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
 
        $telefonV=rand(1000,10000);
-       $request->session()->flash('alert-warning', 'code: '.$telefonV);
+       //$request->session()->flash('alert-warning', 'code: '.$telefonV);
 
        
             try {

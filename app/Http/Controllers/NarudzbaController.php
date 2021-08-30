@@ -157,7 +157,7 @@ class NarudzbaController extends Controller
 
         Session::forget('narudzbaPodaci');
     
-        $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti cete blagovremeno obavjesteni.');
+        $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti ćete blagovremeno obavješteni.');
        return view('home.home');
 }
      public function store(Request $request){
@@ -294,7 +294,7 @@ class NarudzbaController extends Controller
                 }
     
                         
-                $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti cete blagovremeno obavjesteni.');
+                $request->session()->flash('alert-success', 'Hvala na suradnji. O izradi proizvoda biti ćete blagovremeno obavješteni.');
                 return view('home.home');
             }
             else{
