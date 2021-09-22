@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex w-full justify-around items-center">
-    <div class="flex-col w-3/4  sm:w-2/3">
+<div class="flex w-full justify-around items-center px-4">
+    <div class="flex-col w-full  xs:w-3/4   sm:w-2/3 ">
         <x-slikaopis Naslov="O nama" Slika="{{asset('slike-stranica/6.jpg')}}">
             SZR 'Mikrograf' Bihać je osnovana 1996. godine i iza sebe ima dugogodišnje iskustvo u 
             izradi proizvoda i usluga rađenih tehnikom CNC graviranja, digitalnom štampom na sve vrste materijala,

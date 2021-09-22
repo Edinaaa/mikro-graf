@@ -10,14 +10,14 @@
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
     
-    <div id="{{$idMP}}" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-    <div  class="flex-grow overflow-y-auto max-h-96">
+    <div id="{{$idMP}}" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden  shadow-xl transform transition-all  w-10/12 sm:my-8 sm:align-middle sm:max-w-2xl ">
+    <div  class="flex-grow overflow-y-auto max-h-96 w-full">
         <div class=" flex flex-col justify-center items-center bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
 
-            <h3 class="text-primary-500 font-semibold" >Detalji proizvoda</h3>
+            <h3 class="text-primary-500 font-semibold py-4" >Detalji proizvoda</h3>
            
-            <a id="aslika" data-lightbox="roadtrip"  class="flex flex-col  justify-between  h-40 shadow-md w-full "
-      href="#"><img id="imgslika" class=" h-full w-full  object-cover"  src="#"/></a>
+            <a id="aslika" data-lightbox="roadtrip"  class="flex flex-col items-center  justify-between  h-40"
+      href="#"><img id="imgslika" class=" h-full  object-contain"  src="#"/></a>
     
             <h3 id="DNaziv">Naziv</h3>
             <div class=" w-2/3">
@@ -92,7 +92,7 @@
 
             </div>
             </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div class=" px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <button type="button" onClick="Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
                     Zatvori
                     </button>

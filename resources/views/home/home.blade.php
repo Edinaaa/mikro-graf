@@ -14,7 +14,7 @@
 </div>
 
     <div class="flex justify-around items-center">
-        <div class="w-2/3 flex flex-col md:flex-row  justify-center items-center bg-gray-100  ">           
+        <div class="mx-4 w-full xs:w-2/3 flex flex-col md:flex-row  justify-center items-center bg-gray-100  ">           
             <div class=" w-11/12 md:w-1/2 flex items-center  justify-center p-1 m-1 lg:p-4 md:m-4">
                     <img class="rounded-lg shadow-md" src="{{asset('slike-stranica/bihac.jpg')}}">
             </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex justify-around items-center">
-        <div class="w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
+        <div class="mx-4 w-full xs:w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
             
             <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
                 <p class="text-gray-900 font-semibold  text-4xl pl-3">Pregledajte slike proizvoda koje mi nudimo.</p>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="flex justify-around items-center">
-        <div class="w-2/3  flex flex-col md:flex-row  items-center bg-gray-100 m-1 ">           
+        <div class="mx-4 w-full xs:w-2/3  flex flex-col md:flex-row  items-center bg-gray-100 m-1 ">           
             <div class="  w-11/12 md:w-1/2  flex p-1 m-1  lg:p-4 md:m-4">
                     <img class="rounded-lg shadow-md" src="{{asset('slike-stranica/jelovnici.jpg')}}">
             </div>
@@ -63,7 +63,7 @@
         </div>
     </div>
     <div class="flex justify-around items-center">
-        <div class="w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
+        <div class="mx-4 w-full xs:w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
             
             <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
                 <p class="text-gray-900 font-semibold  text-4xl pl-3">Trebate više informacija? Javite nam se.</p>
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="flex justify-around items-center">
-        <div class="w-2/3  flex flex-col md:flex-row  items-center bg-gray-100 m-1 ">           
+        <div class="mx-4 w-full xs:w-2/3  flex flex-col md:flex-row  items-center bg-gray-100 m-1 ">           
             <div class=" w-11/12 md:w-1/2  flex p-1 m-1  lg:p-4 md:m-4">
                     <img class="rounded-lg shadow-md" src="{{asset('slike-stranica/5.jpg')}}">
             </div>
@@ -94,7 +94,7 @@
         </div>
     </div>
     <div class="flex justify-around items-center">
-        <div class="w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
+        <div class="mx-4 w-full xs:w-2/3 flex flex-col-reverse md:flex-row items-center bg-gray-100 m-1 ">           
             
             <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
                 <p class="text-gray-900 font-semibold  text-4xl pl-3">Registrujte se kod nas, kako bi imali više uvida u našu suradnju.</p>

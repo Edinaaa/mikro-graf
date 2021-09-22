@@ -3,8 +3,11 @@
 <header class="z-10 relative bg-gray-900 sm:flex sm:justify-around sm:items-center ">
      
      <div class="flex  items-center  justify-between ">
-       
+        <a href="{{route('home')}}" class=" h-14" >
          <img  class=" h-14 " src="{{asset('icona/mikrograf logo-1.jpg')}}"/>
+            
+        </a>
+       
 
          <div class="sm:hidden">
              <button type="button" onClick="togglemenu()" class="text-gray-500 hover:text-white focus:text-white focus:outline-none pr-5 py-3 sm:p-0">

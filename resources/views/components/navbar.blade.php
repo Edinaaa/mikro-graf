@@ -3,8 +3,10 @@
      
         <div class="flex  items-center  justify-between ">
           
-            <img  class=" h-14 " src="{{asset('icona/mikrograf logo-1.jpg')}}"/>
-
+        <a href="{{route('home')}}" class=" h-14" >
+         <img  class=" h-14 " src="{{asset('icona/mikrograf logo-1.jpg')}}"/>
+            
+        </a>
             <div class="sm:hidden">
                 <button type="button" onClick="togglemenu()" class="text-gray-500 hover:text-white focus:text-white focus:outline-none pr-5 py-3 sm:p-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24"stroke="currentColor">
