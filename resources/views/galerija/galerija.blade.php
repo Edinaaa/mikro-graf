@@ -48,7 +48,7 @@
 
             
       @if ($slike->count())
-            <div class="w-full bg-gray-200  py-1 rounded-lg place-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
+            <div class="w-full sm:w-2/3 place-items-center py-1 grid grid-cols-1 md:grid-cols-2">
                   @foreach($slike as $slika)
                         <x-slika :slika="$slika"/>
                   @endforeach
@@ -60,6 +60,12 @@
       @endif
                
 </div>
+<link href="{{asset('css/lightbox.css')}}" rel="stylesheet" />
+<script src="{{asset('js/lightbox-plus-jquery.js')}}"></script>
+<script>
+      //https://artisansweb.net/how-to-add-zoom-image-effect-on-your-website-images/
+  //https://lokeshdhakar.com/projects/lightbox2/
+</script>
 </div>
 @endsection
 @section('footer-scripts')

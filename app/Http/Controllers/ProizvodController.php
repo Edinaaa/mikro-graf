@@ -97,15 +97,17 @@ class ProizvodController extends Controller
         if ($request->hasFile('file')) {
 
             $image = $request->file('file');
-             $input['imagename'] = time().'.'.$image->extension();
+            $input['imagename'] = time().'.'.$image->extension();
      
-            $filePath = public_path('/images');
-
+            $filePath = public_path('/slike');
+            $filePaththumb = public_path('/thumb');
             $img = Image::make($image->path());
-            $img->resize(430, 720, function ($const) {
+            $img->save($filePath.'/'.$input['imagename']);
+            $thumb= Image::make($image->path());
+            $thumb->resize(300, 300, function ($const) {
                 $const->aspectRatio();
                 $const->upsize();
-            })->save($filePath.'/'.$input['imagename']);
+            })->save($filePaththumb.'/'.$input['imagename']);
 
             Images::create([
                 "name" => $input['imagename'],
@@ -130,12 +132,14 @@ class ProizvodController extends Controller
                 $proizvod->materijals_id=$request->get('materijal_id');
                 $proizvod->save();
 
-                if($imagedb!=null){
+                if($imagedb->count()!=0){
                     $image=Images::get()->find($proizvod->images_id);
                     $proizvod->images_id=$imagedb->id;
                     $proizvod->save();
                     $filename=$image->file_path.'/'.$image->name;
+                    $filenamethumb=public_path('/thumb').'/'.$image->name;
                     File::delete($filename);
+                    File::delete($filenamethumb);
                     $image->delete();
                     
 
@@ -193,14 +197,18 @@ class ProizvodController extends Controller
             $image = $request->file('file');
              $input['imagename'] = time().'.'.$image->extension();
      
-            $filePath = public_path('/images');
+             $filePath = public_path('/slike');
+             $filePaththumb = public_path('/thumb');
 
 
-            $img = Image::make($image->path());
-            $img->resize(430, 720, function ($const) {
-                $const->aspectRatio();
-                $const->upsize();
-            })->save($filePath.'/'.$input['imagename']);
+             $img = Image::make($image->path());
+             $img->save($filePath.'/'.$input['imagename']);
+
+             $thumb= Image::make($image->path());
+             $thumb->resize(300, 300, function ($const) {
+                 $const->aspectRatio();
+                 $const->upsize();
+             })->save($filePaththumb.'/'.$input['imagename']);
 
             $imagedb=Images::create([
                 "name" => $input['imagename'],
@@ -245,7 +253,10 @@ class ProizvodController extends Controller
          $image=Images::get()->find($proizvod->images_id);
           $proizvod->delete();
           $filename=$image->file_path.'/'.$image->name;
+          $filenamethumb=public_path('/thumb').'/'.$image->name;
           File::delete($filename);
+          File::delete($filenamethumb);
+
          //unlink($filename);
           $image->delete();   
 

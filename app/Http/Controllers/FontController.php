@@ -34,12 +34,18 @@ class FontController extends Controller
                 if ($request->hasFile('file')) {
                     $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
+
+
                     $img = Image::make($image->path());
-                    $img->resize(400, 400, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
+                    })->save($filePaththumb.'/'.$input['imagename']);
         
                     $imagedb= Images::create([
                         "name" => $input['imagename'],
@@ -54,15 +60,17 @@ class FontController extends Controller
                 $font->naziv=$request->get('naziv');
                 $font->aktivan=$aktivan;
                 $font->save();
-                if($imagedb!=null){
+                if($imagedb->count()!=0){
 
 
                     $image=Images::get()->find($font->images_id);
                     $font->images_id =$imagedb->id;
-
                     $font->save();
+                    
                     $filename=$image->file_path.'/'.$image->name;
+                    $filenamethumb=public_path('/thumb').'/'.$image->name;
                     File::delete($filename);
+                    File::delete($filenamethumb);
                     $image->delete();
                 }
             
@@ -90,15 +98,18 @@ class FontController extends Controller
                     $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
             
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
 
 
                     $img = Image::make($image->path());
-                    $img->resize(400, 400, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
-
+                    })->save($filePaththumb.'/'.$input['imagename']);
                     $imagedb= Images::create([
                         "name" => $input['imagename'],
                         "file_path" =>  $filePath]);

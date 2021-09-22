@@ -42,7 +42,7 @@
         </div>
    
        
-        <div  class="pt-4 text-gray-600 text-sm w-full flex flex-col md:flex-row justify-between items-center">
+        <div  class="pt-4 text-gray-600 text-sm w-full flex flex-col md:flex-row justify-between items-start md:items-center">
             
             <p class="px-2">Stanje: {{$narudzba->stanje->naziv}}</p>
             <p class="px-2">Naručeno prije: {{$narudzba->created_at->diffForHumans()}}</p>

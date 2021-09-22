@@ -4,7 +4,7 @@
 @isset($oblik->image)
 <img class="flex flex-col  justify-between w-1/2 
       shadow-md  object-cover object-center p-4"
-      src="{{asset('images/'.$oblik->image->name)}}"
+      src="{{asset('thumb/'.$oblik->image->name)}}"
      />
 @endisset
   

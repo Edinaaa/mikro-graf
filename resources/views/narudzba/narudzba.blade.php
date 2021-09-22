@@ -12,26 +12,28 @@
         </div>
       </div>
 
-      <div  class="flex flex-row items-center w-full mt-5 mx-7">
-        <div class=" w-2/3">
-              <x-input id="kategorija" label="kategorija"  value="{{ old('kategorija')}}"></x-input>
-              <x-input class="hidden" onChange="kategorija('$kategorija_materijals', '$materijali', 'kategorija_id')" id="kategorija_id" label="kategorija_id" value="{{ old('kategorija_id')}}"></x-input>
-              @error("kategorija_id")
-                  <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-                  {{$message}}
-                  </div>
-               @enderror
-              <div id="errorkategorija" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-        
-              </div>
-            </div>
-
-        <div class="w-1/3 ml-4 ">
-          <button type="button" onClick="Show('BOkategorija','MPkategorija','Mkategorija')" 
-          class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-          Kategorija</button>
+      <div class="grid grid-cols-1 mt-5 mx-7">
+   
+          <label for="kategorija_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Katerorija</label>
+          <select name="kategorija_id" id="kategorija_id" onChange="ToggleNarudzba(this)" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+             
+              <option disabled="disabled">Odaberite</option>
+              @if($kategorije->count())
+                  @foreach ($kategorije as $kategorija)
+                      
+                  <option value="{{$kategorija->id}}">{{$kategorija->naziv}} </option>
+                  @endforeach
+              @endif
+          </select> 
+          @error("kategorija_id")
+                        <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        {{$message}}
+                        </div>
+          @enderror
+          <div id="errorkategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                      
+          </div>
       
-        </div>
       </div>
 
         
@@ -80,8 +82,8 @@
           </x-input>
       </div>
       
-      <div  id="divOblik" class="hidden flex-row items-center w-full mt-5 mx-7">
-          <div class=" w-2/3">
+      <div  id="divOblik" class="hidden flex-row items-center  w-full mt-5 mx-7">
+          <div class=" w-1/2 md:w-2/3">
               <x-input id="oblik" label="Oblik" value="{{ old('oblik')}}"></x-input>
               <x-input class="hidden" id="oblik_id" label="oblik_id" value="{{ old('oblik_id')}}"></x-input>
               @error("oblik_id")
@@ -94,7 +96,7 @@
             </div>
             </div>
 
-          <div class="w-1/3 ml-4 ">
+          <div class=" w-1/3 ml-4 ">
             <button type="button" onClick="Show('BackgroundOverlay','ModalPanel','modal')"
             class='py-2 px-4 mt-5 flex items-center justify-center  bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl
               font-medium text-white '>
@@ -103,8 +105,8 @@
           </div>
       </div>
 
-      <div  class="flex flex-row items-center w-full mt-5 mx-7">
-        <div class=" w-2/3">
+      <div  class="flex flex-row items-center  w-full mt-5 mx-7">
+        <div class="  w-1/2 md:w-2/3">
               <x-input id="font" label="Font" value="{{ old('font')}}"></x-input>
               <x-input class="hidden" id="font_id" label="font_id" value="{{ old('font_id')}}"></x-input>
               @error("font_id")
@@ -117,7 +119,7 @@
               </div>
         </div>
 
-        <div class="w-1/3 ml-4 ">
+        <div class=" w-1/3 ml-4 ">
           <button type="button" onClick="Show('BOfont','MPfont','Mfont')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
           Font</button>
@@ -126,7 +128,7 @@
       </div>
 
       <div  class="flex flex-row items-center w-full  mt-5 mx-7">
-        <div class="w-2/3">
+        <div class=" w-1/2 md:w-2/3">
               <x-input id="materijal" label="Materijal" value="{{ old('materijal')}}"></x-input>
               <x-input class="hidden" id="materijal_id" label="materijal_id" value="{{ old('materijal_id')}}"></x-input>
               @error("materijal_id")
@@ -139,7 +141,7 @@
               </div>
         </div>
 
-        <div class="w-1/3 ml-4">
+        <div class=" w-1/3 ml-4">
           <button type="button" onClick="ShowM('BOmaterijal','MPmaterijal','Mmaterijal')" 
           class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
           Materijal</button>
@@ -168,9 +170,7 @@
       </div>
     </form>
   </div>
-  @if ($kategorije->count())
-    <x-modal :obj="$kategorije" idBO="BOkategorija" idMP="MPkategorija" idM="Mkategorija" idinputa="kategorija_id" input="kategorija" idoblik="divOblik" labela="kategorija"/>
-    @endif
+ 
     @if ($oblici->count())
     <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
     @endif
@@ -182,7 +182,22 @@
     @endif
 </div>
 <script>
- 
+    function ToggleNarudzba(kategorija){
+     
+      var divOblik=document.getElementById('divOblik');
+      if(divOblik!=null){
+      
+        if(kategorija.options[kategorija.selectedIndex].text!="Pločica za vrata" ){
+            divOblik.classList.add("hidden");
+            divOblik.classList.remove("flex");
+        }
+        else{
+            divOblik.classList.remove("hidden");
+            divOblik.classList.add("flex");
+        }
+      }
+    
+    }
 </script>
 @endsection
 @section('footer-scripts')

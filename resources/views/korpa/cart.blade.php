@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div id="div" class="  min-h-screen w-full bg-gray-200 flex flex-col justify-center items-center">
+    <div id="div" class="  min-h-screen w-full bg-gray-200 flex flex-col  ">
         @if(Session::has('cart'))
             <div class="py-4 w-full flex flex-col md:flex-row  justify-around items-center">
             
@@ -28,7 +28,7 @@
             </div>  
 
             @if($ukupnoKolicina)
-                    <div class=" w-full bg-gray-200  p-1 place-items-center  grid grid-cols-1 lg:grid-cols-2 ">
+                    <div class=" w-full bg-gray-200  p-1 place-items-center  grid grid-cols-1  ">
                         @foreach($proizvodi as $stavka)
                 <x-cartKartica :stavka="$stavka"></x-cartKartica>
 

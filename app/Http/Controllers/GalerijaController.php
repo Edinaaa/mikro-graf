@@ -40,32 +40,41 @@ class GalerijaController extends Controller
                     $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
             
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
 
 
                     $img = Image::make($image->path());
-                    $img->resize(430, 720, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
+                    })->save($filePaththumb.'/'.$input['imagename']);
 
-                    Images::create([
+                    $imagedb=Images::create([
                         "name" => $input['imagename'],
                         "file_path" =>  $filePath]);
                 
-                    $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+                 
                 }
 
                 $galerija->name=$request->get('naziv');
                 $galerija->save();
-                if($imagedb!=null){
+                if($imagedb->count()!=0){
 
                     $image=Images::get()->find($galerija->images_id);
                     $galerija->images_id=$imagedb->id;
                     $galerija->save();
                     $filename=$image->file_path.'/'.$image->name;
+                    $filenamethumb=public_path('/thumb').'/'.$image->name;
                     File::delete($filename);
+                    File::delete($filenamethumb);
                     $image->delete();
+               
+                
+
                 }
             
                 $request->session()->flash('alert-success', 'Uspješno izmjenjena slika.');
@@ -98,16 +107,21 @@ class GalerijaController extends Controller
                 
                     $input['imagename'] = time().'.'.$image->extension();
             
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
 
 
                     $img = Image::make($image->path());
-                    $img->resize(430, 720, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
+                    })->save($filePaththumb.'/'.$input['imagename']);
 
-                    Images::create([
+
+                   $imagedb= Images::create([
                         "name" => $input['imagename'],
                         "file_path" =>  $filePath]);
                     /* 
@@ -121,7 +135,6 @@ class GalerijaController extends Controller
                     ]);
                     $imagedb= Images::get()->where('file_path','=',$request->file->hashName())->first();*/
 
-                    $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
                     Galerija::create([
                             "name" =>$request->get('naziv'),
                             "images_id" => $imagedb->id,
@@ -144,7 +157,10 @@ class GalerijaController extends Controller
                 $image=Images::get()->find($galerija->images_id);
                 $galerija->delete();
                 $filename=$image->file_path.'/'.$image->name;
+                $filenamethumb=public_path('/thumb').'/'.$image->name;
                 File::delete($filename);
+                File::delete($filenamethumb);
+
                 //unlink($filename);
                 $image->delete();   
 

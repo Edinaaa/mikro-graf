@@ -35,12 +35,18 @@ class OblikController extends Controller
                 if ($request->hasFile('file')) {
                     $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
+
+
                     $img = Image::make($image->path());
-                    $img->resize(400, 400, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
+                    })->save($filePaththumb.'/'.$input['imagename']);
 
                     $imagedb= Images::create([
                         "name" => $input['imagename'],
@@ -55,7 +61,7 @@ class OblikController extends Controller
                 $oblik->naziv=$request->get('naziv');
                 $oblik->aktivan=$aktivan;
                 $oblik->save();
-                if($imagedb!=null){
+                if($imagedb->count()!=0){
 
 
                 $image=Images::get()->find($oblik->images_id);
@@ -63,7 +69,9 @@ class OblikController extends Controller
 
                 $oblik->save();
                 $filename=$image->file_path.'/'.$image->name;
-                File::delete($filename);
+                $filenamethumb=public_path('/thumb').'/'.$image->name;
+                    File::delete($filename);
+                    File::delete($filenamethumb);
                 $image->delete();
                 }
                 
@@ -92,20 +100,23 @@ class OblikController extends Controller
                     $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
             
-                    $filePath = public_path('/images');
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
 
 
                     $img = Image::make($image->path());
-                    $img->resize(400, 400, function ($const) {
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
                         $const->aspectRatio();
                         $const->upsize();
-                    })->save($filePath.'/'.$input['imagename']);
+                    })->save($filePaththumb.'/'.$input['imagename']);
 
-                    Images::create([
+                    $imagedb= Images::create([
                         "name" => $input['imagename'],
                         "file_path" =>  $filePath]);
             
-                    $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
             
                     $aktivan=false;
                     if($request->has('aktivan')){
@@ -133,8 +144,11 @@ class OblikController extends Controller
                 $image=Images::get()->find($oblik->images_id);
                 $oblik->delete();
                 $filename=$image->file_path.'/'.$image->name;
+                $filenamethumb=public_path('/thumb').'/'.$image->name;
                 File::delete($filename);
+                File::delete($filenamethumb);
                 $image->delete();   
+
             }
         }
 

@@ -1,4 +1,4 @@
-@props(['obj'=>'$oblici', 'idoblik'=>'','idBO', 'idMP', 'idM', 'idinputa','input','labela'])
+@props(['obj'=>'$oblici', 'idBO', 'idMP', 'idM', 'idinputa','input','labela'])
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="{{$idM}}" class="fixed z-10 block inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div id="{{$idBO}}" class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -25,7 +25,7 @@
                     @foreach($obj as $objekat)
                       <div
                       onClick="
-                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}','{{$idoblik}}')
+                      Odabrano('{{$objekat->id}}','{{$objekat->naziv}}','{{$input}}','{{$idinputa}}')
                       Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')"
                        class=" flex flex-row justify-items-end items-center bg-gray-50 
                        border-primary-300 hover:bg-gray-200 hover:shadow-l  border-2 m-2 rounded-lg" >
@@ -37,7 +37,7 @@
                         <p class="w-2/3 text-lg pl-2 ">Naziv: {{$objekat->naziv}}</p>
                         <div class="p-1 rounded-xl " >
                         
-                          <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
+                          <img  class="w-2/3 object-cover object-center" src="{{asset('thumb/'.$objekat->image->name)}}"/>
                         </div>
                           
                         @endisset
@@ -125,33 +125,16 @@ function Hide(idBO, idMP, idM){
 
 }
 
-function Odabrano(id,naziv,input,hiden,idoblik){
+function Odabrano(id,naziv,input,hiden){
 
-  //  var img=document.getElementById(id).src=btn.src;
-  var img=document.getElementById(input).value=naziv;//naziv;
+  var tekst=document.getElementById(input).value=naziv;
 
-    var input=document.getElementById(hiden).value=id;
-    ToggleNarudzba(naziv,idoblik);
+    var idobj=document.getElementById(hiden).value=id;
+  
 
 
 }
-function ToggleNarudzba(kategorija,idoblik){
-  var divOblik=document.getElementById(idoblik);
-    if(divOblik!=null){
-      
-      if(kategorija!="Pločica za vrata" ){
-        divOblik.classList.add("hidden");
-        divOblik.classList.remove("flex");
 
-      }
-      else{
-        divOblik.classList.remove("hidden");
-        divOblik.classList.add("flex");
-
-      }
-    }
-   
-  }
  
 
   Hide('{{$idBO}}', '{{$idMP}}', '{{$idM}}')

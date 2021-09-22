@@ -205,33 +205,20 @@
       @if ($materijali->count())
       <x-modal :obj="$materijali" idBO="BOmaterijal" idMP="MPmaterijal" idM="Mmaterijal" idinputa="materijal_id" input="materijal" labela="materijal"/>
       @endif
+   <x-modalDetalji id="Detalji"  idBO="BODetalji" idMP="MPDetalji" idM="MDetalji"/>
+
       <div class="  flex flex-col  w-full  bg-gray-200 items-center justify-center pt-8 ">
             
             @if ($proizvodi->count())
-                  <div class="w-full bg-gray-200  py-1 place-items-center rounded-lg grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">
-                        @foreach($proizvodi as $proizvod)
-                              @auth
-                                    @if (auth()->user()->hasRole('admin'))
-                                    <a href="{{route('proizvodi.show', $proizvod)}}">
-                                          <x-kartica :proizvod="$proizvod" />
-                                    </a>
-                                    @else 
-                                    <a href="{{route('korpa.SelektAdd', $proizvod->id)}}">
-                                          <x-kartica :proizvod="$proizvod" />
-                                    </a>    
-                                    @endif
-                              @endauth
-                              @guest
-                                    <a href="{{route('korpa.SelektAdd', $proizvod->id)}}">
-                                          <x-kartica :proizvod="$proizvod" />
-                                    </a>
-                                    <div class="p-2  fixed bottom-10 right-10">
-                            
-                        </div>
-                              @endguest
+                  <div class="w-full bg-gray-200  py-1  rounded-lg flex justify-center  ">
+                        <div class=" w-full sm:w-2/3 place-items-center py-1 grid grid-cols-1 xl:grid-cols-2">
+                              @foreach($proizvodi as $proizvod)
+                             <x-kartica :proizvod="$proizvod" />
+                                   
+                              
                         
-                  
-                        @endforeach
+                              @endforeach
+                        </div>
                   </div>
                                     
                   {{$proizvodi->links()}}
@@ -284,7 +271,8 @@
             @endguest
       </div>     
 </div>     
-
+<link href="{{asset('css/lightbox.css')}}" rel="stylesheet" />
+<script src="{{asset('js/lightbox-plus-jquery.js')}}"></script>
 <script>
       function ToggleForma(){
             var btn=document.getElementById("dodajBtn");

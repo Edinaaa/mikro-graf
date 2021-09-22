@@ -250,16 +250,20 @@ class NarudzbaController extends Controller
        
                    
                        $image = $request->file('file');
-                        $input['imagename'] = time().'.'.$image->extension();
+                       $input['imagename'] = time().'.'.$image->extension();
                 
-                       $filePath = public_path('/images');
-           
-           
+                       $filePath = public_path('/slike');
+                       $filePaththumb = public_path('/thumb');
+   
+   
                        $img = Image::make($image->path());
-                       $img->resize(430, 720, function ($const) {
+                       $img->save($filePath.'/'.$input['imagename']);
+   
+                       $thumb= Image::make($image->path());
+                       $thumb->resize(300, 300, function ($const) {
                            $const->aspectRatio();
                            $const->upsize();
-                       })->save($filePath.'/'.$input['imagename']);
+                       })->save($filePaththumb.'/'.$input['imagename']);
            
                        $imagedb=Images::create([
                            "name" => $input['imagename'],
@@ -315,20 +319,22 @@ class NarudzbaController extends Controller
                    $image = $request->file('file');
                     $input['imagename'] = time().'.'.$image->extension();
             
-                   $filePath = public_path('/images');
-       
-       
-                   $img = Image::make($image->path());
-                   $img->resize(430, 720, function ($const) {
-                       $const->aspectRatio();
-                       $const->upsize();
-                   })->save($filePath.'/'.$input['imagename']);
-       
-                   Images::create([
+                    $filePath = public_path('/slike');
+                    $filePaththumb = public_path('/thumb');
+
+
+                    $img = Image::make($image->path());
+                    $img->save($filePath.'/'.$input['imagename']);
+
+                    $thumb= Image::make($image->path());
+                    $thumb->resize(300, 300, function ($const) {
+                        $const->aspectRatio();
+                        $const->upsize();
+                    })->save($filePaththumb.'/'.$input['imagename']);
+                    $imagedb=Images::create([
                        "name" => $input['imagename'],
                        "file_path" =>  $filePath]);
               
-                   $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
                }
                  $images_id=$imagedb? $imagedb->id:null;
                

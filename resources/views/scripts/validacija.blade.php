@@ -160,4 +160,17 @@ function CheckboxVrijednost(element,element2,error) {
 
 return true;
 }
+function BorjMobitelaVrijednost(element,error,message) {
+    var pattern = /^00387.\d*/;
+    var result = pattern.test(element.value);
+    if (result === true)
+    {
+        error.innerHTML=error.innerHTML.replace(message,'');
+        return true; 
+    }
+    else{
+        error.innerHTML=message;
+        return false;
+    }
+} 
 </script>

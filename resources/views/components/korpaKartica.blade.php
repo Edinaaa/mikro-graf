@@ -6,7 +6,7 @@
 
 <div> <img class="flex flex-col  justify-between w-full 
       shadow-md  object-cover object-center"
-      src="{{asset('images/'.$narudzba->image->name)}}"/></div>
+      src="{{asset('thumb/'.$narudzba->image->name)}}"/></div>
 @endisset
 <div  class="flex justify-between  flex-col ml-5">
             <div>

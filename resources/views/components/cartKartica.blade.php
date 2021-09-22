@@ -1,10 +1,10 @@
 @props(['stavka'=>'$stavka'])
 
      <!-- Start of component -->
-     <div class="max-w-xl  m-2 flex flex-col md:flex-row  bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
+     <div class="max-w-xl h-96 md:h-56  m-2 flex flex-col md:flex-row  bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
      @isset($stavka['item']->image)
 
-<div> <img class="flex flex-col  justify-between w-full  
+<div> <img class=" h-44 flex flex-col  justify-between w-full  
       shadow-md  object-cover object-center"
       src="{{asset('images/'.$stavka['item']->image->name)}}"/></div>
 @endisset

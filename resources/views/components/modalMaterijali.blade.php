@@ -34,7 +34,7 @@
                                       <p>Dimenzije: v{{$objekat->visina}}cm š{{$objekat->sirina}}cm</p>
                                     </div>
                                         <div class="p-1 rounded-xl " >
-                                        <img  class="w-2/3 object-cover object-center" src="{{asset('images/'.$objekat->image->name)}}"/>
+                                        <img  class="w-2/3 object-cover object-center" src="{{asset('thumb/'.$objekat->image->name)}}"/>
                                         </div>
                                         
                             </div>
@@ -68,7 +68,7 @@
     var bo=document.getElementById(idBO);
     var mp=document.getElementById(idMP);
     var m=document.getElementById(idM);
-    artikal('{{$ams}}','{{$obj}}', '{{$idkategorija}}')
+    kategorija('{{$ams}}','{{$obj}}', '{{$idkategorija}}')
     m.classList.add('block');
     m.classList.remove('hidden');
 
@@ -134,7 +134,7 @@ function OdabranoM(id,naziv,input,hiden){
 
 }
 
-function artikal(ams,materijali,id){
+function kategorija(ams,materijali,id){
   materijali= JSON.parse(materijali.replace(/&quot;/g,'"'));
   ams= JSON.parse(ams.replace(/&quot;/g,'"'));
 

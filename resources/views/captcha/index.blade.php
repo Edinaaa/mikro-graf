@@ -36,17 +36,17 @@
                              </div>
                             </x-input>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
-                                <div>
-                                    <label  class="  text-xs text-gray-500 text-light font-semibold">Sadržaj sa slike prepišite u captcha rubriku.</label>
 
-                                    <div  class="flex  flex-row justify-start items-center">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
+                                
+
+                                    <div  class="flex  flex-row justify-start items-end ">
                                         <span id="span">{!! captcha_img() !!}</span>
-                                        <button type="button"  id="reload" class='w-auto mx-2 bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>
+                                        <button type="button"  id="reload" class='w-auto py-2 px-4 mx-3 my-1 bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
                                             &#x21bb;
                                         </button>
                                     </div>
-                                </div>
+                                
                                 <x-input id="captcha" label="captcha" value="" >
                                     @error("captcha")
                                             <div for="captcha" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
@@ -57,12 +57,13 @@
                                                 @endif
                                             </div>
                                     @enderror
-                                    <div id="errorcaptcha" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                    <div id="errorcaptcha" class="  flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                              
                              </div>
                                 </x-input>
                             
                         </div>
+                        <label  class="mx-7 leading-3 text-xs text-gray-500 text-light font-semibold">Sadržaj sa slike prepišite u captcha rubriku.</label>
                 
                         
                         <div class='flex items-center justify-center  md:gap-8 gap-4 py-5'>
@@ -88,6 +89,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
 
+const spanelement = document.getElementById('span');
+spanelement.children[0].classList.add("w-40");
    //https://www.positronx.io/laravel-captcha-tutorial-example/
    $('#reload').click(function Reload() {
         $.ajax({

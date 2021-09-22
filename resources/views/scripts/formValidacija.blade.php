@@ -124,6 +124,7 @@
         ObaveznoPolje(telefon,errortelefon) &&
         MaxLenght(telefon,errortelefon,15) &&
         IntVrijednost(telefon,errortelefon,'Broj telefona može sadržavati samo brojeve.') &&
+        BorjMobitelaVrijednost(telefon,errortelefon,'Broj mobitela mora poceti sa 00387.') &&
         ObaveznoPolje(email,erroremail) &&
         MaxLenght(email,erroremail,191) &&
         MaxLenght(password,errorpassword,100) &&
@@ -224,7 +225,8 @@
         if(validateResetPassForm(form) &&
         ObaveznoPolje(telefon,errortelefon) &&
         MaxLenght(telefon,errortelefon,15) &&
-        IntVrijednost(telefon,errortelefon,'Broj telefona može sadržavati samo brojeve.')){
+        IntVrijednost(telefon,errortelefon,'Broj telefona može sadržavati samo brojeve.') &&
+        BorjMobitelaVrijednost(telefon,errortelefon,'Broj mobitela mora poceti sa 00387.')){
             return true;
         }
      return false;
@@ -409,7 +411,7 @@
         var file = forma["file"];
         var errorfile=document.getElementById("errorfile");
         var kategorija_id = forma["kategorija_id"];
-        var errorkategorija=document.getElementById("errorkategorija");
+        var errorkategorija=document.getElementById("errorkategorija_id");
         var font_id = forma["font_id"];
         var errorfont=document.getElementById("errorfont");
         var materijal_id = forma["materijal_id"];

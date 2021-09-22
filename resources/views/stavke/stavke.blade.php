@@ -2,11 +2,9 @@
 
 @section('content')
 @auth
-<div  class=" pl-14 min-h-screen w-full bg-gray-200 flex flex-col justify-center items-center">
-<div id="div" class="py-4 w-full flex flex-col md:flex-row justify-around items-start md:items-center">
- 
-      </div>
-      <div class="py-4 w-full flex flex-col md:flex-row justify-around items-start md:items-center">
+<div  class=" min-h-screen w-full bg-gray-200 flex flex-col items-center">
+
+      <div class="py-4 w-full flex flex-col md:flex-row justify-around items-center">
         @isset($narudzba)
           @isset($narudzba->cijena)
               <p class="px-4  text-lg text-primary-600"> Cijena narudžbe: {{$narudzba->cijena}} KM</p>  
@@ -24,7 +22,7 @@
         @endisset
       </div>      
     @if($stavke->count())
-            <div class=" w-full bg-gray-200  py-1  grid grid-cols-1 lg:grid-cols-2 ">
+            <div class=" w-full bg-gray-200  py-1   place-items-center  grid grid-cols-1 ">
                   @foreach($stavke as $stavka)
         <x-korpaKartica :narudzba="$stavka"></x-korpaKartica>
 

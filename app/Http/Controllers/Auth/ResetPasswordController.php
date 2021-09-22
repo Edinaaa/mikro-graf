@@ -32,7 +32,7 @@ class ResetPasswordController extends Controller
         ]);
         $users=User::where('email','=',$request->get('email'))->get();
         $rp=ResetPass::get();
-        if($users!=null){
+        if($users->count()!=0){
             $token="";
             
             do {
@@ -45,12 +45,13 @@ class ResetPasswordController extends Controller
                 "token"=>$token
             ]);
 
-        $request->session()->flash('alert-success', 'Provjerite vaš email.');
-        $link=action([ResetPasswordController::class, 'newpass'], ['token' => $token]);
-        
-        Mail::to($users[0])->send(new Resetpasses($link));
+            $link=action([ResetPasswordController::class, 'newpass'], ['token' => $token]);
+            
+            Mail::to($users[0])->send(new Resetpasses($link));
 
         }
+    $request->session()->flash('alert-success', 'Ako postoji račun sa vašom email adresom, link za reaktivaciju je poslan na email.');
+        
       return redirect()->action([LoginController::class, 'index']);
     }
 
