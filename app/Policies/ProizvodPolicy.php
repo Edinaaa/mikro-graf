@@ -17,7 +17,7 @@ class ProizvodPolicy
      */
     public function delete(User $user, Proizvod $proizvod){
 
-        return $user->id=== $proizvod->kreirao_id;
+        return $user->id== $proizvod->kreirao_id;
     }
     public function __construct()
     {

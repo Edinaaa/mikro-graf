@@ -8,6 +8,7 @@ use App\Models\Images;
 use App\Models\Kategorija;
 use App\Models\Stanje;
 use Image;
+use App\Helper\Slike;
 
 
 use App\Mail\NarudzbaIzmjena;
@@ -248,26 +249,8 @@ class NarudzbaController extends Controller
                     $imagedb=null;
                     if ($request->hasFile('file')) {
        
-                   
-                       $image = $request->file('file');
-                       $input['imagename'] = time().'.'.$image->extension();
-                
-                       $filePath = public_path('/slike');
-                       $filePaththumb = public_path('/thumb');
-   
-   
-                       $img = Image::make($image->path());
-                       $img->save($filePath.'/'.$input['imagename']);
-   
-                       $thumb= Image::make($image->path());
-                       $thumb->resize(300, 300, function ($const) {
-                           $const->aspectRatio();
-                           $const->upsize();
-                       })->save($filePaththumb.'/'.$input['imagename']);
-           
-                       $imagedb=Images::create([
-                           "name" => $input['imagename'],
-                           "file_path" =>  $filePath]);
+                        $id=Slike::DodajSliku($request->file('file'));
+                        $imagedb=Images::find($id);
                   
                    }
                     $images_id=$imagedb? $imagedb->id:null;
@@ -315,25 +298,8 @@ class NarudzbaController extends Controller
                 $imagedb=null;
                 if ($request->hasFile('file')) {
    
-               
-                   $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-            
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-                    $imagedb=Images::create([
-                       "name" => $input['imagename'],
-                       "file_path" =>  $filePath]);
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
               
                }
                  $images_id=$imagedb? $imagedb->id:null;

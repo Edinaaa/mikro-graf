@@ -9,6 +9,7 @@ use Image;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helper\Slike;
 
 
 class FontController extends Controller
@@ -32,25 +33,10 @@ class FontController extends Controller
             $font=Font::find($id);
             $imagedb=null;
                 if ($request->hasFile('file')) {
-                    $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-        
-                    $imagedb= Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
-                    
+                   
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
+                  
                 }
 
                 $aktivan=false;
@@ -64,14 +50,12 @@ class FontController extends Controller
 
 
                     $image=Images::get()->find($font->images_id);
+                    $id=Slike::IzbrisiSliku($image);
+
                     $font->images_id =$imagedb->id;
                     $font->save();
                     
-                    $filename=$image->file_path.'/'.$image->name;
-                    $filenamethumb=public_path('/thumb').'/'.$image->name;
-                    File::delete($filename);
-                    File::delete($filenamethumb);
-                    $image->delete();
+                    
                 }
             
                 $request->session()->flash('alert-success', 'Uspjesno izmjenjen font.');
@@ -110,13 +94,15 @@ class FontController extends Controller
                         $const->aspectRatio();
                         $const->upsize();
                     })->save($filePaththumb.'/'.$input['imagename']);
+
                     $imagedb= Images::create([
                         "name" => $input['imagename'],
                         "file_path" =>  $filePath]);
-                        $aktivan=false;
-                        if($request->has('aktivan')){
-                            $aktivan=true;
-                        }
+
+                    $aktivan=false;
+                    if($request->has('aktivan')){
+                        $aktivan=true;
+                    }
                     Font::create([
                             "naziv" =>$request->get('naziv'),
                             "images_id" => $imagedb->id,

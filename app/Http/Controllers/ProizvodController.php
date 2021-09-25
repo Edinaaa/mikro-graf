@@ -13,6 +13,8 @@ use Session;
 use App\Http\Requests;
 use Image;
 use File;
+use App\Helper\Slike;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -96,24 +98,8 @@ class ProizvodController extends Controller
         $imagedb= null;
         if ($request->hasFile('file')) {
 
-            $image = $request->file('file');
-            $input['imagename'] = time().'.'.$image->extension();
-     
-            $filePath = public_path('/slike');
-            $filePaththumb = public_path('/thumb');
-            $img = Image::make($image->path());
-            $img->save($filePath.'/'.$input['imagename']);
-            $thumb= Image::make($image->path());
-            $thumb->resize(300, 300, function ($const) {
-                $const->aspectRatio();
-                $const->upsize();
-            })->save($filePaththumb.'/'.$input['imagename']);
-
-            Images::create([
-                "name" => $input['imagename'],
-                "file_path" =>  $filePath]);
-       
-            $imagedb= Images::get()->where( 'name', '=', $input['imagename'])->first();
+            $id=Slike::DodajSliku($request->file('file'));
+            $imagedb=Images::find($id);
         }
 
         if (Auth::check() ) {
@@ -136,13 +122,7 @@ class ProizvodController extends Controller
                     $image=Images::get()->find($proizvod->images_id);
                     $proizvod->images_id=$imagedb->id;
                     $proizvod->save();
-                    $filename=$image->file_path.'/'.$image->name;
-                    $filenamethumb=public_path('/thumb').'/'.$image->name;
-                    File::delete($filename);
-                    File::delete($filenamethumb);
-                    $image->delete();
-                    
-
+                    $id=Slike::IzbrisiSliku($image);
                 }
                 $request->session()->flash('alert-success', 'Uspjesno izmjenjen proizvod.');
                 return redirect()->route('proizvodi');
@@ -193,26 +173,8 @@ class ProizvodController extends Controller
         $imagedb=null;
         if ($request->hasFile('file')) {
 
-            
-            $image = $request->file('file');
-             $input['imagename'] = time().'.'.$image->extension();
-     
-             $filePath = public_path('/slike');
-             $filePaththumb = public_path('/thumb');
-
-
-             $img = Image::make($image->path());
-             $img->save($filePath.'/'.$input['imagename']);
-
-             $thumb= Image::make($image->path());
-             $thumb->resize(300, 300, function ($const) {
-                 $const->aspectRatio();
-                 $const->upsize();
-             })->save($filePaththumb.'/'.$input['imagename']);
-
-            $imagedb=Images::create([
-                "name" => $input['imagename'],
-                "file_path" =>  $filePath]);
+            $id=Slike::DodajSliku($request->file('file'));
+            $imagedb=Images::find($id);
         }
         $images_id=$imagedb? $imagedb->id:null;
           
@@ -243,22 +205,11 @@ class ProizvodController extends Controller
         return back();
     }
     public function destroy(Proizvod $proizvod){
-        
-     /*    $proizvod=Proizvod::find($proizvod->id);
-        $proizvod->aktivan=false;
-        $proizvod->novo=false;
-        $proizvod->popust=false;
-
-        $proizvod->save();*/
+   
          $image=Images::get()->find($proizvod->images_id);
           $proizvod->delete();
-          $filename=$image->file_path.'/'.$image->name;
-          $filenamethumb=public_path('/thumb').'/'.$image->name;
-          File::delete($filename);
-          File::delete($filenamethumb);
-
-         //unlink($filename);
-          $image->delete();   
+          $id=Slike::IzbrisiSliku($image);
+ 
 
         return redirect()->route('proizvodi');
 

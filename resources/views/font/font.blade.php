@@ -48,11 +48,16 @@
             <div class="w-full bg-gray-200  py-1 rounded-lg flex flex-col items-center">
                   @foreach($fontovi as $font)
                         <x-oblikkartica :oblik="$font">
+                              @auth
+                              @if (auth()->user()->hasRole('admin'))
                               @can('update',$font)
                   
                               <a href=" {{route('font.show', $font)}}" class="flex justify-center items-center focus:outline-none font-semibold focus:bg-primary-600 focus:text-gray-200 px-4 rounded-md hover:text-primary-600">Izmjeni</a>
 
                               @endcan
+                              @endif
+                              @endauth
+                        
                               
                         </x-oblikkartica>
                   @endforeach

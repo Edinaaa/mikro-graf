@@ -17,11 +17,11 @@ class GalerijaPolicy
      */
     public function delete(User $user, Galerija $galerija){
 
-        return $user->id=== $galerija->kreirao_id;
+        return $user->id== $galerija->kreirao_id;
     }
     public function update(User $user, Galerija $galerija){
 
-        return $user->id=== $galerija->kreirao_id;
+        return $user->id== $galerija->kreirao_id;
     }
     public function __construct()
     {

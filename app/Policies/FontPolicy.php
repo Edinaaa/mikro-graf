@@ -17,11 +17,11 @@ class FontPolicy
      */
     public function delete(User $user, Font $font){
 
-        return $user->id=== $font->kreirao_id;
+        return $user->id== $font->kreirao_id;
     }
     public function update(User $user, Font $font){
 
-        return $user->id=== $font->kreirao_id;
+        return $user->id== $font->kreirao_id;
     }
     public function __construct()
     {

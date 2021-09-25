@@ -18,11 +18,11 @@ class KategorijaPolicy
      */
     public function delete(User $user, Kategorija $kategorija){
 
-        return $user->id=== $kategorija->kreirao_id;
+        return $user->id== $kategorija->kreirao_id;
     }
     public function update(User $user, Kategorija $kategorija){
 
-        return $user->id=== $kategorija->kreirao_id;
+        return $user->id== $kategorija->kreirao_id;
     }
     public function __construct()
     {

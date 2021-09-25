@@ -7,6 +7,8 @@ use App\Models\Materijal;
 use App\Http\Requests;
 use Image;
 use File;
+use App\Helper\Slike;
+
 use Illuminate\Http\Request;
 use Session;
 use App\Models\SelektovaniMaterijali;
@@ -40,28 +42,8 @@ class MaterijalController extends Controller
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
                 if ($request->hasFile('file')) {
-                    $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-                    $imagedb= Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
-            
-                        $aktivan=false;
-                        if($request->has('aktivan')){
-                            $aktivan=true;
-                        }
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
                     Materijal::create([
                         "naziv" =>$request->get('naziv'),
                         "images_id" => $imagedb->id,
@@ -96,26 +78,8 @@ class MaterijalController extends Controller
                 $imagedb=null;
                 if ($request->hasFile('file')) {
 
-                    
-                    $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-            
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-                    $imagedb= Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
-            
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
                 }
                 $materijal->naziv=$request->get('naziv');
                 $materijal->visina=$request->get('visina')?$request->get('visina'):0;
@@ -128,11 +92,7 @@ class MaterijalController extends Controller
                     $materijal->images_id =$imagedb->id;
                     $materijal->save();
                     
-                    $filename=$image->file_path.'/'.$image->name;
-                    $filenamethumb=public_path('/thumb').'/'.$image->name;
-                    File::delete($filename);
-                    File::delete($filenamethumb);
-                    $image->delete();
+                    $id=Slike::IzbrisiSliku($image);
                 }
                 $request->session()->flash('alert-success', 'Uspješno izmjenjen materijal.');
                 return redirect()->route('materijal');

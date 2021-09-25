@@ -35,7 +35,7 @@
             <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
                 <p class="text-gray-900 font-semibold  text-4xl pl-3">Pregledajte slike proizvoda koje mi nudimo.</p>
                 <div class='flex items-center justify-center   py-5'>
-                <a href="{{route('galerija')}}" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Prelgedaj</a>
+                <a href="{{route('galerija')}}" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Pregledaj</a>
                 </div>
 
             </div>

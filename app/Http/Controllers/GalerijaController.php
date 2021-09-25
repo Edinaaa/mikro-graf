@@ -6,6 +6,8 @@ use App\Models\Galerija;
 use App\Http\Requests;
 use Image;
 use File;
+use App\Helper\Slike;
+
 use Illuminate\Http\Request;
 use Mail;
 use Illuminate\Support\Facades\Auth;
@@ -25,39 +27,15 @@ class GalerijaController extends Controller
         $request->validate([
             "naziv"=>'required|max:30',
             'file' => 'image|mimes:jpeg,bmp,png' 
-
         ]);
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
                 $galerija=  Galerija::find($id);
-
-                
-
                 $imagedb=null;
                 if ($request->hasFile('file')) {
-                
-                    
-                    $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-            
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
 
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-
-                    $imagedb=Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
-                
-                 
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
                 }
 
                 $galerija->name=$request->get('naziv');
@@ -67,14 +45,7 @@ class GalerijaController extends Controller
                     $image=Images::get()->find($galerija->images_id);
                     $galerija->images_id=$imagedb->id;
                     $galerija->save();
-                    $filename=$image->file_path.'/'.$image->name;
-                    $filenamethumb=public_path('/thumb').'/'.$image->name;
-                    File::delete($filename);
-                    File::delete($filenamethumb);
-                    $image->delete();
-               
-                
-
+                    $id=Slike::IzbrisiSliku($image);
                 }
             
                 $request->session()->flash('alert-success', 'Uspješno izmjenjena slika.');
@@ -101,40 +72,8 @@ class GalerijaController extends Controller
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
                 if ($request->hasFile('file')) {
-
-                    
-                    $image = $request->file('file');
-                
-                    $input['imagename'] = time().'.'.$image->extension();
-            
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-
-
-                   $imagedb= Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
-                    /* 
-                    https://www.positronx.io/how-to-resize-images-in-laravel-before-uploading/
-                    
-                    redi ako se kreira link storage i public 
-                    $request->file->store('slike', 'public');
-                    Images::create([
-                            "name" =>$request->get('name'),
-                            "file_path" => $request->file->hashName()
-                    ]);
-                    $imagedb= Images::get()->where('file_path','=',$request->file->hashName())->first();*/
-
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
                     Galerija::create([
                             "name" =>$request->get('naziv'),
                             "images_id" => $imagedb->id,
@@ -156,13 +95,7 @@ class GalerijaController extends Controller
             if(auth()->user()->hasRole('admin')){
                 $image=Images::get()->find($galerija->images_id);
                 $galerija->delete();
-                $filename=$image->file_path.'/'.$image->name;
-                $filenamethumb=public_path('/thumb').'/'.$image->name;
-                File::delete($filename);
-                File::delete($filenamethumb);
-
-                //unlink($filename);
-                $image->delete();   
+                $id=Slike::IzbrisiSliku($image);
 
             }
         } 

@@ -21,6 +21,8 @@ use App\Models\Artikal;
 use App\Policies\StanjePolicy;
 use App\Models\Stanje;
 
+use App\Policies\NarudzbaPolicy;
+use App\Models\Narudzba;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -35,6 +37,8 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Galerija::class => GalerijaPolicy::class,
         Proizvod::class => ProizvodPolicy::class,
+        Narudzba::class => NarudzbaPolicy::class,
+
         Oblik::class => OblikPolicy::class,
         Materijal::class => MaterijalPolicy::class,
         Font::class => FontPolicy::class,
