@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Nova lozinka')
 
 @section('content')
 <div class=" flex h-screen bg-gray-200 items-start justify-center my-40  md:my-32">

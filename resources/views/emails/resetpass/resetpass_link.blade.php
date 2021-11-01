@@ -10,10 +10,14 @@
     </head>
 <body style="padding:10px;">
 
-<p>Za promjenu lozinke pritisnite da dugme ispid.</p>
+<p>Za promjenu lozinke pritisnite na dugme ispid.</p>
 <a href="{{$link}}" style="text-decoration:none;background-color: rgb(247, 116, 43);border-radius: 7px;padding:5px; color: white;font-weight: bold;" > Promjeni lozinku </a>
 
-<h6> Lp, Mikro-graf.</h6>
+<h5> S poštovanjem,
+    <br> Mikro-Graf
+   <br>  <a href="{{route('home')}}">www.mikro-graf.com</a>
+  <br>   Mob: +387 61 240 862
+   <br>   Adresa radnje: Alekse Šantića 7, Bihać</h5>
   
 </body>
 </html>

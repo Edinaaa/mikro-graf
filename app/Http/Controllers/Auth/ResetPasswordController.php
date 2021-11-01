@@ -58,7 +58,7 @@ class ResetPasswordController extends Controller
     public function newpass(Request $request){
 
         $prije5min= Carbon::now()->addMinute(-5);
-       
+    
         $rp=ResetPass::where("token","=",$request->get("token"))
         ->where("aktivan","=",1)
         ->where("created_at",">", $prije5min)

@@ -50,10 +50,10 @@ class FontController extends Controller
 
 
                     $image=Images::get()->find($font->images_id);
-                    $id=Slike::IzbrisiSliku($image);
 
                     $font->images_id =$imagedb->id;
                     $font->save();
+                    $id=Slike::IzbrisiSliku($image);
                     
                     
                 }
@@ -78,26 +78,8 @@ class FontController extends Controller
             if(auth()->user()->hasRole('admin')){
                 if ($request->hasFile('file')) {
 
-                    
-                    $image = $request->file('file');
-                    $input['imagename'] = time().'.'.$image->extension();
-            
-                    $filePath = public_path('/slike');
-                    $filePaththumb = public_path('/thumb');
-
-
-                    $img = Image::make($image->path());
-                    $img->save($filePath.'/'.$input['imagename']);
-
-                    $thumb= Image::make($image->path());
-                    $thumb->resize(300, 300, function ($const) {
-                        $const->aspectRatio();
-                        $const->upsize();
-                    })->save($filePaththumb.'/'.$input['imagename']);
-
-                    $imagedb= Images::create([
-                        "name" => $input['imagename'],
-                        "file_path" =>  $filePath]);
+                    $id=Slike::DodajSliku($request->file('file'));
+                    $imagedb=Images::find($id);
 
                     $aktivan=false;
                     if($request->has('aktivan')){

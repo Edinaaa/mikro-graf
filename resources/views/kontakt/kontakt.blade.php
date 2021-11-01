@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Kontakt')
 
 @section('content')
 <div class=" h-screen flex-col " >           

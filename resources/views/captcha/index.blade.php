@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Korisnički podaci')
 
 @section('content')
 <div class="container mx-auto  px-4"> 

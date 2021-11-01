@@ -325,10 +325,18 @@ class NarudzbaController extends Controller
                     'stanjes_id'=>'integer'
    
                 ]);
+
                 $narudzba=Narudzba::with('user')->find($id);
+                $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->get();
+
                 if(isset($narudzba)){
-                    if($request->get('cijena')!=null )
+
+                    if($request->get('cijena')!=null && $stavke[0]->proizvod_id==null)
+                    {
                         $narudzba->cijena=$request->get('cijena');
+                        $stavke[0]->cijena=$request->get('cijena');
+                        $stavke[0]->save();
+                    } 
                     if($request->get('stanjes_id')!=null ){
                         $stanje=Stanje::find($request->get('stanjes_id'));
                         if($stanje!=null ){
@@ -338,7 +346,6 @@ class NarudzbaController extends Controller
                     }
                 }
                 $narudzba->save();
-                $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->get();
                 if($request->has('email')){
                     if($narudzba->email!=null){
                          Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
@@ -359,10 +366,10 @@ class NarudzbaController extends Controller
                 
                                 $receiverNumber =$narudzba->telefon;
                 
-                                $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+                               // $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje.";
+                                $message = "Narudžba koju ste naručili ".date_format($narudzba->created_at,'d.M.Y.')." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena." KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
 
                             
-                                dd($message);
                                 $message = $client->message()->send([
                                     'to' => $receiverNumber,
                                     'from' => 'mikro-graf',
@@ -384,9 +391,8 @@ class NarudzbaController extends Controller
             
                             $receiverNumber =$narudzba->user->telefon;
             
-                            $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje/";
+                                $message = "Narudžba koju ste naručili ".date_format($narudzba->created_at,'d.M.Y.')." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena." KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
                         
-                            dd($message);
                             $message = $client->message()->send([
                                 'to' => $receiverNumber,
                                 'from' => 'mikro-graf',
@@ -417,7 +423,12 @@ class NarudzbaController extends Controller
         if(Auth::check()){
             if(auth()->user()->hasRole('admin')){
                 $stanja=Stanje::get();
-                return view('narudzba.narudzbaUpdate',['narudzba'=>$narudzba,'stanja'=>$stanja]);
+                $stavke =Stavke::where('narudzbas_id','=',$narudzba->id)->first();
+                $proizvodi=true;
+                if($stavke->proizvod_id==null)
+                $proizvodi=false;
+
+                return view('narudzba.narudzbaUpdate',['narudzba'=>$narudzba,'stanja'=>$stanja,'proizvodi'=>$proizvodi]);
             }
         } 
         $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Nova narudžba')
 
 @section('content')
 <div class=" flex h-full bg-gray-200 items-center justify-center my-10  ">
@@ -21,7 +22,13 @@
               @if($kategorije->count())
                   @foreach ($kategorije as $kategorija)
                       
-                  <option value="{{$kategorija->id}}">{{$kategorija->naziv}} </option>
+                    @if (old('kategorija_id')==$kategorija->id)
+                      <option value="{{$kategorija->id}}" selected >{{$kategorija->naziv}} </option>
+
+                    @else
+                      <option value="{{$kategorija->id}}" >{{$kategorija->naziv}} </option>
+
+                    @endif
                   @endforeach
               @endif
           </select> 

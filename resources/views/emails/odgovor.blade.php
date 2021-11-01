@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href= "{{asset('css/app.css')}}">
       
-<title>narudžba</title>
+<title>Narudžba</title>
     </head>
 <body style="padding:10px;">
 
@@ -24,7 +24,11 @@
         @endforeach
 
 <p> {{$poruka->sadrzaj}}</p>
-<h6> Lp, hvala na javljanju, Mikro-graf.</h6>
+<h5> S poštovanjem,
+    <br> Mikro-Graf
+   <br>  <a href="{{route('home')}}">www.mikro-graf.com</a>
+  <br>   Mob: +387 61 240 862
+   <br>   Adresa radnje: Alekse Šantića 7, Bihać</h5>
   
 </body>
 </html>

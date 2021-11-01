@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Početna')
 
 @section('content')
 <div class=" absolute top-0 flex-col  justify-around items-center ">
@@ -99,7 +100,14 @@
             <div class=" w-11/12 md:w-1/2   flex flex-col items-center justify-center  p-1 m-1 lg:p-4 md:m-4 ">
                 <p class="text-gray-900 font-semibold  text-4xl pl-3">Registrujte se kod nas, kako bi imali više uvida u našu suradnju.</p>
                 <div class='flex items-center justify-center   py-5'>
-                <a href="{{route('register')}}" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Registruj se</a>
+                    @auth
+                    <p class='w-auto bg-primary-600  rounded-lg shadow-xl font-medium text-white px-4 py-2'>Registruj se</p>
+                        
+                    @endauth
+                    @guest
+                    <a href="{{route('register')}}" class='w-auto bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Registruj se</a>
+                        
+                    @endguest
                 </div>
 
             </div>

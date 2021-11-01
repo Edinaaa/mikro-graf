@@ -1,8 +1,8 @@
 @props(['slika'=>$slika])
 <div class=" border-gray-400 border-solid border-2 w-11/12 bg-gray-50 relative flex justify-center items-start m-2 rounded-md overflow-hidden">
 
-    <a data-lightbox="roadtrip"  class=" h-56 w-full "
-      href="{{asset('slike/'.$slika->image->name)}}"><img class=" h-full w-full  object-cover"  src="{{asset('thumb/'.$slika->image->name)}}"/></a>
+    <a data-lightbox="roadtrip"  class=" h-80 w-full "
+      href="{{asset('slike/'.$slika->image->name)}}"><img class=" h-full w-full object-contain"  src="{{asset('thumb/'.$slika->image->name)}}"/></a>
     
       <div  class="flex flex-col  w-full absolute bottom-0  shadow-md bg-opacity-50 bg-black text-gray-200 p-4 ">
         <div class="flex justify-between w-full">

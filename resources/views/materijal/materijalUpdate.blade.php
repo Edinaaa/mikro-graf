@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Izmjena materijala')
 
 @section('content')
 <div class="container mx-auto   px-4"> 
@@ -7,7 +8,7 @@
             @if(auth()->user()->hasRole('admin'))
                   <div class="grid bg-white mb-4 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                   
-                        <form name="materijalupdatefrm" onsubmit="return validateMaterijalUpdateForm('materijalupdatefrm')" action="{{ route('materijal.update',$materijal->id) }}" method="post" >
+                        <form name="materijalupdatefrm" onsubmit="return validateMaterijalUpdateForm('materijalupdatefrm')" action="{{ route('materijal.update',$materijal->id) }}" method="post" enctype="multipart/form-data">
                               <!-- Add CSRF Token -->
                               @csrf
                               <div class="flex justify-center pt-4">

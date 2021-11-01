@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Proizvodi')
 
 @section('content')
 <div class="container mx-auto   px-4"> 
@@ -33,28 +34,35 @@
                                     </div>
                               </x-input>
 
-                               <div  class="flex flex-row items-center justify-start w-full  mt-5 mx-7">
-                                    <div class=" w-3/5">
-                                          <x-input id="kategorija" label="kategorija"  value="{{ old('kategorija')}}"></x-input>
-                                          <x-input class="hidden" id="kategorija_id" label="kategorija_id" value="{{ old('kategorija_id')}}"></x-input>
-                                          @error("kategorija_id")
-                                                <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-                                                {{$message}}
-                                                </div>
-                                           @enderror
-                                          <div id="errorkategorija" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
-                                    
-                                          </div>
-                                    </div>
+                              <div class="grid grid-cols-1 mt-5 mx-7">
+   
+                                    <label for="kategorija_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Katerorija</label>
+                                    <select name="kategorija_id" id="kategorija_id" onChange="ToggleOblik(this)" class="py-2 px-3 rounded-lg border-2 border-primary-200 mt-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                          
+                                          <option disabled="disabled">Odaberite</option>
+                                          @if($kategorije->count())
+                                                @foreach ($kategorije as $kategorija)
+                                                      @if (old('kategorija_id')==$kategorija->id)
+                                                            <option value="{{$kategorija->id}}" selected >{{$kategorija->naziv}} </option>
 
-                                    <div class="w-1/4 ml-4">
-                                    <button type="button" onClick="Show('BOkategorija','MPkategorija','Mkategorija')" 
-                                    class='py-2 px-4 mt-5 flex items-center justify-center   bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>
-                                    Kategorija</button>
-                                    
+                                                      @else
+                                                            <option value="{{$kategorija->id}}" >{{$kategorija->naziv}} </option>
+
+                                                      @endif
+                                                @endforeach
+                                          @endif
+                                    </select> 
+                                    @error("kategorija_id")
+                                                      <div for="kategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                      {{$message}}
+                                                      </div>
+                                    @enderror
+                                    <div id="errorkategorija_id" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                                                
                                     </div>
+                                    
                               </div>
-                              
+
                               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                                     <x-input id="visina" label="Visina" value="{{ old('visina')}}">
                                            @error("visina")
@@ -192,9 +200,7 @@
       @endauth
 </div>  
 
-      @if ($kategorije->count())
-      <x-modal :obj="$kategorije"  idBO="BOkategorija" idMP="MPkategorija" idM="Mkategorija" idinputa="kategorija_id" input="kategorija" idoblik="divOblik" labela="kategorija"/>
-      @endif
+     
       @if ($oblici->count())
       <x-modal :obj="$oblici" idBO="BackgroundOverlay" idMP="ModalPanel" idM="modal" idinputa="oblik_id" input="oblik" labela="oblik"/>
       @endif
@@ -298,7 +304,22 @@
                  
             }
       }
-    
+      function ToggleOblik(kategorija){
+     
+     var divOblik=document.getElementById('divOblik');
+     if(divOblik!=null){
+     
+       if(kategorija.options[kategorija.selectedIndex].text!="Pločica za vrata" ){
+           divOblik.classList.add("hidden");
+           divOblik.classList.remove("flex");
+       }
+       else{
+           divOblik.classList.remove("hidden");
+           divOblik.classList.add("flex");
+       }
+     }
+   
+   }
 </script>
 @endsection
 @section('footer-scripts')

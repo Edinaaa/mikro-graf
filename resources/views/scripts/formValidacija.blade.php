@@ -323,7 +323,7 @@
         var cijena = forma["cijena"];
         var errorcijena=document.getElementById("errorcijena");
         var kategorija_id = forma["kategorija_id"];
-        var errorkategorija=document.getElementById("errorkategorija");
+        var errorkategorija=document.getElementById("errorkategorija_id");
         var font_id = forma["font_id"];
         var errorfont=document.getElementById("errorfont");
         var materijal_id = forma["materijal_id"];
@@ -367,7 +367,7 @@
         var cijena = forma["cijena"];
         var errorcijena=document.getElementById("errorcijena");
         var kategorija_id = forma["kategorija_id"];
-        var errorkategorija=document.getElementById("errorkategorija");
+        var errorkategorija=document.getElementById("errorkategorija_id");
         var font_id = forma["font_id"];
         var errorfont=document.getElementById("errorfont");
         var materijal_id = forma["materijal_id"];

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Galerija')
 
 @section('content')
 <div class=" mx-auto  "> 

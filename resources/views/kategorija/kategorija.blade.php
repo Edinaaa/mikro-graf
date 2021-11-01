@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Kategorija')
 @section('content')
 <div class="container mx-auto   px-4"> 
 <div class=" flex flex-col  w-full  bg-gray-200 items-center justify-center pt-8 ">

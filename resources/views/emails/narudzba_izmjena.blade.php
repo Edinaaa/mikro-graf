@@ -47,7 +47,11 @@
 
 
 
-
-
+<h5> S poštovanjem,
+    <br> Mikro-Graf
+   <br>  <a href="{{route('home')}}">www.mikro-graf.com</a>
+  <br>   Mob: +387 61 240 862
+   <br>   Adresa radnje: Alekse Šantića 7, Bihać</h5>
+  
 </body>
 </html>

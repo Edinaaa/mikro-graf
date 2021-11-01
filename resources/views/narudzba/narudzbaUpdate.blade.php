@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Obrada narudžbe')
 
 @section('content')
 <div class="container mx-auto   px-4"> 
@@ -14,8 +15,8 @@
                                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Narudžba</h1>
                               </div>
                               </div>
-
-                    <x-input id="cijena" label="cijena" value="{{ old('cijena')}}" class="mt-5 mx-7">
+                  @if ($proizvodi)
+                  <x-input id="cijena" label="cijena" value="{{ old('cijena')}}" readonly class="mt-5 mx-7">
                         @error("cijena")
                               <div for="cijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                               {{$message}}
@@ -24,14 +25,33 @@
                         <div id="errorcijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
                         
                         </div>
-                    </x-input>
+                    </x-input> 
+                  @else 
+                  <x-input id="cijena" label="cijena" value="{{ $narudzba->cijena}}" class="mt-5 mx-7">
+                        @error("cijena")
+                              <div for="cijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                              {{$message}}
+                              </div>
+                        @enderror
+                        <div id="errorcijena" class=" flex items-center font-medium text-red-500 text-xs mt-1 ml-1" >
+                        
+                        </div>
+                    </x-input> 
+                  @endif
+                    
                   
                   <div class="col-span-6 sm:col-span-3 mt-5 mx-7">
                         <label for="stanjes_id" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Stanje narudžbe</label>
                         <select id="stanjes_id" name="stanjes_id" autocomplete="stanjes_id" class="mt-1 block w-full py-2 px-3 border border-primary-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-                              <option>Odaberi</option>
+                             
                               @foreach ($stanja as $stanje)
-                              <option value="{{$stanje->id}}">{{$stanje->naziv}}</option>
+                                    @if ($narudzba->stanjes_id!=$stanje->id)
+                                          <option value="{{$stanje->id}}">{{$stanje->naziv}}</option>
+                                         
+                                    @else  
+                                          <option value="{{$stanje->id}}" selected>{{$stanje->naziv}}</option>
+
+                                    @endif
                               @endforeach
                         </select>
                               @error("stanjes_id")

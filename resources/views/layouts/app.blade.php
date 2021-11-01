@@ -6,7 +6,7 @@
         <script src="{{asset('js/app.js')}}"></script>
         <link rel="stylesheet" href= "{{asset('css/app.css')}}">
       
-<title>Prva</title>
+        <title>@yield('title')</title>
     </head>
 <body class="relative bg-gray-200 w-screen h-full min-h-screen overflow-x-hidden">
 @auth

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','O nama')
 
 @section('content')
 <div class="flex w-full justify-around items-center px-4">
