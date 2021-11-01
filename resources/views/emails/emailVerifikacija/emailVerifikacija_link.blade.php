@@ -10,7 +10,7 @@
     </head>
 <body style="padding:10px; width:100%">
 
-<h1 style="width:40%; margin:auto;padding:20px">Email verifikacija</h1>
+<h1 style="width:40%; margin:auto;padding:20px 0px;text-align: center;">Email verifikacija</h1>
 
 <p style="width:80%; margin:auto;  text-align: justify;">Potrebno je da verifikujete vaš email, 
     kako bi ste se osigurali da niste unijeli pogrešan ili tuđi email.
@@ -27,7 +27,7 @@ Verifikuj email </a>
     <br> Mikro-Graf
    <br>  <a href="{{route('home')}}">www.mikro-graf.com</a>
   <br>   Mob: +387 61 240 862
-   <br>   Adresa radnje: Alekse Šantića 7, Bihać</h5>
+   <br>   Adresa: Alekse Šantića 7, Bihać</h5>
   
 </body>
 </html>

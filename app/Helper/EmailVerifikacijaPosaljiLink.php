@@ -26,7 +26,7 @@ class EmailVerifikacijaPosaljiLink{
         ]);
 
         $link=action([\App\Http\Controllers\Auth\RegisterController::class, 'emailVerifikacija'], ['token' => $token]);
-            //dd($link);
+            
             Mail::to($email)->send(new EmailVerifikacije($link));
     }
     public static function ValidirajEmail($token){

@@ -77,10 +77,13 @@ class RegisterController extends Controller
                 ]);
             }
             $user->roles()->attach($kupac);
-           $message= emailVerifikacijaPosaljiLink::PosaljiLink($request->email);
-       $request->session()->flash('alert-success', $message);
+           emailVerifikacijaPosaljiLink::PosaljiLink($request->email);
+       $request->session()->flash('alert-success', "Potrebno je da verifikujete vaš email kako bi ste se mogli logirati. Provjerite vaš email.");
             
             return redirect()->route('home');
+        
+
+
        }
       
         
