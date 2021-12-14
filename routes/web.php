@@ -83,6 +83,9 @@ Route::post('/poruka',[PorukaController::class, 'store'])->name('poruka');
 Route::get('/razgovor/{id?}',[RazgovorController::class, 'create'])->name('razgovor');
 Route::post('/razgovor',[RazgovorController::class, 'store']);
 Route::get('/poruke',[RazgovorController::class, 'poruke'])->name('poruke');
+Route::post('/kontaktCaptcha',[RazgovorController::class, 'captchaVerifikacija'])->name('kontaktCaptcha');
+Route::get('/reload-kontaktcaptcha', [RazgovorController::class, 'reloadCaptcha'])->name('reload-kontaktcaptcha');
+
 
 Route::get('/narudzba',[NarudzbaController::class, 'create'])->name('narudzba');
 Route::post('/narudzba',[NarudzbaController::class, 'store']);

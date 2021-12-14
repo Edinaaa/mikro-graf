@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Session;
-use App\Models\NarudzbaPodaci;
+use App\Models\NarudzbaPodatci;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Exception;
@@ -11,17 +11,11 @@ class VerifikacijaController extends Controller
 {
     public function contactForm()
     {
-       
-       
         return view('captcha.index');
-        
     }
     public function telefonForm()
     {
-        
-       
         return view('captcha.telefonKood');
-        
     }
   
     public function contactCaptchaVerifikacija(Request $request)
@@ -32,82 +26,48 @@ class VerifikacijaController extends Controller
             'captcha' => 'required|captcha'
         ]);
 
-        $oldNarudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
-        $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
+        $oldNarudzbaPodaci=Session::has('narudzbaPodatci')? Session::get('narudzbaPodatci'):null;
+        $narudzbaPodatci= new NarudzbaPodatci($oldNarudzbaPodaci);
 
        $telefonV=rand(1000,10000);
-       //$request->session()->flash('alert-warning', 'code: '.$telefonV);
-
-       
             try {
-
-                $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
-
+                $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"),getenv("NEXMO_SECRET"));
                 $client = new \Nexmo\Client($basic);
 
-    
-
                 $receiverNumber =$request->get('telefon');
-
                 $message = $telefonV;
-
-    
-
                 $message = $client->message()->send([
-
                     'to' => $receiverNumber,
-
                     'from' => 'mikro-graf',
-
-                    'text' => $message
-
-                ]);
-
-    
-
-              // dd('SMS Sent Successfully.');
-
-                
-
+                    'text' => $message]);
             }
             catch (Exception $e) {
-
                 $request->session()->flash('alert-warning',$e->getMessage());
-
-            
-
             }
-        
-        
-        
-        $narudzbaPodaci->edit($request->get('email'),$request->get('telefon'),$telefonV);
-        $request->session()->put('narudzbaPodaci',$narudzbaPodaci);
-        return redirect()->route('telefonForm');
+        $narudzbaPodatci->edit($request->get('email'),$request->get('telefon'),$telefonV);
+        $request->session()->put('narudzbaPodatci',$narudzbaPodatci);
+        //return redirect()->route('telefonForm');
+        return view('captcha.telefonKood');
     }
 
     public function TelefonVerifikacija(Request $request)
     {
-        
-
-        $oldNarudzbaPodaci=Session::has('narudzbaPodaci')? Session::get('narudzbaPodaci'):null;
-        $narudzbaPodaci= new NarudzbaPodaci($oldNarudzbaPodaci);
-        $telefonv=$narudzbaPodaci->telefonv;
+        $oldNarudzbaPodaci=Session::has('narudzbaPodatci')? Session::get('narudzbaPodatci'):null;
+        $narudzbaPodatci= new NarudzbaPodatci($oldNarudzbaPodaci);
+        $telefonv=$narudzbaPodatci->telefonv;
         $request->validate([
             'verifikacioni_code' => 'required|in:'.$telefonv,
-           
         ]);
-        $jednaki=$narudzbaPodaci->TelefonKood($request->get('verifikacioni_code'));
+        $jednaki=$narudzbaPodatci->TelefonKood($request->get('verifikacioni_code'));
 
         if($jednaki){
             return redirect()->action([NarudzbaController::class, 'NarudzbaGost']);
-
         }
+        $request->session()->flash('alert-warning','Verifikacijski kood nije ispravan.');
         return view('captcha.telefonKood');
     }
     public function reloadCaptcha()
     {
-       
         return response()->json(['captcha'=> captcha_img()]);
-
     }
 }

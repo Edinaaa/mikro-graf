@@ -218,7 +218,22 @@
 </div>  
 </div>    
 <script>
+    function ToggleOblik(kategorija){
+     
+     var divOblik=document.getElementById('divOblik');
+     if(divOblik!=null){
+     
+       if(kategorija.options[kategorija.selectedIndex].text!="Pločica za vrata" ){
+           divOblik.classList.add("hidden");
+           divOblik.classList.remove("flex");
+       }
+       else{
+           divOblik.classList.remove("hidden");
+           divOblik.classList.add("flex");
+       }
+     }
    
+   } 
 </script>
 @endsection
 @section('footer-scripts')

@@ -55,11 +55,12 @@ class EmailVerifikacijaPosaljiLink{
     public static function ProvjeriEmail($email){
 
         $user= User::where('email','=',$email)->first();
-        if($user->email_verified_at==null){
+        if ($user)
+        if($user->email_verified_at!=null){
                
-          return false;
+          return true;
 
         }
-        return true;
+        return false;
     }
 }

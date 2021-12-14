@@ -6,7 +6,7 @@
 
 <div> <img class=" h-44 flex flex-col  justify-between w-full  
       shadow-md  object-cover object-center"
-      src="{{asset('images/'.$stavka['item']->image->name)}}"/></div>
+      src="{{asset('thumb/'.$stavka['item']->image->name)}}"/></div>
 @endisset
 <div  class="flex justify-between  flex-col ml-5">
             <div>

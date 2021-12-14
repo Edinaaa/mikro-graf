@@ -5,6 +5,8 @@ use App\Models\Razgovor;
 use App\Models\Poruka;
 use App\Models\User;
 use App\Models\Role;
+use Session;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,12 +54,47 @@ class RazgovorController extends Controller
 
         return view('komunikacija.razgovori',['razgovori'=>$razgovori,'odabraniRazgovor'=>$odabraniRazgovor]);
         }
-        $request->session()->flash('alert-warning','Registrujte se da bi imali pregled poruka.');
+        //$request->session()->flash('alert-warning','Registrujte se da bi imali pregled poruka.');
 
         return view('auth.register');
 
     }
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
+    }
+    public function captchaVerifikacija(Request $request){
+        
+        $request->validate([
+            'captcha' => 'required|captcha'
+        ]);
 
+        $email=Session::get('email');
+        $sadrzaj=Session::get('sadrzaj');
+        $tema=Session::get('tema');
+
+        if($email){
+
+            $users = DB::table('users')
+            ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+            ->join('roles', 'users_roles.role_id', '=', 'roles.id')
+            ->where('roles.name','=','admin')
+            ->select('users.id')
+            ->get();
+            $r=Razgovor::create([
+                'tema'=>$tema,
+                'email'=>$email,
+                'primaoc_id'=>$users[0]->id]);
+
+        
+            Poruka::create([
+                'sadrzaj'=>$sadrzaj,
+                'email'=>$email,
+                'razgovor_id'=>$r->id]);
+                $request->session()->flash('alert-success', 'Hvala vam na javljanju.');
+        }
+        return view('home.home');
+    }
    
     public function store(Request $request)
     {
@@ -120,24 +157,11 @@ class RazgovorController extends Controller
     
             ]);
            
+            $request->session()->put('email',$request->get('email'));
+            $request->session()->put('tema',$request->get('tema'));
+            $request->session()->put('sadrzaj',$request->get('sadrzaj'));
+            return view('kontakt.captchaVerifikacija');
 
-            $users = DB::table('users')
-            ->join('users_roles', 'users.id', '=', 'users_roles.user_id')
-            ->join('roles', 'users_roles.role_id', '=', 'roles.id')
-            ->where('roles.name','=','admin')
-            ->select('users.id')
-            ->get();
-            $r=Razgovor::create([
-                'tema'=>$request->get('tema'),
-                'email'=>$request->get('email'),
-                'primaoc_id'=>$users[0]->id]);
-
-        
-            Poruka::create([
-                'sadrzaj'=>$request->get('sadrzaj'),
-                'email'=>$request->get('email'),
-                'razgovor_id'=>$r->id]);
-                $request->session()->flash('alert-success', 'Hvala vam na javljanju.');
         }
         return back();
     }

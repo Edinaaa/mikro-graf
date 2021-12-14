@@ -40,7 +40,7 @@ class GalerijaController extends Controller
 
                 $galerija->name=$request->get('naziv');
                 $galerija->save();
-                if($imagedb->count()!=0){
+                if($imagedb){
 
                     $image=Images::get()->find($galerija->images_id);
                     $galerija->images_id=$imagedb->id;

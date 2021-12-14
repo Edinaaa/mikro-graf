@@ -327,10 +327,10 @@ class NarudzbaController extends Controller
                 ]);
 
                 $narudzba=Narudzba::with('user')->find($id);
-                $stavke =Stavke::latest()->where('narudzbas_id','=',$id)->with(['kategorija','font','oblik','materijal','image'])->get();
+                $stavke =Stavke::latest()->where('narudzbas_id','=',$id)
+                ->with(['kategorija','font','oblik','materijal','image'])->get();
 
                 if(isset($narudzba)){
-
                     if($request->get('cijena')!=null && $stavke[0]->proizvod_id==null)
                     {
                         $narudzba->cijena=$request->get('cijena');
@@ -349,72 +349,54 @@ class NarudzbaController extends Controller
                 if($request->has('email')){
                     if($narudzba->email!=null){
                          Mail::to($narudzba->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
-
                     }
                     else if($narudzba->narucilac_id!=null){
                         Mail::to($narudzba->user->email)->send(new NarudzbaIzmjena($narudzba, $stavke));
-
                     }
                    
                 }
                 if($request->has('sms')){
                     if($narudzba->telefon!=null){
-                            try {
-
-                                $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
-                                $client = new \Nexmo\Client($basic);
-                
-                                $receiverNumber =$narudzba->telefon;
-                
-                               // $message = "Vaša narudžba je ".$narudzba->stanje->naziv.". Cijena narudžbe je ".$narudzba->cijena." KM. Naručeno ".$narudzba->created_at->diffForHumans().". Lijep pozdrav od Mikro-graf radnje.";
-                                $message = "Narudžba koju ste naručili ".date_format($narudzba->created_at,'d.M.Y.')." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena." KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
-
-                            
-                                $message = $client->message()->send([
-                                    'to' => $receiverNumber,
-                                    'from' => 'mikro-graf',
-                                    'text' => $message
-                
-                                ]);
-                
-                            }
-                            catch (Exception $e) {
-                                $request->session()->flash('alert-warning',$e->getMessage());
-                                }
-                            
-                    }
-                    if($narudzba->narucilac_id!=null){
                         try {
-
-                            $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+                            $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"),getenv("NEXMO_SECRET"));
                             $client = new \Nexmo\Client($basic);
-            
-                            $receiverNumber =$narudzba->user->telefon;
-            
-                                $message = "Narudžba koju ste naručili ".date_format($narudzba->created_at,'d.M.Y.')." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena." KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
-                        
+                            $receiverNumber =$narudzba->telefon;
+                            $message = "Narudžba koju ste naručili ".date_format($narudzba->created_at,'d.M.Y.')
+                            ." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena
+                            ."KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
                             $message = $client->message()->send([
                                 'to' => $receiverNumber,
                                 'from' => 'mikro-graf',
-                                'text' => $message
-            
-                            ]);
-            
+                                'text' => $message]);
                         }
                         catch (Exception $e) {
-                            $request->session()->flash('alert-warning',$e->getMessage());
-                            
+                            $request->session()->flash('alert-warning',"Sms nije poslan, pokušajte ponovo.");
+                            }
+                    }
+                    if($narudzba->narucilac_id!=null){
+                        try {
+                            $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+                            $client = new \Nexmo\Client($basic);
+                            $receiverNumber =$narudzba->user->telefon;
+                            $message = "Narudžba koju ste naručili "
+                            .date_format($narudzba->created_at,'d.M.Y.')
+                            ." je ".strtolower($narudzba->stanje->naziv)." i iznosi ".$narudzba->cijena
+                            ." KM. Lijep pozdrav od Mikro-graf zanatske radnje.";
+                            $message = $client->message()->send([
+                                'to' => $receiverNumber,
+                                'from' => 'mikro-graf',
+                                'text' => $message]);
+                        }
+                        catch (Exception $e) {
+                            $request->session()->flash('alert-warning',"Sms nije poslan, pokušajte ponovo.");
                         }
                     }
-                  
                 }
                 $request->session()->flash('alert-success','Uspješno izmjenjena narudžba.');
                 return redirect()->route('narudzba.narudzbe');
-                
             }
         }
         $request->session()->flash('alert-warning','Za to akciju nemate privilegije.');
-     
         return redirect()->route('narudzba.narudzbe');
     }
 

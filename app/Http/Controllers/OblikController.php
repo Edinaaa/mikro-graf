@@ -47,7 +47,7 @@ class OblikController extends Controller
                 $oblik->naziv=$request->get('naziv');
                 $oblik->aktivan=$aktivan;
                 $oblik->save();
-                if($imagedb->count()!=0){
+                if($imagedb){
 
                     $image=Images::get()->find($oblik->images_id);
                     $oblik->images_id =$imagedb->id;

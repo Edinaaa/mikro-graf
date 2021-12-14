@@ -46,7 +46,7 @@ class FontController extends Controller
                 $font->naziv=$request->get('naziv');
                 $font->aktivan=$aktivan;
                 $font->save();
-                if($imagedb->count()!=0){
+                if($imagedb){
 
 
                     $image=Images::get()->find($font->images_id);

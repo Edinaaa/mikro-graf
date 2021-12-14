@@ -39,8 +39,6 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 my-5 mx-7">
-                                
-
                                     <div  class="flex  flex-row justify-start items-end ">
                                         <span id="span">{!! captcha_img() !!}</span>
                                         <button type="button"  id="reload" class='w-auto py-2 px-4 mx-3 my-1 bg-primary-600 hover:bg-primary-700 rounded-lg shadow-xl font-medium text-white '>

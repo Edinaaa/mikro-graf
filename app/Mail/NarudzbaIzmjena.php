@@ -12,11 +12,8 @@ use Illuminate\Queue\SerializesModels;
 class NarudzbaIzmjena extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $narudzba;
     public $korpa;
-
-
     /**
      * Create a new message instance.
      *
@@ -26,9 +23,7 @@ class NarudzbaIzmjena extends Mailable
     {
         $this->narudzba=$narudzba;
         $this->korpa=$korpa;
-
     }
-
     /**
      * Build the message.
      *
@@ -37,6 +32,5 @@ class NarudzbaIzmjena extends Mailable
     public function build()
     {
         return $this->markdown('emails.narudzba_izmjena')->subject('Narudzba');
-
     }
 }

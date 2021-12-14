@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Novi razgovor
+@section('title','Novi razgovor')
 @section('content')
 
 <div class=" flex  w-full  bg-gray-200 items-center justify-center mt-8 ">

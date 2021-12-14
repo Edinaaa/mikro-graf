@@ -118,7 +118,7 @@ class ProizvodController extends Controller
                 $proizvod->materijals_id=$request->get('materijal_id');
                 $proizvod->save();
 
-                if($imagedb->count()!=0){
+                if($imagedb){
                     $image=Images::get()->find($proizvod->images_id);
                     $proizvod->images_id=$imagedb->id;
                     $proizvod->save();

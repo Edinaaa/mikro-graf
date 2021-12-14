@@ -86,7 +86,7 @@ class MaterijalController extends Controller
                 $materijal->sirina=$request->get('sirina')?$request->get('sirina'):0;
                 $materijal->aktivan=$aktivan;
                 $materijal->save();
-                if($imagedb->count()!=0){
+                if($imagedb){
 
                     $image=Images::get()->find($materijal->images_id);
                     $materijal->images_id =$imagedb->id;
